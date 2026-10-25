@@ -14,7 +14,7 @@ export function CartDrawer() {
         </div>
         <div className="flex-1 overflow-y-auto px-5 py-4">
           {cart.lines.length === 0 ? (
-            <p className="text-ink/60">Nothing in here yet. Find your school and add the kit, or browse the basics.</p>
+            <p className="text-ink/60">Nothing in here yet. Find your school and add the essentials, or browse the plain basics.</p>
           ) : (
             <ul className="space-y-4">
               {cart.lines.map((l) => (
@@ -39,7 +39,7 @@ export function CartDrawer() {
         </div>
         <div className="border-t border-line px-5 py-4">
           <div className="flex justify-between text-lg font-bold"><span>Subtotal</span><span>{formatPrice(cart.subtotal)}</span></div>
-          <p className="mt-1 text-sm text-ink/55">Delivery and any discounts are worked out at checkout. Free size exchanges on everything.</p>
+          <p className="mt-1 text-sm text-ink/55">Delivery, collection and any discounts are worked out at checkout.</p>
           {storefront.mode === "shopify" && cart.checkoutUrl ? (
             <a href={cart.checkoutUrl} className="btn btn-primary mt-4 w-full">Go to secure checkout</a>
           ) : (

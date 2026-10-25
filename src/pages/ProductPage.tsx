@@ -4,6 +4,8 @@ import { ProductCard } from "../components/ProductCard";
 import { useCart } from "../lib/cart";
 import { asset, priceLabel, storefront, type Product, type School } from "../lib/shopify";
 import { sortSizes } from "./SchoolPage";
+import { Seo, breadcrumbs } from "../components/Seo";
+import { SITE } from "../data/site";
 
 export function ProductPage() {
   const { handle = "" } = useParams();
@@ -29,9 +31,16 @@ export function ProductPage() {
 
   if (!p) return <div className="wrap py-20 text-ink/60">Loading…</div>;
   const needsSize = p.sizes.length > 0;
+  const productLd = {
+    "@context": "https://schema.org", "@type": "Product", name: p.title, description: p.description || `${p.title} from I&A Schoolwear, Tooting.`,
+    image: p.images.map((i) => asset(i).startsWith("http") ? asset(i) : `${SITE.url}${i}`), brand: { "@type": "Brand", name: school ? school.name : "I&A Schoolwear" },
+    sku: p.handle, category: p.productType,
+    offers: { "@type": p.priceMax > p.priceMin ? "AggregateOffer" : "Offer", priceCurrency: "GBP", ...(p.priceMax > p.priceMin ? { lowPrice: p.priceMin, highPrice: p.priceMax } : { price: p.priceMin }), availability: p.available ? "https://schema.org/InStock" : "https://schema.org/PreOrder", url: `${SITE.url}/products/${p.handle}`, seller: { "@id": `${SITE.url}/#store` } },
+  };
 
   return (
     <>
+      <Seo title={p.title} description={`${p.title}${school ? ` for ${school.name}` : ""}: ${priceLabel(p)}. ${p.description || "Embroidered school uniform from I&A, Tooting."}`.slice(0, 160)} path={`/products/${p.handle}`} image={p.images[0]} type="product" jsonLd={[productLd, breadcrumbs([{ name: "Home", path: "/" }, ...(school ? [{ name: school.short, path: `/schools/${school.slug}` }] : [{ name: p.productType, path: "/collections/all" }]), { name: p.title, path: `/products/${p.handle}` }])]} />
       <section className="wrap grid gap-10 py-8 lg:grid-cols-[1.1fr_1fr] lg:py-12">
         <div>
           <div className="aspect-[4/5] overflow-hidden rounded-3xl border border-line bg-white">
@@ -55,11 +64,11 @@ export function ProductPage() {
         <div className="lg:sticky lg:top-32 lg:self-start">
           {school && <Link to={`/schools/${school.slug}`} className="inline-flex items-center gap-2 font-semibold" style={{ color: school.colour }}><span className="h-2.5 w-2.5 rounded-full" style={{ background: school.colour }} />{school.name}</Link>}
           <h1 className="mt-2 text-3xl font-extrabold sm:text-4xl">{p.title}</h1>
-          <p className="mt-2 text-2xl font-bold">{priceLabel(p)}</p>
+          <p className="mt-2 text-2xl font-bold">{p.priceMin > 0 ? priceLabel(p) : "Price in store"}</p>
           {p.description && <p className="mt-4 text-ink/70">{p.description}</p>}
 
           {needsSize && (
-            <div className="mt-6">
+            <div className="mt-6" id="size-picker">
               <div className="flex items-center justify-between">
                 <span className="font-semibold">Size</span>
                 <button type="button" onClick={() => setGuide(true)} className="min-h-11 px-2 text-sm underline">Size guide</button>
@@ -69,30 +78,38 @@ export function ProductPage() {
                   <button key={s} type="button" onClick={() => setSize(s)} className={`min-h-11 min-w-14 rounded-pill border px-3 py-2 text-sm font-medium ${size === s ? "border-ink bg-ink text-white" : "border-line bg-white hover:border-ink"}`}>{s}</button>
                 ))}
               </div>
-              <p className="mt-2 text-sm text-ink/55">Between two sizes? Go up. Exchanges are free.</p>
+              <p className="mt-2 text-sm text-ink/55">Between two sizes? Go up; children grow into it by spring.</p>
             </div>
           )}
 
           <div className="mt-6 flex gap-3">
             <button
               type="button"
-              disabled={busy || (needsSize && !size)}
+              disabled={busy || !p.available || (needsSize && !size)}
               onClick={async () => { setBusy(true); await add(p.handle, size || null); setBusy(false); }}
               className="btn btn-primary flex-1 py-4 text-lg disabled:opacity-50"
             >
-              {p.available ? "Add to basket" : "Pre-order"}
+              {p.available ? "Add to basket" : "Out of stock online"}
             </button>
           </div>
-          {needsSize && !size && <p className="mt-2 text-sm text-ink/55">Choose a size to add this.</p>}
+          {!p.available ? <p className="mt-2 text-sm text-ink/55">Call {SITE.phone} to check what's in the shop; most sizes are on the shelf in Tooting.</p> : needsSize && !size ? <p className="mt-2 text-sm text-ink/55">Choose a size to add this.</p> : null}
 
           <dl className="mt-8 divide-y divide-line border-y border-line text-[15px]">
-            <div className="flex justify-between py-3"><dt className="text-ink/60">Delivery</dt><dd>Next day in London, 2–4 days UK</dd></div>
-            <div className="flex justify-between py-3"><dt className="text-ink/60">Exchanges</dt><dd>Free size exchange, 30 days</dd></div>
-            <div className="flex justify-between py-3"><dt className="text-ink/60">Returns</dt><dd>{p.logoItem ? "Exchange only (made to order)" : "Full refund, unworn with tags"}</dd></div>
-            <div className="flex justify-between py-3"><dt className="text-ink/60">Collect</dt><dd>Stockwell Road, ready in 2 hours</dd></div>
+            <div className="flex justify-between gap-4 py-3"><dt className="text-ink/60">Delivery</dt><dd className="text-right">UK delivery; costs shown at checkout</dd></div>
+            <div className="flex justify-between gap-4 py-3"><dt className="text-ink/60">Collect</dt><dd className="text-right">Free from 84 Mitcham Road, Tooting</dd></div>
+            <div className="flex justify-between gap-4 py-3"><dt className="text-ink/60">Returns</dt><dd className="text-right">{p.logoItem ? "Embroidered to order; faulty items replaced" : "Return within 14 days for a refund"}</dd></div>
+            <div className="flex justify-between gap-4 py-3"><dt className="text-ink/60">Pay</dt><dd className="text-right">Card, Apple Pay, PayPal or Klarna Pay in 3</dd></div>
           </dl>
         </div>
       </section>
+
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-white/95 p-3 backdrop-blur lg:hidden">
+        <div className="flex items-center gap-3">
+          <div className="min-w-0 flex-1"><p className="truncate text-sm font-semibold">{p.title}</p><p className="text-sm text-ink/60">{size ? `Size ${size}` : needsSize ? "Choose a size" : priceLabel(p)}</p></div>
+          <button type="button" disabled={busy || (needsSize && !size)} onClick={async () => { if (needsSize && !size) { document.getElementById("size-picker")?.scrollIntoView({ behavior: "smooth", block: "center" }); return; } setBusy(true); await add(p.handle, size || null); setBusy(false); }} className="btn btn-primary shrink-0 disabled:opacity-60">{priceLabel(p)} · Add</button>
+        </div>
+      </div>
+      <div className="h-20 lg:hidden" aria-hidden />
 
       {guide && (
         <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-label="Size guide">

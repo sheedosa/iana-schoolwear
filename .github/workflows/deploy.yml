@@ -18,6 +18,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: npm }
       - run: npm ci
+      - run: npx playwright install --with-deps chromium
       - run: npm run build
         env:
           # Add these two as repository secrets to go live on Shopify. Empty = preview catalogue.

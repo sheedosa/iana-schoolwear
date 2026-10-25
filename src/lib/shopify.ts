@@ -70,6 +70,7 @@ export function formatPrice(n: number, currency = "GBP") {
 }
 
 export function priceLabel(p: Product) {
+  if (p.priceMin <= 0) return "Price in store";
   if (p.priceMax > p.priceMin) return `${formatPrice(p.priceMin)} – ${formatPrice(p.priceMax)}`;
   return formatPrice(p.priceMin);
 }
@@ -128,7 +129,7 @@ class DemoStorefront implements Storefront {
       list = list.filter((p) => p.title.toLowerCase().includes(q) || p.productType.toLowerCase().includes(q));
     }
     // images first, then logo items, then by title
-    return [...list].sort((a, b) => Number(!!b.images.length) - Number(!!a.images.length) || Number(b.logoItem) - Number(a.logoItem) || a.title.localeCompare(b.title));
+    return [...list].sort((a, b) => Number(!!b.images.length) - Number(!!a.images.length) || Number(b.available) - Number(a.available) || Number(b.logoItem) - Number(a.logoItem) || a.title.localeCompare(b.title));
   }
   async product(handle: string) { return this.data.products.find((p) => p.handle === handle); }
   async cart() { return this.snapshot(); }

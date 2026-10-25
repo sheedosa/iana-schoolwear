@@ -7,14 +7,14 @@ export function ProductCard({ p, school }: { p: Product; school?: School }) {
     <Link to={`/products/${p.handle}`} className="lift group block">
       <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-white border border-line">
         {img ? (
-          <img src={asset(img)} alt={p.title} loading="lazy" className="h-full w-full object-cover" />
+          <img src={asset(img)} alt={p.title} loading="lazy" className="h-full w-full object-contain p-3" />
         ) : (
           <div className="flex h-full w-full items-center justify-center p-6 text-center" style={{ background: school?.tint ?? "#eef0f3" }}>
             <span className="text-sm font-medium" style={{ color: school?.colour ?? "#3b4559" }}>{p.productType}<br /><span className="text-ink/50">Photo coming soon</span></span>
           </div>
         )}
         {p.logoItem && school && <span className="absolute left-3 top-3 rounded-pill bg-white/90 px-2.5 py-1 text-xs font-semibold" style={{ color: school.colour }}>{school.short}</span>}
-        {!p.available && <span className="absolute right-3 top-3 rounded-pill bg-ink px-2.5 py-1 text-xs font-semibold text-white">Pre-order</span>}
+        {!p.available && <span className="absolute right-3 top-3 rounded-pill bg-white/90 px-2.5 py-1 text-xs font-semibold text-ink/70">Out of stock online</span>}
       </div>
       <div className="mt-3 flex items-start justify-between gap-3">
         <div>

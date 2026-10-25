@@ -2,14 +2,16 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { SchoolFinder } from "../components/SchoolFinder";
 import { asset, storefront, type School } from "../lib/shopify";
+import { Seo, breadcrumbs } from "../components/Seo";
 
 export function Schools() {
   const [schools, setSchools] = useState<School[]>([]);
   useEffect(() => { storefront.schools().then(setSchools); window.scrollTo(0, 0); }, []);
   return (
     <section className="wrap py-12">
+      <Seo title="Find your school" description="School uniform by school: Heathbrook, Fircroft, Allen Edwards, Trinity St Mary's, St Anne's, Gatton, St Andrew's, Vauxhall and Penwortham. Embroidered in Tooting." path="/schools" jsonLd={breadcrumbs([{ name: "Home", path: "/" }, { name: "Schools", path: "/schools" }])} />
       <h1 className="display text-4xl sm:text-5xl">Find your school</h1>
-      <p className="mt-3 max-w-xl text-ink/65">We're the official uniform supplier for these south London schools. Each page lists exactly what your school asks for.</p>
+      <p className="mt-3 max-w-xl text-ink/65">We supply embroidered uniform for these south London schools. Each page shows the school's logo items first, then the plain basics that go with them.</p>
       <div className="mt-6 max-w-xl"><SchoolFinder size="lg" autoFocus /></div>
       <ul className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {schools.map((s) => (

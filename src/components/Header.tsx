@@ -20,8 +20,8 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-line bg-chalk/90 backdrop-blur">
       <div className="bg-ink text-white text-sm">
         <div className="wrap flex h-9 items-center justify-between">
-          <span>Free size exchanges · 30-day returns</span>
-          <span className="hidden sm:inline">Next-day delivery across London · Pay in 3 with Klarna</span>
+          <span>Family-run in Tooting since 1993</span>
+          <span className="hidden sm:inline">Embroidered in house · Pay in 3 with Klarna · Click and collect</span>
         </div>
       </div>
       <div className="wrap flex h-[72px] items-center gap-6">

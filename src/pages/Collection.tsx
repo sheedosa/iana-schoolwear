@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ProductCard } from "../components/ProductCard";
 import { asset, COLLECTIONS, storefront, type Product, type School } from "../lib/shopify";
+import { Seo, breadcrumbs } from "../components/Seo";
 
 export function Collection() {
   const { handle = "all" } = useParams();
@@ -23,6 +24,7 @@ export function Collection() {
 
   return (
     <>
+      <Seo title={`${c.title} school uniform`} description={`${c.blurb} Plain and embroidered school uniform from I&A, Tooting. Pay in 3 with Klarna.`} path={`/collections/${handle}`} image={c.banner} jsonLd={breadcrumbs([{ name: "Home", path: "/" }, { name: c.title, path: `/collections/${handle}` }])} />
       <section className="relative">
         <img src={asset(c.banner)} alt="" className="h-[300px] w-full object-cover sm:h-[360px]" />
         <div className="absolute inset-0 flex items-center">
