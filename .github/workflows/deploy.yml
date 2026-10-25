@@ -24,6 +24,7 @@ jobs:
           VITE_SHOPIFY_DOMAIN: ${{ secrets.VITE_SHOPIFY_DOMAIN }}
           VITE_SHOPIFY_STOREFRONT_TOKEN: ${{ secrets.VITE_SHOPIFY_STOREFRONT_TOKEN }}
       - uses: actions/configure-pages@v5
+        with: { enablement: true }
       - uses: actions/upload-pages-artifact@v3
         with: { path: dist }
   deploy:
