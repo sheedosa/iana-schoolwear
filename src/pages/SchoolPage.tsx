@@ -98,7 +98,7 @@ export function SchoolPage() {
               <label className="mt-4 block text-sm font-semibold">Size</label>
               <div className="mt-1 flex flex-wrap gap-2">
                 {(sizes.length ? sizes : ["One size"]).map((s) => (
-                  <button key={s} type="button" onClick={() => setSize(s)} className={`rounded-pill border px-3 py-1.5 text-sm ${size === s ? "border-ink bg-ink text-white" : "border-line bg-white"}`}>{s}</button>
+                  <button key={s} type="button" onClick={() => setSize(s)} className={`min-h-11 rounded-pill border px-3.5 py-1.5 text-sm ${size === s ? "border-ink bg-ink text-white" : "border-line bg-white"}`}>{s}</button>
                 ))}
               </div>
               <p className="mt-2 text-xs text-ink/55">Between two sizes? Go up. Exchanges are free.</p>

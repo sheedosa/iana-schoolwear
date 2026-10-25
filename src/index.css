@@ -34,7 +34,7 @@ h1, h2, h3 { letter-spacing: -0.015em; text-wrap: balance; }
 .btn-ghost { @apply border border-ink/20 bg-white text-ink hover:border-ink; }
 
 .hairline { @apply border-t border-line; }
-.pill { @apply inline-flex items-center rounded-pill border border-line bg-white px-3 py-1 text-sm; }
+.pill { @apply inline-flex min-h-11 items-center rounded-pill border border-line bg-white px-3.5 py-1 text-sm; }
 
 /* image hover — the only decorative transition on the site */
 .lift img { transition: transform 600ms cubic-bezier(.2,.8,.2,1); }

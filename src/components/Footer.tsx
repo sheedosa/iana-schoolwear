@@ -13,7 +13,7 @@ export function Footer() {
         </div>
         <div>
           <h3 className="font-semibold">Shop</h3>
-          <ul className="mt-3 space-y-2 text-white/75">
+          <ul className="mt-3 space-y-1 text-white/75 [&_a]:inline-block [&_a]:py-1.5">
             <li><Link to="/schools">By school</Link></li>
             <li><Link to="/collections/boys">Boys</Link></li>
             <li><Link to="/collections/girls">Girls</Link></li>
@@ -24,7 +24,7 @@ export function Footer() {
         </div>
         <div>
           <h3 className="font-semibold">Help</h3>
-          <ul className="mt-3 space-y-2 text-white/75">
+          <ul className="mt-3 space-y-1 text-white/75 [&_a]:inline-block [&_a]:py-1.5">
             <li><Link to="/size-guide">Size guide</Link></li>
             <li><Link to="/about#delivery">Delivery</Link></li>
             <li><Link to="/about#returns">Returns and exchanges</Link></li>

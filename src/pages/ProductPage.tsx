@@ -62,11 +62,11 @@ export function ProductPage() {
             <div className="mt-6">
               <div className="flex items-center justify-between">
                 <span className="font-semibold">Size</span>
-                <button type="button" onClick={() => setGuide(true)} className="text-sm underline">Size guide</button>
+                <button type="button" onClick={() => setGuide(true)} className="min-h-11 px-2 text-sm underline">Size guide</button>
               </div>
               <div className="mt-2 flex flex-wrap gap-2">
                 {sortSizes(p.sizes).map((s) => (
-                  <button key={s} type="button" onClick={() => setSize(s)} className={`min-w-14 rounded-pill border px-3 py-2 text-sm font-medium ${size === s ? "border-ink bg-ink text-white" : "border-line bg-white hover:border-ink"}`}>{s}</button>
+                  <button key={s} type="button" onClick={() => setSize(s)} className={`min-h-11 min-w-14 rounded-pill border px-3 py-2 text-sm font-medium ${size === s ? "border-ink bg-ink text-white" : "border-line bg-white hover:border-ink"}`}>{s}</button>
                 ))}
               </div>
               <p className="mt-2 text-sm text-ink/55">Between two sizes? Go up. Exchanges are free.</p>

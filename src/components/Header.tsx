@@ -32,10 +32,10 @@ export function Header() {
           ))}
         </nav>
         <div className="ml-auto hidden md:block w-[360px]"><SchoolFinder size="sm" /></div>
-        <button type="button" onClick={() => setOpen(true)} className="relative ml-auto md:ml-2 rounded-pill border border-line bg-white px-4 py-2 font-semibold" aria-label={`Basket, ${count} items`}>
+        <button type="button" onClick={() => setOpen(true)} className="relative ml-auto md:ml-2 inline-flex min-h-11 items-center rounded-pill border border-line bg-white px-4 font-semibold" aria-label={`Basket, ${count} items`}>
           Basket{count > 0 && <span className="ml-2 inline-flex h-6 min-w-6 items-center justify-center rounded-pill bg-sun px-1.5 text-sm">{count}</span>}
         </button>
-        <button type="button" onClick={() => setMenu(!menu)} className="lg:hidden rounded-pill border border-line bg-white px-3 py-2" aria-expanded={menu} aria-label="Menu">
+        <button type="button" onClick={() => setMenu(!menu)} className="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-pill border border-line bg-white" aria-expanded={menu} aria-label="Menu">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
         </button>
       </div>
