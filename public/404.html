@@ -1,0 +1,7 @@
+<!doctype html><html><head><meta charset="utf-8"><title>I&A Schoolwear</title>
+<script>
+  // GitHub Pages serves this for unknown paths. Send the path to index.html as a query so the app can route it.
+  var base = "/iana-schoolwear";
+  var path = location.pathname.replace(base, "") + location.search + location.hash;
+  location.replace(base + "/?p=" + encodeURIComponent(path));
+</script></head><body></body></html>

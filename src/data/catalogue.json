@@ -1,0 +1,2749 @@
+{
+ "schools": [
+  {
+   "name": "Heathbrook Primary School",
+   "slug": "heathbrook",
+   "short": "Heathbrook",
+   "colour": "#1F4ED8",
+   "tint": "#DCE8FF",
+   "tile": "/img/tiles/heathbrook.webp",
+   "area": "Clapham",
+   "productCount": 7
+  },
+  {
+   "name": "Fircroft School",
+   "slug": "fircroft",
+   "short": "Fircroft",
+   "colour": "#1E2A44",
+   "tint": "#DEE3EE",
+   "tile": "/img/tiles/fircroft.webp",
+   "area": "Tooting",
+   "productCount": 9
+  },
+  {
+   "name": "Allen Edwards School",
+   "slug": "allen-edwards",
+   "short": "Allen Edwards",
+   "colour": "#1D5BD6",
+   "tint": "#FFF1C2",
+   "tile": "/img/tiles/allen-edwards.webp",
+   "area": "Stockwell",
+   "productCount": 8
+  },
+  {
+   "name": "Trinity St.Marys School",
+   "slug": "trinity-st-marys",
+   "short": "Trinity St Mary's",
+   "colour": "#1C4FD1",
+   "tint": "#FDE4E4",
+   "tile": "/img/tiles/trinity-st-marys.webp",
+   "area": "Balham",
+   "productCount": 12
+  },
+  {
+   "name": "St Anne's School",
+   "slug": "st-annes",
+   "short": "St Anne's",
+   "colour": "#5B2E91",
+   "tint": "#EDE3F7",
+   "tile": "/img/tiles/st-annes.webp",
+   "area": "Wandsworth",
+   "productCount": 12
+  },
+  {
+   "name": "Gatton Primary School",
+   "slug": "gatton",
+   "short": "Gatton",
+   "colour": "#0F766E",
+   "tint": "#D9F1EE",
+   "tile": null,
+   "area": "Tooting",
+   "productCount": 3
+  },
+  {
+   "name": "St. Andrew's School",
+   "slug": "st-andrews",
+   "short": "St Andrew's",
+   "colour": "#B91C1C",
+   "tint": "#FBE2E2",
+   "tile": null,
+   "area": "Stockwell",
+   "productCount": 0
+  },
+  {
+   "name": "Vauxhall Primary School",
+   "slug": "vauxhall",
+   "short": "Vauxhall",
+   "colour": "#0E7490",
+   "tint": "#DBF0F5",
+   "tile": null,
+   "area": "Vauxhall",
+   "productCount": 0
+  },
+  {
+   "name": "Penwortham",
+   "slug": "penwortham",
+   "short": "Penwortham",
+   "colour": "#15803D",
+   "tint": "#DDF3E4",
+   "tile": null,
+   "area": "Streatham",
+   "productCount": 0
+  }
+ ],
+ "products": [
+  {
+   "id": "gid://demo/Product/51944",
+   "handle": "allen-edwards-bookbag-1",
+   "title": "Allen Edwards Bookbag  1",
+   "school": "allen-edwards",
+   "productType": "Bags",
+   "gender": "Unisex",
+   "priceMin": 7.5,
+   "priceMax": 7.5,
+   "currency": "GBP",
+   "sizes": [],
+   "colours": [
+    "Royal Blue"
+   ],
+   "images": [
+    "/img/products/allen-edwards-bookbag-1-1.webp",
+    "/img/products/allen-edwards-bookbag-1-2.webp",
+    "/img/products/allen-edwards-bookbag-1-3.webp"
+   ],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:allen-edwards"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/51953",
+   "handle": "allen-edwards-cardigan",
+   "title": "Allen Edwards Cardigan",
+   "school": "allen-edwards",
+   "productType": "Knitwear",
+   "gender": "Unisex",
+   "priceMin": 12.0,
+   "priceMax": 14.0,
+   "currency": "GBP",
+   "sizes": [
+    "11-12yrs",
+    "2-3yrs",
+    "4-5yrs",
+    "5-6yrs",
+    "6-7yrs",
+    "7-8yrs",
+    "9-10yrs",
+    "M",
+    "S",
+    "XS"
+   ],
+   "colours": [
+    "Royal Blue"
+   ],
+   "images": [
+    "/img/products/allen-edwards-cardigan-1.webp",
+    "/img/products/allen-edwards-cardigan-2.webp"
+   ],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:allen-edwards"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/51968",
+   "handle": "allen-edwards-infant-backpack",
+   "title": "Allen Edwards Infant Backpack",
+   "school": "allen-edwards",
+   "productType": "Bags",
+   "gender": "Unisex",
+   "priceMin": 12.0,
+   "priceMax": 12.0,
+   "currency": "GBP",
+   "sizes": [
+    "Small"
+   ],
+   "colours": [
+    "Royal Blue"
+   ],
+   "images": [
+    "/img/products/allen-edwards-infant-backpack-1.webp",
+    "/img/products/allen-edwards-infant-backpack-2.webp",
+    "/img/products/allen-edwards-infant-backpack-3.webp"
+   ],
+   "description": "Allen Edwrds Infant Backpack suitable for Years 1 to 4",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:allen-edwards"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/52008",
+   "handle": "allen-edwards-junior-backpack",
+   "title": "Allen Edwards Junior Backpack",
+   "school": "allen-edwards",
+   "productType": "Bags",
+   "gender": "Unisex",
+   "priceMin": 13.0,
+   "priceMax": 13.0,
+   "currency": "GBP",
+   "sizes": [
+    "Large"
+   ],
+   "colours": [
+    "Royal Blue"
+   ],
+   "images": [
+    "/img/products/allen-edwards-junior-backpack-1.webp",
+    "/img/products/allen-edwards-junior-backpack-2.webp",
+    "/img/products/allen-edwards-junior-backpack-3.webp"
+   ],
+   "description": "Allen Edwards backpack suitable for Years 4-6",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:allen-edwards"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/58442",
+   "handle": "allen-edwards-pe-t-shirt",
+   "title": "Allen Edwards PE T-Shirt",
+   "school": "allen-edwards",
+   "productType": "PE kit",
+   "gender": "Unisex",
+   "priceMin": 6.99,
+   "priceMax": 6.99,
+   "currency": "GBP",
+   "sizes": [
+    "11-12yrs",
+    "11-13yrs",
+    "13",
+    "14",
+    "15",
+    "3-4yrs",
+    "4-5yrs",
+    "5-6yrs",
+    "6-7yrs",
+    "7-8yrs",
+    "9-10yrs",
+    "M",
+    "S",
+    "XS"
+   ],
+   "colours": [],
+   "images": [
+    "/img/products/allen-edwards-pe-t-shirt-1.webp",
+    "/img/products/allen-edwards-pe-t-shirt-2.webp"
+   ],
+   "description": "Allen Edwards PE T-shirt in a heavyweight cotton material with embroidered logo. Look out for special offers on all our PE items…",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:allen-edwards"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/52044",
+   "handle": "allen-edwards-pe-bag",
+   "title": "Allen Edwards PE bag",
+   "school": "allen-edwards",
+   "productType": "PE kit",
+   "gender": "Unisex",
+   "priceMin": 5.0,
+   "priceMax": 5.0,
+   "currency": "GBP",
+   "sizes": [],
+   "colours": [
+    "Royal Blue"
+   ],
+   "images": [
+    "/img/products/allen-edwards-pe-bag-1.webp"
+   ],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:allen-edwards"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/51983",
+   "handle": "allen-edwards-sweatshirt",
+   "title": "Allen Edwards Sweatshirt",
+   "school": "allen-edwards",
+   "productType": "Sweatshirts",
+   "gender": "Unisex",
+   "priceMin": 9.99,
+   "priceMax": 9.99,
+   "currency": "GBP",
+   "sizes": [
+    "11-12yrs",
+    "12-13yrs",
+    "13-14yrs",
+    "2-3yrs",
+    "3-4yrs",
+    "4-5yrs",
+    "5-6yrs",
+    "6-7yrs",
+    "7-8yrs",
+    "9-10yrs",
+    "M",
+    "S",
+    "XS"
+   ],
+   "colours": [
+    "Royal Blue"
+   ],
+   "images": [
+    "/img/products/allen-edwards-sweatshirt-1.webp",
+    "/img/products/allen-edwards-sweatshirt-2.webp",
+    "/img/products/allen-edwards-sweatshirt-3.webp"
+   ],
+   "description": "We’ve updated our sweatshirts to a better and softer quality made from 50% cotton and 50% polyester. A flat rate price across all ages for convenience whilst our sizing has also been updated for ease.\n \nIn-house sweatshirt;\n50% cotton, 50% polyester",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:allen-edwards"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/62621",
+   "handle": "avon-corded-gingham-dress",
+   "title": "Avon Corded Gingham Dress",
+   "school": null,
+   "productType": "Skirts & dresses",
+   "gender": "Girls",
+   "priceMin": 17.99,
+   "priceMax": 17.99,
+   "currency": "GBP",
+   "sizes": [
+    "10-11yrs",
+    "11-12yrs",
+    "12-13yrs",
+    "3-4yrs",
+    "4-5yrs",
+    "5-6yrs",
+    "6-7yrs",
+    "7-8yrs",
+    "9-10yrs"
+   ],
+   "colours": [
+    "Blue",
+    "Green",
+    "Purple",
+    "Red",
+    "Yellow"
+   ],
+   "images": [
+    "/img/products/avon-corded-gingham-dress-1.webp",
+    "/img/products/avon-corded-gingham-dress-2.webp",
+    "/img/products/avon-corded-gingham-dress-3.webp"
+   ],
+   "description": "Product Features\n\nKnitted collar\nOne side seam pocket\nBias cut side panels\nIncluding matching scrunchie\nQuality corded gingham fabric\n\nWashing Instructions\n\nMax 40°C temp\n\nFabric: 65% Polyester / 35% Cotton\nSize: Age 3-4 32cm Age 4-5 33cm Age 5-6 34cm Age 6-7 35cm Age 7-8 36cm Age 8-9 37cm Age 9-10",
+   "available": false,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/62589",
+   "handle": "ayr-button-front-corded-gingham-dress",
+   "title": "Ayr Button Front Corded Gingham Dress",
+   "school": null,
+   "productType": "Skirts & dresses",
+   "gender": "Girls",
+   "priceMin": 18.99,
+   "priceMax": 18.99,
+   "currency": "GBP",
+   "sizes": [
+    "10-11yrs",
+    "11-12yrs",
+    "12-13yrs",
+    "3-4yrs",
+    "4-5yrs",
+    "5-6yrs",
+    "6-7yrs",
+    "7-8yrs",
+    "8-9yrs",
+    "9-10yrs"
+   ],
+   "colours": [
+    "Blue",
+    "Green",
+    "Yellow"
+   ],
+   "images": [
+    "/img/products/ayr-button-front-corded-gingham-dress-1.webp",
+    "/img/products/ayr-button-front-corded-gingham-dress-2.webp",
+    "/img/products/ayr-button-front-corded-gingham-dress-3.webp"
+   ],
+   "description": "Tie belt back.\nProduct Features\n\nContrast white trim on sleeves and pockets\nTie belt at back\nPointed revere collar\nQuality corded gingham fabric\n\nFabric: 65% Polyester / 35% Cotton\nSize: Age 3-4 32cm Age 4-5 33.5cm Age 5-6 34.5cm Age 6-7 35.5cm Age 7-8 36.5cm Age 8-9 38cm Age 9-10 39.5cm Age 10-11 4",
+   "available": false,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/56112",
+   "handle": "banner-50-50-v-neck-jumper",
+   "title": "Banner 50/50 V-Neck Jumper",
+   "school": null,
+   "productType": "Knitwear",
+   "gender": "Unisex",
+   "priceMin": 22.0,
+   "priceMax": 35.0,
+   "currency": "GBP",
+   "sizes": [
+    "24",
+    "26",
+    "28",
+    "30",
+    "32",
+    "34",
+    "36",
+    "38",
+    "40",
+    "42",
+    "44",
+    "46",
+    "48",
+    "50"
+   ],
+   "colours": [
+    "Black",
+    "Bottle",
+    "Maroon",
+    "Mid Grey",
+    "Navy",
+    "Red",
+    "Royal"
+   ],
+   "images": [
+    "/img/products/banner-50-50-v-neck-jumper-1.webp",
+    "/img/products/banner-50-50-v-neck-jumper-2.webp",
+    "/img/products/banner-50-50-v-neck-jumper-3.webp"
+   ],
+   "description": "Our Banner 50/50 v-neck pullover is a stylish yet practical black school jumper made from a premium 50/50 cotton and acrylic yarn mix for maximum comfort all day long. With a classic raglan sleeve design, this black v-neck school jumper is a comfortable option for the cooler weather in a hardwearing",
+   "available": true,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/63264",
+   "handle": "banner-premier-l-c-sleeveless-slipover",
+   "title": "Banner Premier L/C Sleeveless Slipover",
+   "school": null,
+   "productType": "Knitwear",
+   "gender": "Unisex",
+   "priceMin": 17.0,
+   "priceMax": 27.0,
+   "currency": "GBP",
+   "sizes": [
+    "24",
+    "26",
+    "28",
+    "30",
+    "32",
+    "34",
+    "36",
+    "38",
+    "40",
+    "42",
+    "44",
+    "46"
+   ],
+   "colours": [
+    "Bottle",
+    "Grey",
+    "Maroon",
+    "Navy",
+    "Purple",
+    "Red",
+    "Royal"
+   ],
+   "images": [
+    "/img/products/banner-premier-l-c-sleeveless-slipover-1.webp",
+    "/img/products/banner-premier-l-c-sleeveless-slipover-2.webp",
+    "/img/products/banner-premier-l-c-sleeveless-slipover-3.webp"
+   ],
+   "description": "The Banner premier L/C pullover has a soft but hard-wearing fabric, with excellent shape retention due to the ribbed welt and cuffs. Easy care machine wash.\n\nSoft handle but hard wearing\nA variety of bright colours, that wont fade\nRibbed cuffs and welt\n100% Acrylic\nFor best results wash according to",
+   "available": true,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/62674",
+   "handle": "banner-twin-pack-regular-fit-short-sleeve-shirt",
+   "title": "Banner Twin Pack Regular Fit Short Sleeve Shirt",
+   "school": null,
+   "productType": "Shirts",
+   "gender": "Unisex",
+   "priceMin": 20.0,
+   "priceMax": 20.0,
+   "currency": "GBP",
+   "sizes": [
+    "11",
+    "11.5",
+    "12",
+    "12.5",
+    "13",
+    "13.5",
+    "14",
+    "14.5",
+    "15",
+    "15.5",
+    "16",
+    "16.5",
+    "17",
+    "17.5"
+   ],
+   "colours": [
+    "Blue",
+    "Grey",
+    "White"
+   ],
+   "images": [
+    "/img/products/banner-twin-pack-regular-fit-short-sleeve-shirt-1.webp",
+    "/img/products/banner-twin-pack-regular-fit-short-sleeve-shirt-2.webp",
+    "/img/products/banner-twin-pack-regular-fit-short-sleeve-shirt-3.webp"
+   ],
+   "description": "Our Banner shirts are made fro the finest sustainable materials using 65% recycled polyester abd 35% cotton. Non-Iron for your convenience and available in long sleeve and short sleeve variants as well as multiple colours, you will love the quality and durability of these shirts.\n \n\nTwin pack\nButton",
+   "available": true,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/57453",
+   "handle": "boys-adjustable-trousers",
+   "title": "Boys Adjustable Trousers",
+   "school": null,
+   "productType": "Trousers & shorts",
+   "gender": "Boys",
+   "priceMin": 11.0,
+   "priceMax": 11.0,
+   "currency": "GBP",
+   "sizes": [
+    "11-12",
+    "11-12yrs",
+    "13-14",
+    "15-16",
+    "4-5",
+    "4-5yrs",
+    "5-6yrs",
+    "7-8yrs",
+    "8-9yrs",
+    "9-10",
+    "9-10yrs"
+   ],
+   "colours": [
+    "Black",
+    "Grey",
+    "Navy"
+   ],
+   "images": [],
+   "description": "",
+   "available": false,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/49283",
+   "handle": "boys-pull-up-trousers",
+   "title": "Boys Pull Up Trousers",
+   "school": null,
+   "productType": "Trousers & shorts",
+   "gender": "Boys",
+   "priceMin": 7.5,
+   "priceMax": 7.5,
+   "currency": "GBP",
+   "sizes": [
+    "02-Mar",
+    "03-Apr",
+    "04-May",
+    "05-Jun",
+    "06-Jul",
+    "07-Aug",
+    "08-Sep",
+    "09-Oct",
+    "2-3",
+    "3-4",
+    "4-5",
+    "5-6",
+    "6-7",
+    "7-8",
+    "8-9",
+    "9-10"
+   ],
+   "colours": [
+    "Black",
+    "Grey",
+    "Navy"
+   ],
+   "images": [
+    "/img/products/boys-pull-up-trousers-1.webp"
+   ],
+   "description": "These boys pull-up trousers are everything you could wish for and more for your child! Low bobble and Teflon coated for added fabric and stain protection and comfortable yet stylish fit. Every pair of pull-up trouser has an elasticated back. The Pull-Up trouser is designed for boys who struggle with",
+   "available": true,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/66312",
+   "handle": "boys-school-shirt-single-pack",
+   "title": "Boys School Shirt – Single Pack",
+   "school": null,
+   "productType": "Shirts",
+   "gender": "Boys",
+   "priceMin": 7.0,
+   "priceMax": 8.0,
+   "currency": "GBP",
+   "sizes": [
+    "11",
+    "11.5",
+    "12",
+    "12.5",
+    "13",
+    "13.5",
+    "14",
+    "14.5",
+    "15",
+    "15.5",
+    "16",
+    "16.5",
+    "17",
+    "17.5"
+   ],
+   "colours": [
+    "Blue",
+    "White"
+   ],
+   "images": [],
+   "description": "",
+   "available": true,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/68916",
+   "handle": "boys-zip-and-clip-school-shorts",
+   "title": "Boys Zip and Clip School Shorts",
+   "school": null,
+   "productType": "Trousers & shorts",
+   "gender": "Boys",
+   "priceMin": 9.99,
+   "priceMax": 9.99,
+   "currency": "GBP",
+   "sizes": [
+    "10/11",
+    "11/12",
+    "12/13",
+    "2/3",
+    "3/4",
+    "4/5",
+    "5/6",
+    "6/7",
+    "7/8",
+    "8/9",
+    "9/10"
+   ],
+   "colours": [
+    "Black",
+    "Grey"
+   ],
+   "images": [
+    "/img/products/boys-zip-and-clip-school-shorts-1.webp",
+    "/img/products/boys-zip-and-clip-school-shorts-2.webp",
+    "/img/products/boys-zip-and-clip-school-shorts-3.webp"
+   ],
+   "description": "",
+   "available": false,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/63928",
+   "handle": "boys-zip-and-clip-trousers",
+   "title": "Boys Zip and Clip Trousers",
+   "school": null,
+   "productType": "Trousers & shorts",
+   "gender": "Boys",
+   "priceMin": 10.0,
+   "priceMax": 12.0,
+   "currency": "GBP",
+   "sizes": [
+    "03-Apr",
+    "10-11",
+    "10-11yrs",
+    "11-12",
+    "11-12yrs",
+    "12-13yrs",
+    "13-14",
+    "15-16",
+    "2-3yrs",
+    "3-4yrs",
+    "4-5yrs",
+    "5-6yrs",
+    "6-7",
+    "6-7yrs",
+    "7-8yrs",
+    "8-9",
+    "8-9yrs",
+    "9-10",
+    "9-10yrs"
+   ],
+   "colours": [
+    "Black",
+    "Grey",
+    "Navy"
+   ],
+   "images": [
+    "/img/products/boys-zip-and-clip-trousers-1.webp",
+    "/img/products/boys-zip-and-clip-trousers-2.webp",
+    "/img/products/boys-zip-and-clip-trousers-3.webp"
+   ],
+   "description": "Our boys zip and clip trousers are a more durable and thicker version of the standard boys trousers that you find for cheaper elsewhere. These trousers are also Teflon coated for added fabric protection and duability.",
+   "available": false,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/62976",
+   "handle": "davenport-knife-pleat-skirt",
+   "title": "Davenport Knife Pleat Skirt",
+   "school": null,
+   "productType": "Skirts & dresses",
+   "gender": "Girls",
+   "priceMin": 27.99,
+   "priceMax": 27.99,
+   "currency": "GBP",
+   "sizes": [
+    "22",
+    "24",
+    "26",
+    "28",
+    "30",
+    "32",
+    "34",
+    "36",
+    "38"
+   ],
+   "colours": [
+    "Black",
+    "Grey",
+    "Navy"
+   ],
+   "images": [
+    "/img/products/davenport-knife-pleat-skirt-1.webp",
+    "/img/products/davenport-knife-pleat-skirt-2.webp",
+    "/img/products/davenport-knife-pleat-skirt-3.webp"
+   ],
+   "description": "Product Features\n\nStitched-down pleats\nZip / button fastening\nMaxtech® stain resistance\n\nWashing Instructions\n\n40° wash\n\nFabric: 65% Polyester/35% Viscose twill\nSize: 22″ 31cm 24″ 33.5cm 26″ 36cm 28″ 38.5cm 30″ 41cm 32″ 43.5cm 34″ 46cm 36″ 48.5cm 38″ 51cm",
+   "available": false,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/52926",
+   "handle": "fircroft-backpack",
+   "title": "Fircroft Backpack",
+   "school": "fircroft",
+   "productType": "Bags",
+   "gender": "Unisex",
+   "priceMin": 8.99,
+   "priceMax": 8.99,
+   "currency": "GBP",
+   "sizes": [
+    "one size"
+   ],
+   "colours": [
+    "Navy"
+   ],
+   "images": [
+    "/img/products/fircroft-backpack-1.webp",
+    "/img/products/fircroft-backpack-2.webp",
+    "/img/products/fircroft-backpack-3.webp"
+   ],
+   "description": "Fircroft Primary School backpack available in a single size and suitable for all years.",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:fircroft"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/53602",
+   "handle": "fircroft-bookbag",
+   "title": "Fircroft Bookbag",
+   "school": "fircroft",
+   "productType": "Bags",
+   "gender": "Unisex",
+   "priceMin": 6.95,
+   "priceMax": 6.95,
+   "currency": "GBP",
+   "sizes": [
+    "One size"
+   ],
+   "colours": [
+    "Navy"
+   ],
+   "images": [
+    "/img/products/fircroft-bookbag-1.webp",
+    "/img/products/fircroft-bookbag-2.webp",
+    "/img/products/fircroft-bookbag-3.webp"
+   ],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:fircroft"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/70062",
+   "handle": "fircroft-cardigan-premium-cotton",
+   "title": "Fircroft Cardigan Premium cotton",
+   "school": "fircroft",
+   "productType": "Knitwear",
+   "gender": "Unisex",
+   "priceMin": 12.0,
+   "priceMax": 13.0,
+   "currency": "GBP",
+   "sizes": [
+    "11-12 Years",
+    "13-14 Years",
+    "3-4 Years",
+    "5-6 Years",
+    "7-8 Years",
+    "9-10 Years"
+   ],
+   "colours": [
+    "Navy"
+   ],
+   "images": [],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:fircroft"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/54731",
+   "handle": "fircroft-gym-bag",
+   "title": "Fircroft Gym Bag",
+   "school": "fircroft",
+   "productType": "PE kit",
+   "gender": "Unisex",
+   "priceMin": 5.99,
+   "priceMax": 5.99,
+   "currency": "GBP",
+   "sizes": [
+    "one size"
+   ],
+   "colours": [],
+   "images": [
+    "/img/products/fircroft-gym-bag-1.webp"
+   ],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:fircroft"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/70041",
+   "handle": "fircroft-pe-t-shirt",
+   "title": "Fircroft PE T-shirt",
+   "school": "fircroft",
+   "productType": "PE kit",
+   "gender": "Unisex",
+   "priceMin": 6.29,
+   "priceMax": 8.0,
+   "currency": "GBP",
+   "sizes": [
+    "11-13 years",
+    "3-4 Years",
+    "5-6 Years",
+    "7-8 Years",
+    "9-10 Years",
+    "L",
+    "M",
+    "S",
+    "XS"
+   ],
+   "colours": [
+    "Navy"
+   ],
+   "images": [],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:fircroft"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/70052",
+   "handle": "fircroft-polo-shirt",
+   "title": "Fircroft Polo Shirt",
+   "school": "fircroft",
+   "productType": "Polo shirts",
+   "gender": "Unisex",
+   "priceMin": 6.99,
+   "priceMax": 10.0,
+   "currency": "GBP",
+   "sizes": [
+    "11-13 years",
+    "3-4 Years",
+    "5-6 Years",
+    "7-8 Years",
+    "9-10 Years",
+    "M",
+    "S",
+    "XS"
+   ],
+   "colours": [
+    "Navy"
+   ],
+   "images": [],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:fircroft"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/56570",
+   "handle": "fircroft-premium-reversible-fleece",
+   "title": "Fircroft Premium Reversible Fleece",
+   "school": "fircroft",
+   "productType": "Knitwear",
+   "gender": "Unisex",
+   "priceMin": 20.99,
+   "priceMax": 20.99,
+   "currency": "GBP",
+   "sizes": [
+    "11-12 Years",
+    "13 years",
+    "3-4 Years",
+    "4-5 Years",
+    "5-6 Years",
+    "6-7 Years",
+    "7-8 Years",
+    "9-10 Years"
+   ],
+   "colours": [
+    "Navy"
+   ],
+   "images": [
+    "/img/products/fircroft-premium-reversible-fleece-1.webp"
+   ],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:fircroft"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/70080",
+   "handle": "fircroft-primary-premium-cotton-sweatshirt",
+   "title": "Fircroft Primary  Premium Cotton Sweatshirt",
+   "school": "fircroft",
+   "productType": "Sweatshirts",
+   "gender": "Unisex",
+   "priceMin": 10.49,
+   "priceMax": 14.99,
+   "currency": "GBP",
+   "sizes": [
+    "11-12yrs",
+    "12-13yrs",
+    "13-14",
+    "3-4yrs",
+    "36 (XS)",
+    "38 (S)",
+    "40 (M)",
+    "5-6yrs",
+    "7-8yrs",
+    "9-10yrs"
+   ],
+   "colours": [
+    "Navy"
+   ],
+   "images": [
+    "/img/products/fircroft-primary-premium-cotton-sweatshirt-1.webp",
+    "/img/products/fircroft-primary-premium-cotton-sweatshirt-2.webp"
+   ],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:fircroft"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/63560",
+   "handle": "fircroft-sun-hat",
+   "title": "Fircroft Sun Hat",
+   "school": "fircroft",
+   "productType": "Accessories",
+   "gender": "Unisex",
+   "priceMin": 5.0,
+   "priceMax": 5.0,
+   "currency": "GBP",
+   "sizes": [],
+   "colours": [
+    "Navy"
+   ],
+   "images": [
+    "/img/products/fircroft-sun-hat-1.webp"
+   ],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:fircroft"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/57513",
+   "handle": "flannel-blazer-by-banner",
+   "title": "Flannel Blazer by Banner",
+   "school": null,
+   "productType": "Blazers",
+   "gender": "Unisex",
+   "priceMin": 85.0,
+   "priceMax": 85.0,
+   "currency": "GBP",
+   "sizes": [
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29",
+    "30",
+    "31",
+    "32",
+    "33",
+    "34",
+    "36",
+    "38"
+   ],
+   "colours": [
+    "Black",
+    "Green",
+    "Grey",
+    "Maroon",
+    "Navy",
+    "Royal"
+   ],
+   "images": [
+    "/img/products/flannel-blazer-by-banner-1.webp",
+    "/img/products/flannel-blazer-by-banner-2.webp",
+    "/img/products/flannel-blazer-by-banner-3.webp"
+   ],
+   "description": "The iconic Banner blazer and jacket collections are steeped in rich heritage – from the traditional three-patched pocket Ziggys blazer to the new innovatively styled Signature jacket. Banner blazers and jackets are not only timeless but provide a modern fit too, as well as being durable and built to",
+   "available": true,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/66887",
+   "handle": "gatton-cardigan",
+   "title": "Gatton Cardigan",
+   "school": "gatton",
+   "productType": "Knitwear",
+   "gender": "Unisex",
+   "priceMin": 17.99,
+   "priceMax": 17.99,
+   "currency": "GBP",
+   "sizes": [
+    "24",
+    "26",
+    "28",
+    "30",
+    "32",
+    "34",
+    "36",
+    "38"
+   ],
+   "colours": [],
+   "images": [],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:gatton"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/67218",
+   "handle": "gatton-pinafore",
+   "title": "Gatton Pinafore",
+   "school": "gatton",
+   "productType": "Skirts & dresses",
+   "gender": "Girls",
+   "priceMin": 15.0,
+   "priceMax": 15.0,
+   "currency": "GBP",
+   "sizes": [
+    "11-12",
+    "13",
+    "4-5yrs",
+    "5-6",
+    "7-8",
+    "9-10"
+   ],
+   "colours": [],
+   "images": [],
+   "description": "",
+   "available": false,
+   "logoItem": true,
+   "tags": [
+    "school:gatton"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/66877",
+   "handle": "gatton-v-neck-jumper",
+   "title": "Gatton V-Neck Jumper",
+   "school": "gatton",
+   "productType": "Knitwear",
+   "gender": "Unisex",
+   "priceMin": 14.99,
+   "priceMax": 15.99,
+   "currency": "GBP",
+   "sizes": [
+    "24",
+    "26",
+    "28",
+    "30",
+    "32",
+    "34",
+    "36",
+    "38"
+   ],
+   "colours": [],
+   "images": [],
+   "description": "Premium Cotton and Acrylic mix jumper in a dark charcoal grey for Gatton Primary School. Made in the UK.",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:gatton"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/63578",
+   "handle": "gingham-summer-dress",
+   "title": "Gingham Summer Dress",
+   "school": null,
+   "productType": "Skirts & dresses",
+   "gender": "Girls",
+   "priceMin": 15.0,
+   "priceMax": 15.0,
+   "currency": "GBP",
+   "sizes": [
+    "10-11 Years",
+    "11-12 Years",
+    "13 years",
+    "14 years",
+    "15 years",
+    "2-3 Years",
+    "3-4 Years",
+    "4-5 Years",
+    "5-6 Years",
+    "6-7 Years",
+    "7-8 Years",
+    "8-9 Years",
+    "9-10 Years"
+   ],
+   "colours": [
+    "Bottle Green",
+    "Green",
+    "Navy",
+    "Pink",
+    "Purple",
+    "Red",
+    "Sky Blue",
+    "Yellow"
+   ],
+   "images": [
+    "/img/products/gingham-summer-dress-1.webp",
+    "/img/products/gingham-summer-dress-2.webp",
+    "/img/products/gingham-summer-dress-3.webp"
+   ],
+   "description": "A-Line dress with a pleat, knitted collar, a side and chest pocket and a matching srunchie",
+   "available": true,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/52131",
+   "handle": "heathbrook-cardigan",
+   "title": "Heathbrook Cardigan",
+   "school": "heathbrook",
+   "productType": "Knitwear",
+   "gender": "Unisex",
+   "priceMin": 11.99,
+   "priceMax": 17.0,
+   "currency": "GBP",
+   "sizes": [
+    "11-12yrs",
+    "2-3yrs",
+    "4-5yrs",
+    "5-6yrs",
+    "6-7yrs",
+    "7-8yrs",
+    "9-10yrs",
+    "M",
+    "S",
+    "XS"
+   ],
+   "colours": [
+    "Royal Blue"
+   ],
+   "images": [
+    "/img/products/heathbrook-cardigan-1.webp",
+    "/img/products/heathbrook-cardigan-2.webp"
+   ],
+   "description": "Heathbrook cardigan with logo and pockets at front.\nPremium Cotton Cardigan",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:heathbrook"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/69837",
+   "handle": "heathbrook-fleece-royal",
+   "title": "Heathbrook Fleece Royal",
+   "school": "heathbrook",
+   "productType": "Knitwear",
+   "gender": "Unisex",
+   "priceMin": 14.99,
+   "priceMax": 17.99,
+   "currency": "GBP",
+   "sizes": [
+    "11-13Y",
+    "3-4Y",
+    "5-6Y",
+    "7-8Y",
+    "9-10Y",
+    "Medium",
+    "Small",
+    "XS"
+   ],
+   "colours": [
+    "Royal"
+   ],
+   "images": [
+    "/img/products/heathbrook-fleece-royal-1.webp"
+   ],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:heathbrook"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/59947",
+   "handle": "heathbrook-hard-deluxe-bookbag",
+   "title": "Heathbrook Hard Deluxe Bookbag",
+   "school": "heathbrook",
+   "productType": "Bags",
+   "gender": "Unisex",
+   "priceMin": 6.99,
+   "priceMax": 6.99,
+   "currency": "GBP",
+   "sizes": [],
+   "colours": [
+    "Royal Blue"
+   ],
+   "images": [
+    "/img/products/heathbrook-hard-deluxe-bookbag-1.webp",
+    "/img/products/heathbrook-hard-deluxe-bookbag-2.webp",
+    "/img/products/heathbrook-hard-deluxe-bookbag-3.webp"
+   ],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:heathbrook"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/52113",
+   "handle": "heathbrook-infant-backpack",
+   "title": "Heathbrook Infant Backpack",
+   "school": "heathbrook",
+   "productType": "Bags",
+   "gender": "Unisex",
+   "priceMin": 8.49,
+   "priceMax": 8.49,
+   "currency": "GBP",
+   "sizes": [
+    "Small"
+   ],
+   "colours": [
+    "Royal Blue"
+   ],
+   "images": [
+    "/img/products/heathbrook-infant-backpack-1.webp",
+    "/img/products/heathbrook-infant-backpack-2.webp",
+    "/img/products/heathbrook-infant-backpack-3.webp"
+   ],
+   "description": "Heathbrook Infant Backpack suitable for children in years 1-4.\nPremium Hard Material",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:heathbrook"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/52170",
+   "handle": "heathbrook-junior-backpack",
+   "title": "Heathbrook Junior Backpack",
+   "school": "heathbrook",
+   "productType": "Bags",
+   "gender": "Unisex",
+   "priceMin": 11.49,
+   "priceMax": 11.49,
+   "currency": "GBP",
+   "sizes": [
+    "Large"
+   ],
+   "colours": [
+    "Royal Blue"
+   ],
+   "images": [
+    "/img/products/heathbrook-junior-backpack-1.webp",
+    "/img/products/heathbrook-junior-backpack-2.webp",
+    "/img/products/heathbrook-junior-backpack-3.webp"
+   ],
+   "description": "Heathbrook Pimrary School Junior Backpack suitabel for years 4-6",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:heathbrook"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/58740",
+   "handle": "heathbrook-pe-t-shirt",
+   "title": "Heathbrook PE T-Shirt",
+   "school": "heathbrook",
+   "productType": "PE kit",
+   "gender": "Unisex",
+   "priceMin": 6.99,
+   "priceMax": 7.5,
+   "currency": "GBP",
+   "sizes": [
+    "11-13yrs",
+    "3-4yrs",
+    "5-6yrs",
+    "7-8yrs",
+    "9-10yrs",
+    "XS"
+   ],
+   "colours": [],
+   "images": [
+    "/img/products/heathbrook-pe-t-shirt-1.webp"
+   ],
+   "description": "Soft & Breathable fabric",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:heathbrook"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/52086",
+   "handle": "heathbrook-sweatshirt",
+   "title": "Heathbrook Sweatshirt",
+   "school": "heathbrook",
+   "productType": "Sweatshirts",
+   "gender": "Unisex",
+   "priceMin": 9.99,
+   "priceMax": 15.0,
+   "currency": "GBP",
+   "sizes": [
+    "11-12yrs",
+    "12-13yrs",
+    "13-14yrs",
+    "2-3yrs",
+    "3-4yrs",
+    "3yrs",
+    "4-5yrs",
+    "4yrs",
+    "5-6yrs",
+    "6-7yrs",
+    "7-8yrs",
+    "9-10yrs",
+    "M",
+    "S",
+    "XS"
+   ],
+   "colours": [
+    "Royal Blue"
+   ],
+   "images": [
+    "/img/products/heathbrook-sweatshirt.webp",
+    "/img/products/heathbrook-sweatshirt-1.webp",
+    "/img/products/heathbrook-sweatshirt-2.webp",
+    "/img/products/heathbrook-sweatshirt-3.webp"
+   ],
+   "description": "Heathbrook crew neck sweatshirt with embroidered logo",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:heathbrook"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/64107",
+   "handle": "i-a-basics-cotton-t-shirt",
+   "title": "I & A Basics Cotton T-Shirt",
+   "school": null,
+   "productType": "Shirts",
+   "gender": "Unisex",
+   "priceMin": 4.0,
+   "priceMax": 4.0,
+   "currency": "GBP",
+   "sizes": [
+    "10-11",
+    "12",
+    "12-13",
+    "13-14",
+    "2-3",
+    "2XL",
+    "3-4",
+    "3XL",
+    "4-5",
+    "4XL",
+    "5-6",
+    "6-7",
+    "7-8",
+    "9-10",
+    "Large",
+    "Medium",
+    "Small",
+    "X-Small",
+    "XL"
+   ],
+   "colours": [
+    "Black",
+    "Blue",
+    "Green",
+    "Grey",
+    "Navy",
+    "Red",
+    "Sky",
+    "Sky Blue",
+    "White",
+    "Yellow"
+   ],
+   "images": [
+    "/img/products/i-a-basics-cotton-t-shirt-1.webp",
+    "/img/products/i-a-basics-cotton-t-shirt-2.webp",
+    "/img/products/i-a-basics-cotton-t-shirt-3.webp"
+   ],
+   "description": "Plain kids crewneck t-shirts made from 100% ringspun combed cotton.\n\nSoft touch.\nFashion fit.\n1×1 ribbed collar.\nTaped neck.\nTubular body.\nTwin needle sleeves and hem.\nTear out label\n\nKids Sizes: 3 years to XS\nAdult Sizes: Small to 4XL",
+   "available": true,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/63437",
+   "handle": "junior-boys-slim-fit-trousers",
+   "title": "Junior Boys Slim Fit Trousers",
+   "school": null,
+   "productType": "Trousers & shorts",
+   "gender": "Boys",
+   "priceMin": 11.99,
+   "priceMax": 11.99,
+   "currency": "GBP",
+   "sizes": [
+    "10-11yrs",
+    "11-12yrs",
+    "12-13yrs",
+    "3-4yrs",
+    "4-5yrs",
+    "5-6yrs",
+    "6-7yrs",
+    "7-8yrs",
+    "8-9yrs",
+    "9-10yrs"
+   ],
+   "colours": [
+    "Black",
+    "Charcoal",
+    "Grey",
+    "Navy"
+   ],
+   "images": [
+    "/img/products/junior-boys-slim-fit-trousers-1.webp",
+    "/img/products/junior-boys-slim-fit-trousers-2.webp",
+    "/img/products/junior-boys-slim-fit-trousers-3.webp"
+   ],
+   "description": "Slim Leg Style \nHalf Elasticated back\nMock Fly Upto and including Age 5-6\nRoom to grow hem",
+   "available": true,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/67550",
+   "handle": "knitted-plain-school-cardigan",
+   "title": "Knitted Plain School Cardigan",
+   "school": null,
+   "productType": "Knitwear",
+   "gender": "Unisex",
+   "priceMin": 17.0,
+   "priceMax": 17.0,
+   "currency": "GBP",
+   "sizes": [
+    "24",
+    "26",
+    "28",
+    "30",
+    "32",
+    "34",
+    "36",
+    "38",
+    "40",
+    "42",
+    "44",
+    "46",
+    "48"
+   ],
+   "colours": [
+    "Black",
+    "Bottle",
+    "Grey",
+    "Maroon",
+    "Navy",
+    "Purple",
+    "Red",
+    "Royal"
+   ],
+   "images": [],
+   "description": "",
+   "available": true,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/57181",
+   "handle": "s-cut-boys-trousers-by-banner",
+   "title": "S-Cut Boys Trousers by Banner",
+   "school": null,
+   "productType": "Trousers & shorts",
+   "gender": "Boys",
+   "priceMin": 38.0,
+   "priceMax": 38.0,
+   "currency": "GBP",
+   "sizes": [
+    "24",
+    "26",
+    "28",
+    "30",
+    "32",
+    "34",
+    "36",
+    "38",
+    "40",
+    "42",
+    "44"
+   ],
+   "colours": [
+    "Black",
+    "Grey",
+    "Navy"
+   ],
+   "images": [
+    "/img/products/s-cut-boys-trousers-by-banner-1.webp",
+    "/img/products/s-cut-boys-trousers-by-banner-2.webp",
+    "/img/products/s-cut-boys-trousers-by-banner-3.webp"
+   ],
+   "description": "The Banner S-Cut boys trousers are a comfortable fit, with an adjustable waist and a single front pleat. Easy care machine wash.\n\nAdjustable waist, and single front pleat\nSlanted Front pockets\nHooked ad Bar\nSingle Right side back jetted pocket with button fastening\n100% polyester with 100% polyester",
+   "available": false,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/64252",
+   "handle": "s-cut-fitted-jacket-blazer-by-banner",
+   "title": "S-Cut Fitted Jacket (Blazer) by Banner",
+   "school": null,
+   "productType": "Blazers",
+   "gender": "Unisex",
+   "priceMin": 50.0,
+   "priceMax": 50.0,
+   "currency": "GBP",
+   "sizes": [
+    "26",
+    "28",
+    "30",
+    "31",
+    "32",
+    "33",
+    "34",
+    "35",
+    "36",
+    "38",
+    "40",
+    "42",
+    "44",
+    "46",
+    "48",
+    "50",
+    "52"
+   ],
+   "colours": [
+    "Black",
+    "Grey",
+    "Navy"
+   ],
+   "images": [
+    "/img/products/s-cut-fitted-jacket-blazer-by-banner-1.webp",
+    "/img/products/s-cut-fitted-jacket-blazer-by-banner-2.webp",
+    "/img/products/s-cut-fitted-jacket-blazer-by-banner-3.webp"
+   ],
+   "description": "The iconic Banner blazer and jacket collections are steeped in rich heritage – from the traditional three-patched pocket Ziggys blazer to the new innovatively styled Signature jacket. Banner blazers and jackets are not only timeless but provide a modern fit too, as well as being durable and built to",
+   "available": true,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/55399",
+   "handle": "s-cut-jacket-blazer-by-banner",
+   "title": "S-Cut Jacket (Blazer) by Banner",
+   "school": null,
+   "productType": "Blazers",
+   "gender": "Unisex",
+   "priceMin": 50.0,
+   "priceMax": 50.0,
+   "currency": "GBP",
+   "sizes": [
+    "26",
+    "28",
+    "30",
+    "31",
+    "32",
+    "33",
+    "34",
+    "35",
+    "36",
+    "38",
+    "40",
+    "42",
+    "44",
+    "46",
+    "48",
+    "50",
+    "52"
+   ],
+   "colours": [
+    "Black",
+    "Grey",
+    "Navy"
+   ],
+   "images": [
+    "/img/products/s-cut-jacket-blazer-by-banner-1.webp",
+    "/img/products/s-cut-jacket-blazer-by-banner-2.webp",
+    "/img/products/s-cut-jacket-blazer-by-banner-3.webp"
+   ],
+   "description": "The iconic Banner blazer and jacket collections are steeped in rich heritage – from the traditional three-patched pocket Ziggys blazer to the new innovatively styled Signature jacket. Banner blazers and jackets are not only timeless but provide a modern fit too, as well as being durable and built to",
+   "available": true,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/55330",
+   "handle": "signature-boys-classic-trousers",
+   "title": "Signature Boys Classic Trousers",
+   "school": null,
+   "productType": "Trousers & shorts",
+   "gender": "Boys",
+   "priceMin": 24.99,
+   "priceMax": 24.99,
+   "currency": "GBP",
+   "sizes": [
+    "24",
+    "26",
+    "28"
+   ],
+   "colours": [
+    "Black",
+    "Navy",
+    "Steel Grey"
+   ],
+   "images": [],
+   "description": "Classic smart cut\nadjustable waist for perfect fit \nside pockets",
+   "available": false,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/64432",
+   "handle": "speedo-junior-eco-endurance-medalist-swimsuit",
+   "title": "Speedo Junior Eco Endurance+ Medalist Swimsuit",
+   "school": null,
+   "productType": "PE kit",
+   "gender": "Unisex",
+   "priceMin": 18.0,
+   "priceMax": 18.0,
+   "currency": "GBP",
+   "sizes": [
+    "11-12yrs",
+    "5-6yrs",
+    "7-8yrs",
+    "9-10yrs"
+   ],
+   "colours": [
+    "Black",
+    "Pink"
+   ],
+   "images": [
+    "/img/products/speedo-junior-eco-endurance-medalist-swimsuit-1.webp",
+    "/img/products/speedo-junior-eco-endurance-medalist-swimsuit-2.webp",
+    "/img/products/speedo-junior-eco-endurance-medalist-swimsuit-3.webp"
+   ],
+   "description": "Endurance+ uses a blend of PBT and polyester fibres which help to provide high chlorine resistance\nLonger lasting fit through wear and use. Resists snagging and fading longer than other swim fabrics\nFeaturing multidirectional stretch fabric for added softness and comfort\nProvides UVA & UVB 50+ prot",
+   "available": true,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/64444",
+   "handle": "speedo-long-hair-moulded-silicone-swim-cap",
+   "title": "Speedo Long Hair Moulded Silicone Swim Cap",
+   "school": "allen-edwards",
+   "productType": "PE kit",
+   "gender": "Unisex",
+   "priceMin": 10.0,
+   "priceMax": 10.0,
+   "currency": "GBP",
+   "sizes": [],
+   "colours": [
+    "Black",
+    "Pink"
+   ],
+   "images": [
+    "/img/products/speedo-long-hair-moulded-silicone-swim-cap-1.webp",
+    "/img/products/speedo-long-hair-moulded-silicone-swim-cap-2.webp"
+   ],
+   "description": "Specifically designed for swimmers with longer hair, extra space allows hair to be tucked inside without compromising a smooth fit\n\nIdeal for medium to long hair\n100% silicone, durable and long lasting\nDesigned for regular swimming\nErgonomic 3D design for improved fit and comfort\nEasy on/off, won’t",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:allen-edwards"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/59209",
+   "handle": "st-annes-backpack",
+   "title": "St. Annes Backpack",
+   "school": "st-annes",
+   "productType": "Bags",
+   "gender": "Unisex",
+   "priceMin": 12.0,
+   "priceMax": 12.0,
+   "currency": "GBP",
+   "sizes": [
+    "Infant"
+   ],
+   "colours": [
+    "Purple"
+   ],
+   "images": [
+    "/img/products/st-annes-backpack-1.webp",
+    "/img/products/st-annes-backpack-2.webp",
+    "/img/products/st-annes-backpack-3.webp"
+   ],
+   "description": "St. Anne’s Primary School Backpack available for all years.",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:st-annes"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/50204",
+   "handle": "st-anne-s-bookbag",
+   "title": "St. Anne's Bookbag",
+   "school": "st-annes",
+   "productType": "Bags",
+   "gender": "Unisex",
+   "priceMin": 8.0,
+   "priceMax": 8.0,
+   "currency": "GBP",
+   "sizes": [
+    "one size"
+   ],
+   "colours": [
+    "Purple"
+   ],
+   "images": [
+    "/img/products/st-anne-s-bookbag-1.webp",
+    "/img/products/st-anne-s-bookbag-2.webp",
+    "/img/products/st-anne-s-bookbag-3.webp"
+   ],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:st-annes"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/53169",
+   "handle": "st-anne-s-clip-on-tie",
+   "title": "St. Anne's Clip on tie",
+   "school": "st-annes",
+   "productType": "Accessories",
+   "gender": "Unisex",
+   "priceMin": 4.0,
+   "priceMax": 5.0,
+   "currency": "GBP",
+   "sizes": [
+    "4-6 Years",
+    "7-11 Years"
+   ],
+   "colours": [
+    "Multi Colour"
+   ],
+   "images": [],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:st-annes"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/54330",
+   "handle": "st-anne-s-cotton-rich-cardigan",
+   "title": "St. Anne's Cotton Rich Cardigan",
+   "school": "st-annes",
+   "productType": "Knitwear",
+   "gender": "Unisex",
+   "priceMin": 21.0,
+   "priceMax": 22.0,
+   "currency": "GBP",
+   "sizes": [
+    "11-12 Years",
+    "13-14 Years",
+    "3-4 Years",
+    "4-5 Years",
+    "5-6 Years",
+    "7-8 Years",
+    "9-10 Years"
+   ],
+   "colours": [],
+   "images": [],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:st-annes"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/51064",
+   "handle": "st-anne-s-cotton-rich-jumper",
+   "title": "St. Anne's Cotton Rich Jumper",
+   "school": "st-annes",
+   "productType": "Knitwear",
+   "gender": "Unisex",
+   "priceMin": 21.0,
+   "priceMax": 21.0,
+   "currency": "GBP",
+   "sizes": [
+    "11-12 Years",
+    "13-14 Years",
+    "3-4 Years",
+    "4-5 Years",
+    "5-6 Years",
+    "7-8 Years",
+    "9-10 Years"
+   ],
+   "colours": [],
+   "images": [],
+   "description": "",
+   "available": false,
+   "logoItem": true,
+   "tags": [
+    "school:st-annes"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/49531",
+   "handle": "st-anne-s-fleece-jacket",
+   "title": "St. Anne's Fleece Jacket",
+   "school": "st-annes",
+   "productType": "Blazers",
+   "gender": "Unisex",
+   "priceMin": 14.0,
+   "priceMax": 15.0,
+   "currency": "GBP",
+   "sizes": [
+    "11-12 Years",
+    "13-14 Years",
+    "3-4 Years",
+    "4-5 Years",
+    "5-6 Years",
+    "6-7 Years",
+    "7-8 Years",
+    "9-10 Years"
+   ],
+   "colours": [
+    "Purple"
+   ],
+   "images": [],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:st-annes"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/64448",
+   "handle": "st-anne-s-gym-bag",
+   "title": "St. Anne's Gym bag",
+   "school": "st-annes",
+   "productType": "PE kit",
+   "gender": "Unisex",
+   "priceMin": 6.0,
+   "priceMax": 6.0,
+   "currency": "GBP",
+   "sizes": [
+    "one size"
+   ],
+   "colours": [
+    "Purple"
+   ],
+   "images": [],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:st-annes"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/52936",
+   "handle": "st-anne-s-pe-t-shirt",
+   "title": "St. Anne's PE T-shirt",
+   "school": "st-annes",
+   "productType": "PE kit",
+   "gender": "Unisex",
+   "priceMin": 0,
+   "priceMax": 0,
+   "currency": "GBP",
+   "sizes": [
+    "10-11 Years",
+    "11-12 Years",
+    "12-13 Years",
+    "13-14 Years",
+    "2-3 Years",
+    "3-4 Years",
+    "4-5 Years",
+    "5-6 Years",
+    "6-7 Years",
+    "7-8 Years",
+    "8-9 Years",
+    "9-10 Years"
+   ],
+   "colours": [
+    "Yellow"
+   ],
+   "images": [],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:st-annes"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/64451",
+   "handle": "st-anne-s-polo-shirt",
+   "title": "St. Anne's Polo Shirt",
+   "school": "st-annes",
+   "productType": "Polo shirts",
+   "gender": "Unisex",
+   "priceMin": 0,
+   "priceMax": 0,
+   "currency": "GBP",
+   "sizes": [
+    "11-12 Years",
+    "13-14 Years",
+    "3-4 Years",
+    "4-5 Years",
+    "5-6 Years",
+    "6-7 Years",
+    "7-8 Years",
+    "9-10 Years"
+   ],
+   "colours": [
+    "White"
+   ],
+   "images": [],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:st-annes"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/58885",
+   "handle": "st-anne-s-stripe-tie",
+   "title": "St. Anne's Stripe Tie",
+   "school": "st-annes",
+   "productType": "PE kit",
+   "gender": "Unisex",
+   "priceMin": 4.0,
+   "priceMax": 5.0,
+   "currency": "GBP",
+   "sizes": [
+    "4-6 Years",
+    "7-11 Years"
+   ],
+   "colours": [
+    "Multi Colour"
+   ],
+   "images": [
+    "/img/products/st-anne-s-stripe-tie-1.webp"
+   ],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:st-annes"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/64471",
+   "handle": "st-anne-s-sweat-cardigan",
+   "title": "St. Anne's Sweat Cardigan",
+   "school": "st-annes",
+   "productType": "Knitwear",
+   "gender": "Unisex",
+   "priceMin": 12.0,
+   "priceMax": 13.0,
+   "currency": "GBP",
+   "sizes": [
+    "11-12 Years",
+    "13-14 Years",
+    "3-4 Years",
+    "4-5 Years",
+    "5-6 Years",
+    "6-7 Years",
+    "7-8 Years",
+    "9-10 Years"
+   ],
+   "colours": [],
+   "images": [],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:st-annes"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/51274",
+   "handle": "st-anne-s-sweatshirt",
+   "title": "St. Anne's Sweatshirt",
+   "school": "st-annes",
+   "productType": "Sweatshirts",
+   "gender": "Unisex",
+   "priceMin": 15.0,
+   "priceMax": 15.0,
+   "currency": "GBP",
+   "sizes": [
+    "22",
+    "24",
+    "26",
+    "28",
+    "30",
+    "32",
+    "34",
+    "36",
+    "38"
+   ],
+   "colours": [],
+   "images": [],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:st-annes"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/56649",
+   "handle": "sturdy-fit-kids-trousers",
+   "title": "Sturdy Fit Kids Trousers",
+   "school": null,
+   "productType": "Trousers & shorts",
+   "gender": "Unisex",
+   "priceMin": 10.5,
+   "priceMax": 12.0,
+   "currency": "GBP",
+   "sizes": [
+    "10-11yrs",
+    "12-13yrs",
+    "13-14",
+    "15-16",
+    "7-8yrs",
+    "8-9yr",
+    "9-10yrs"
+   ],
+   "colours": [
+    "Black",
+    "Grey",
+    "Navy"
+   ],
+   "images": [
+    "/img/products/sturdy-fit-kids-trousers-1.webp",
+    "/img/products/sturdy-fit-kids-trousers-2.webp",
+    "/img/products/sturdy-fit-kids-trousers-3.webp"
+   ],
+   "description": "",
+   "available": true,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/54501",
+   "handle": "sturdy-fit-teenage-boys-trousers",
+   "title": "Sturdy Fit Teenage Boys Trousers",
+   "school": null,
+   "productType": "Trousers & shorts",
+   "gender": "Boys",
+   "priceMin": 15.0,
+   "priceMax": 16.0,
+   "currency": "GBP",
+   "sizes": [
+    "2XL",
+    "3XL",
+    "4XL",
+    "5XL",
+    "6XL",
+    "7XL",
+    "L",
+    "M",
+    "S",
+    "XL"
+   ],
+   "colours": [
+    "Black",
+    "Grey",
+    "Navy"
+   ],
+   "images": [
+    "/img/products/sturdy-fit-teenage-boys-trousers-1.webp",
+    "/img/products/sturdy-fit-teenage-boys-trousers-2.webp",
+    "/img/products/sturdy-fit-teenage-boys-trousers-3.webp"
+   ],
+   "description": "",
+   "available": true,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/64489",
+   "handle": "teenager-mens-trousers-school",
+   "title": "Teenager / Mens Trousers – School",
+   "school": null,
+   "productType": "Trousers & shorts",
+   "gender": "Boys",
+   "priceMin": 18.0,
+   "priceMax": 18.0,
+   "currency": "GBP",
+   "sizes": [
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29",
+    "30",
+    "32",
+    "34",
+    "36",
+    "38",
+    "40",
+    "42",
+    "44",
+    "46",
+    "48"
+   ],
+   "colours": [
+    "Black",
+    "Grey",
+    "Navy"
+   ],
+   "images": [
+    "/img/products/teenager-mens-trousers-school-1.webp",
+    "/img/products/teenager-mens-trousers-school-2.webp",
+    "/img/products/teenager-mens-trousers-school-3.webp"
+   ],
+   "description": "",
+   "available": false,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/65421",
+   "handle": "thornton-skirt",
+   "title": "Thornton Skirt",
+   "school": null,
+   "productType": "Skirts & dresses",
+   "gender": "Girls",
+   "priceMin": 22.99,
+   "priceMax": 22.99,
+   "currency": "GBP",
+   "sizes": [
+    "22",
+    "24",
+    "26",
+    "28"
+   ],
+   "colours": [
+    "Black",
+    "Grey",
+    "Navy"
+   ],
+   "images": [
+    "/img/products/thornton-skirt-1.webp",
+    "/img/products/thornton-skirt-2.webp",
+    "/img/products/thornton-skirt-3.webp"
+   ],
+   "description": "A fashionable twist to the classic ‘A’ line skirt.\nProduct Features\n\nA-line skirt with inverted pleat\nZip / button fastening\nMaxtech® stain resistance\n\nWashing Instructions\n\n40° wash\n\nFabric: 65% Polyester/35% Viscose twill\nWeight: 80g\nSize: Junior: 22″ 31cm 24″ 33.5cm 26″ 36cm 28″ 38.5cm Senior: 30",
+   "available": false,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/49474",
+   "handle": "trinity-st-mary-jumper-year-6",
+   "title": "Trinity St Mary Jumper – Year 6",
+   "school": "trinity-st-marys",
+   "productType": "Knitwear",
+   "gender": "Unisex",
+   "priceMin": 20.0,
+   "priceMax": 20.0,
+   "currency": "GBP",
+   "sizes": [
+    "26",
+    "28",
+    "30",
+    "32",
+    "34",
+    "36",
+    "38"
+   ],
+   "colours": [
+    "Red"
+   ],
+   "images": [
+    "/img/products/trinity-st-mary-jumper-year-6-1.webp"
+   ],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:trinity-st-marys"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/55372",
+   "handle": "trinity-st-mary-jumper-years-1-5",
+   "title": "Trinity St Mary Jumper – Years 1-5",
+   "school": "trinity-st-marys",
+   "productType": "Knitwear",
+   "gender": "Unisex",
+   "priceMin": 20.0,
+   "priceMax": 20.0,
+   "currency": "GBP",
+   "sizes": [
+    "26",
+    "28",
+    "30",
+    "32",
+    "34",
+    "36"
+   ],
+   "colours": [
+    "Royal"
+   ],
+   "images": [
+    "/img/products/trinity-st-mary-jumper-years-1-5-1.webp"
+   ],
+   "description": "Soft comfortable cotton rich material with durable polyester.",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:trinity-st-marys"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/55701",
+   "handle": "trinity-st-mary-tie",
+   "title": "Trinity St Mary Tie",
+   "school": "trinity-st-marys",
+   "productType": "Accessories",
+   "gender": "Unisex",
+   "priceMin": 4.0,
+   "priceMax": 4.0,
+   "currency": "GBP",
+   "sizes": [],
+   "colours": [
+    "Blue",
+    "Green",
+    "Red",
+    "Yellow"
+   ],
+   "images": [
+    "/img/products/trinity-st-mary-tie-1.webp",
+    "/img/products/trinity-st-mary-tie-2.webp",
+    "/img/products/trinity-st-mary-tie-3.webp"
+   ],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:trinity-st-marys"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/64680",
+   "handle": "trinity-st-mary-s-bookbag",
+   "title": "Trinity St Mary's BookBag",
+   "school": "trinity-st-marys",
+   "productType": "Bags",
+   "gender": "Unisex",
+   "priceMin": 8.5,
+   "priceMax": 8.5,
+   "currency": "GBP",
+   "sizes": [],
+   "colours": [],
+   "images": [],
+   "description": "Heavy weight durable fabric",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:trinity-st-marys"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/58690",
+   "handle": "trinity-st-mary-s-junior-backpack",
+   "title": "Trinity St Mary's Junior Backpack",
+   "school": "trinity-st-marys",
+   "productType": "Bags",
+   "gender": "Unisex",
+   "priceMin": 12.0,
+   "priceMax": 12.0,
+   "currency": "GBP",
+   "sizes": [],
+   "colours": [],
+   "images": [
+    "/img/products/trinity-st-mary-s-junior-backpack-1.webp"
+   ],
+   "description": "Heavy weight durable fabric, two pockets",
+   "available": false,
+   "logoItem": true,
+   "tags": [
+    "school:trinity-st-marys"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/56528",
+   "handle": "trinity-st-mary-s-pe-bag",
+   "title": "Trinity St Mary's PE Bag",
+   "school": "trinity-st-marys",
+   "productType": "PE kit",
+   "gender": "Unisex",
+   "priceMin": 6.0,
+   "priceMax": 6.0,
+   "currency": "GBP",
+   "sizes": [],
+   "colours": [],
+   "images": [
+    "/img/products/trinity-st-mary-s-pe-bag-1.webp"
+   ],
+   "description": "",
+   "available": false,
+   "logoItem": true,
+   "tags": [
+    "school:trinity-st-marys"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/49837",
+   "handle": "trinity-st-mary-s-pe-t-shirt",
+   "title": "Trinity St Mary's PE T-Shirt",
+   "school": "trinity-st-marys",
+   "productType": "PE kit",
+   "gender": "Unisex",
+   "priceMin": 7.5,
+   "priceMax": 7.5,
+   "currency": "GBP",
+   "sizes": [
+    "12-13",
+    "14-15",
+    "3-4",
+    "5-6",
+    "7-8",
+    "9-11"
+   ],
+   "colours": [
+    "Blue",
+    "Green",
+    "Red",
+    "Yellow"
+   ],
+   "images": [
+    "/img/products/trinity-st-mary-s-pe-t-shirt-1.webp",
+    "/img/products/trinity-st-mary-s-pe-t-shirt-2.webp",
+    "/img/products/trinity-st-mary-s-pe-t-shirt-3.webp"
+   ],
+   "description": "Cotton rich, Multiple colours, supreme quality",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:trinity-st-marys"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/58580",
+   "handle": "trinity-st-mary-s-small-backpack",
+   "title": "Trinity St Mary's Small Backpack",
+   "school": "trinity-st-marys",
+   "productType": "Bags",
+   "gender": "Unisex",
+   "priceMin": 10.0,
+   "priceMax": 10.0,
+   "currency": "GBP",
+   "sizes": [],
+   "colours": [],
+   "images": [],
+   "description": "Heavy weight durable fabric, two pockets",
+   "available": false,
+   "logoItem": true,
+   "tags": [
+    "school:trinity-st-marys"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/57401",
+   "handle": "trinity-st-mary-s-sweatshirt-cardigan",
+   "title": "Trinity St Mary's Sweatshirt Cardigan",
+   "school": "trinity-st-marys",
+   "productType": "Knitwear",
+   "gender": "Unisex",
+   "priceMin": 13.0,
+   "priceMax": 14.0,
+   "currency": "GBP",
+   "sizes": [
+    "10",
+    "11",
+    "12",
+    "13",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9"
+   ],
+   "colours": [],
+   "images": [],
+   "description": "Durable cotton rich material,\nSoft comfortable fabric",
+   "available": false,
+   "logoItem": true,
+   "tags": [
+    "school:trinity-st-marys"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/58456",
+   "handle": "trinity-st-mary-s-unisex-blazer",
+   "title": "Trinity St Mary's Unisex Blazer",
+   "school": "trinity-st-marys",
+   "productType": "Blazers",
+   "gender": "Unisex",
+   "priceMin": 35.0,
+   "priceMax": 35.0,
+   "currency": "GBP",
+   "sizes": [
+    "24",
+    "26",
+    "28",
+    "30",
+    "31",
+    "32",
+    "33",
+    "34",
+    "35",
+    "36",
+    "37",
+    "38",
+    "39",
+    "40",
+    "42",
+    "44"
+   ],
+   "colours": [],
+   "images": [
+    "/img/products/trinity-st-mary-s-unisex-blazer-1.webp",
+    "/img/products/trinity-st-mary-s-unisex-blazer-2.webp"
+   ],
+   "description": "Unisex blazer for both boys and girls in all years.",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:trinity-st-marys"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/55973",
+   "handle": "trinity-st-mary-sweatshirt",
+   "title": "Trinity St. Mary Sweatshirt",
+   "school": "trinity-st-marys",
+   "productType": "Sweatshirts",
+   "gender": "Unisex",
+   "priceMin": 12.0,
+   "priceMax": 15.0,
+   "currency": "GBP",
+   "sizes": [
+    "24",
+    "26",
+    "28",
+    "30",
+    "32",
+    "34",
+    "35",
+    "36"
+   ],
+   "colours": [
+    "Navy"
+   ],
+   "images": [
+    "/img/products/trinity-st-mary-sweatshirt-1.webp",
+    "/img/products/trinity-st-mary-sweatshirt-2.webp"
+   ],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:trinity-st-marys"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/57243",
+   "handle": "trinity-st-marys-polo-shirt",
+   "title": "Trinity St. Marys Polo Shirt",
+   "school": "trinity-st-marys",
+   "productType": "Polo shirts",
+   "gender": "Unisex",
+   "priceMin": 8.0,
+   "priceMax": 8.0,
+   "currency": "GBP",
+   "sizes": [
+    "24",
+    "26",
+    "28",
+    "30",
+    "32",
+    "34"
+   ],
+   "colours": [
+    "White"
+   ],
+   "images": [],
+   "description": "",
+   "available": true,
+   "logoItem": true,
+   "tags": [
+    "school:trinity-st-marys"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/64770",
+   "handle": "viscount-girls-blazer-by-banner",
+   "title": "Viscount Girls Blazer by Banner",
+   "school": null,
+   "productType": "Blazers",
+   "gender": "Girls",
+   "priceMin": 38.0,
+   "priceMax": 38.0,
+   "currency": "GBP",
+   "sizes": [
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29",
+    "30",
+    "31",
+    "32",
+    "33",
+    "34",
+    "35",
+    "36",
+    "37",
+    "38",
+    "39",
+    "40",
+    "42",
+    "44",
+    "46",
+    "48",
+    "50",
+    "52"
+   ],
+   "colours": [
+    "Black",
+    "Brown",
+    "Green",
+    "Grey",
+    "Maroon",
+    "Navy",
+    "Royal"
+   ],
+   "images": [
+    "/img/products/viscount-girls-blazer-by-banner-1.webp",
+    "/img/products/viscount-girls-blazer-by-banner-2.webp",
+    "/img/products/viscount-girls-blazer-by-banner-3.webp"
+   ],
+   "description": "The iconic Banner blazer and jacket collections are steeped in rich heritage – from the traditional three-patched pocket Ziggys blazer to the new innovatively styled Signature jacket. Banner blazers and jackets are not only timeless but provide a modern fit too, as well as being durable and built to",
+   "available": true,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  },
+  {
+   "id": "gid://demo/Product/64932",
+   "handle": "ziggys-blazer-by-banner",
+   "title": "Ziggys Blazer by Banner",
+   "school": null,
+   "productType": "Blazers",
+   "gender": "Unisex",
+   "priceMin": 35.0,
+   "priceMax": 35.0,
+   "currency": "GBP",
+   "sizes": [
+    "22",
+    "24",
+    "26",
+    "28",
+    "30",
+    "32",
+    "34",
+    "36",
+    "38",
+    "40",
+    "42",
+    "44",
+    "46",
+    "48",
+    "50",
+    "52"
+   ],
+   "colours": [
+    "Academy Navy",
+    "Black",
+    "Bottle",
+    "Maroon",
+    "Navy",
+    "Purple",
+    "Royal",
+    "Steel Grey"
+   ],
+   "images": [
+    "/img/products/ziggys-blazer-by-banner-1.webp",
+    "/img/products/ziggys-blazer-by-banner-2.webp",
+    "/img/products/ziggys-blazer-by-banner-3.webp"
+   ],
+   "description": "The iconic Banner blazer and jacket collections are steeped in rich heritage – from the traditional three-patched pocket Ziggys blazer to the new innovatively styled Signature jacket. Banner blazers and jackets are not only timeless but provide a modern fit too, as well as being durable and built to",
+   "available": false,
+   "logoItem": false,
+   "tags": [
+    "plain"
+   ]
+  }
+ ]
+}
