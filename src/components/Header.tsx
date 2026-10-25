@@ -31,8 +31,8 @@ export function Header() {
             <NavLink key={n.to} to={n.to} className={({ isActive }) => `py-1 border-b-2 ${isActive ? "border-ink" : "border-transparent hover:border-ink/30"}`}>{n.label}</NavLink>
           ))}
         </nav>
-        <div className="ml-auto hidden md:block w-[360px]"><SchoolFinder size="sm" /></div>
-        <button type="button" onClick={() => setOpen(true)} className="relative ml-auto md:ml-2 inline-flex min-h-11 items-center rounded-pill border border-line bg-white px-4 font-semibold" aria-label={`Basket, ${count} items`}>
+        <div className="ml-auto hidden lg:block w-[360px]"><SchoolFinder size="sm" /></div>
+        <button type="button" onClick={() => setOpen(true)} className="relative ml-auto lg:ml-2 inline-flex min-h-11 items-center rounded-pill border border-line bg-white px-4 font-semibold" aria-label={`Basket, ${count} items`}>
           Basket{count > 0 && <span className="ml-2 inline-flex h-6 min-w-6 items-center justify-center rounded-pill bg-sun px-1.5 text-sm">{count}</span>}
         </button>
         <button type="button" onClick={() => setMenu(!menu)} className="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-pill border border-line bg-white" aria-expanded={menu} aria-label="Menu">

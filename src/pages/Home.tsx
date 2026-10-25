@@ -18,21 +18,21 @@ export function Home() {
       {/* Hero: the peg rail, and one question */}
       <section className="relative">
         <picture>
-          <source media="(max-width: 640px)" srcSet={asset("/img/hero/home-mobile.webp")} />
-          <img src={asset("/img/hero/home-desktop.webp")} alt="Four school sweatshirts hanging on a peg rail with two backpacks below" className="h-[56vh] min-h-[420px] w-full object-cover object-[50%_30%] sm:h-[78vh] sm:min-h-[560px] sm:object-[20%_center]" fetchPriority="high" />
+          <source media="(max-width: 1023px)" srcSet={asset("/img/hero/home-mobile.webp")} />
+          <img src={asset("/img/hero/home-desktop.webp")} alt="Four school sweatshirts hanging on a peg rail with two backpacks below" className="h-[56vh] min-h-[420px] w-full object-cover object-[50%_30%] lg:h-[78vh] lg:min-h-[560px] lg:object-[20%_center]" fetchPriority="high" />
         </picture>
-        <div className="absolute inset-0 hidden sm:block sm:bg-gradient-to-l sm:from-ink/50 sm:via-ink/20 sm:to-transparent" />
-        <div className="absolute inset-0 hidden sm:block">
-          <div className="wrap flex h-full flex-col justify-end pb-10 sm:items-end sm:justify-center sm:pb-0">
-            <div className="max-w-2xl text-white sm:w-[52%]">
-              <h1 className="display text-[2.6rem] sm:text-6xl lg:text-7xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.25)]">School uniform, sorted in one visit.</h1>
+        <div className="absolute inset-0 hidden lg:block lg:bg-gradient-to-l lg:from-ink/50 lg:via-ink/20 lg:to-transparent" />
+        <div className="absolute inset-0 hidden lg:block">
+          <div className="wrap flex h-full flex-col justify-end pb-10 lg:items-end lg:justify-center lg:pb-0">
+            <div className="max-w-2xl text-white lg:w-[52%]">
+              <h1 className="display text-[2.6rem] lg:text-6xl lg:text-7xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.25)]">School uniform, sorted in one visit.</h1>
               <p className="mt-4 max-w-md text-lg text-white/90">Official kit for nine south London schools, plus the everyday basics. Pick your school and we'll show you exactly what's on the list.</p>
             </div>
-            <div className="mt-6 w-full max-w-xl sm:w-[52%]"><SchoolFinder size="lg" /></div>
-            <p className="mt-3 text-sm text-white/80 sm:w-[52%]">Free size exchanges, so you can size up with confidence.</p>
+            <div className="mt-6 w-full max-w-xl lg:w-[52%]"><SchoolFinder size="lg" /></div>
+            <p className="mt-3 text-sm text-white/80 lg:w-[52%]">Free size exchanges, so you can size up with confidence.</p>
           </div>
         </div>
-        <div className="wrap -mt-6 relative sm:hidden">
+        <div className="wrap -mt-6 relative lg:hidden">
           <div className="rounded-3xl bg-white p-5 shadow-[0_12px_40px_rgba(27,42,74,0.12)]">
             <h1 className="display text-[2.3rem]">School uniform, sorted in one visit.</h1>
             <p className="mt-3 text-ink/70">Official kit for nine south London schools, plus the everyday basics.</p>
