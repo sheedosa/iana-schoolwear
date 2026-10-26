@@ -43,7 +43,7 @@ export function ProductPage() {
       <Seo title={p.title} description={`${p.title}${school ? ` for ${school.name}` : ""}: ${priceLabel(p)}. ${p.description || "Embroidered school uniform from I&A, Tooting."}`.slice(0, 160)} path={`/products/${p.handle}`} image={p.images[0]} type="product" jsonLd={[productLd, breadcrumbs([{ name: "Home", path: "/" }, ...(school ? [{ name: school.short, path: `/schools/${school.slug}` }] : [{ name: p.productType, path: "/collections/all" }]), { name: p.title, path: `/products/${p.handle}` }])]} />
       <section className="wrap grid gap-10 py-8 lg:grid-cols-[1.1fr_1fr] lg:py-12">
         <div>
-          <div className="aspect-[4/5] overflow-hidden rounded-3xl border border-line bg-white">
+          <div className="aspect-[4/5] overflow-hidden rounded-md border border-line bg-white">
             {p.images[img] ? (
               <img src={asset(p.images[img])} alt={p.title} className="h-full w-full object-cover" />
             ) : (
@@ -55,22 +55,22 @@ export function ProductPage() {
           {p.images.length > 1 && (
             <div className="mt-3 flex gap-2">
               {p.images.map((src, i) => (
-                <button key={src} type="button" onClick={() => setImg(i)} className={`h-20 w-16 overflow-hidden rounded-xl border ${i === img ? "border-ink" : "border-line"}`}><img src={asset(src)} alt="" className="h-full w-full object-cover" /></button>
+                <button key={src} type="button" onClick={() => setImg(i)} className={`h-20 w-16 overflow-hidden rounded border ${i === img ? "border-ink" : "border-line"}`}><img src={asset(src)} alt="" className="h-full w-full object-cover" /></button>
               ))}
             </div>
           )}
         </div>
 
         <div className="lg:sticky lg:top-32 lg:self-start">
-          {school && <Link to={`/schools/${school.slug}`} className="inline-flex items-center gap-2 font-semibold" style={{ color: school.colour }}><span className="h-2.5 w-2.5 rounded-full" style={{ background: school.colour }} />{school.name}</Link>}
+          {school && <Link to={`/schools/${school.slug}`} className="inline-flex items-center gap-2 font-medium" style={{ color: school.colour }}><span className="h-2.5 w-2.5 rounded-full" style={{ background: school.colour }} />{school.name}</Link>}
           <h1 className="mt-2 text-3xl font-extrabold sm:text-4xl">{p.title}</h1>
-          <p className="mt-2 text-2xl font-bold">{p.priceMin > 0 ? priceLabel(p) : "Price in store"}</p>
+          <p className="mt-2 text-2xl font-medium">{p.priceMin > 0 ? priceLabel(p) : "Price in store"}</p>
           {p.description && <p className="mt-4 text-ink/70">{p.description}</p>}
 
           {needsSize && (
             <div className="mt-6" id="size-picker">
               <div className="flex items-center justify-between">
-                <span className="font-semibold">Size</span>
+                <span className="font-medium">Size</span>
                 <button type="button" onClick={() => setGuide(true)} className="min-h-11 px-2 text-sm underline">Size guide</button>
               </div>
               <div className="mt-2 flex flex-wrap gap-2">
@@ -105,7 +105,7 @@ export function ProductPage() {
 
       <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-white/95 p-3 backdrop-blur lg:hidden">
         <div className="flex items-center gap-3">
-          <div className="min-w-0 flex-1"><p className="truncate text-sm font-semibold">{p.title}</p><p className="text-sm text-ink/60">{size ? `Size ${size}` : needsSize ? "Choose a size" : priceLabel(p)}</p></div>
+          <div className="min-w-0 flex-1"><p className="truncate text-sm font-medium">{p.title}</p><p className="text-sm text-ink/60">{size ? `Size ${size}` : needsSize ? "Choose a size" : priceLabel(p)}</p></div>
           <button type="button" disabled={busy || (needsSize && !size)} onClick={async () => { if (needsSize && !size) { document.getElementById("size-picker")?.scrollIntoView({ behavior: "smooth", block: "center" }); return; } setBusy(true); await add(p.handle, size || null); setBusy(false); }} className="btn btn-primary shrink-0 disabled:opacity-60">{priceLabel(p)} · Add</button>
         </div>
       </div>
@@ -114,7 +114,7 @@ export function ProductPage() {
       {guide && (
         <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-label="Size guide">
           <button type="button" className="absolute inset-0 bg-ink/40" onClick={() => setGuide(false)} aria-label="Close" />
-          <div className="absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto rounded-t-3xl bg-white p-6 sm:inset-auto sm:left-1/2 sm:top-1/2 sm:w-[560px] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-3xl">
+          <div className="absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto rounded-t-md bg-white p-6 sm:inset-auto sm:left-1/2 sm:top-1/2 sm:w-[560px] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-md">
             <div className="flex items-center justify-between"><h2 className="text-xl font-bold">Size guide</h2><button type="button" onClick={() => setGuide(false)} className="pill">Close</button></div>
             <SizeTable />
             <Link to="/size-guide" className="mt-4 inline-block underline">Full guide and how to measure</Link>
@@ -124,7 +124,7 @@ export function ProductPage() {
 
       {related.length > 0 && (
         <section className="wrap mt-8">
-          <h2 className="text-2xl font-extrabold">{school ? `More for ${school.short}` : "You might also need"}</h2>
+          <h2 className="text-3xl font-extrabold">{school ? `More for ${school.short}` : "You might also need"}</h2>
           <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4">{related.map((r) => <ProductCard key={r.handle} p={r} school={school} />)}</div>
         </section>
       )}
@@ -144,7 +144,7 @@ export function SizeTable() {
   return (
     <table className="mt-4 w-full text-sm">
       <thead><tr className="text-left text-ink/55"><th className="py-2 font-medium">Age</th><th className="font-medium">Height cm</th><th className="font-medium">Chest cm</th><th className="font-medium">Waist cm</th><th className="font-medium">Inside leg cm</th></tr></thead>
-      <tbody className="divide-y divide-line">{rows.map((r) => <tr key={r[0]}>{r.map((c, i) => <td key={i} className={`py-2 ${i === 0 ? "font-semibold" : ""}`}>{c}</td>)}</tr>)}</tbody>
+      <tbody className="divide-y divide-line">{rows.map((r) => <tr key={r[0]}>{r.map((c, i) => <td key={i} className={`py-2 ${i === 0 ? "font-medium" : ""}`}>{c}</td>)}</tr>)}</tbody>
     </table>
   );
 }

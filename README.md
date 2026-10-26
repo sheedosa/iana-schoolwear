@@ -24,6 +24,10 @@ npm run dev
 - 23 products have no photo on the current site; they show a school-tinted placeholder until photographed or generated.
 - Checkout in demo mode shows a notice; with Shopify connected it goes to Shopify's hosted checkout.
 
+## Brand
+
+Follows the I&A brand guide 2022 (in `docs/`): official Schoolwear lockups rebuilt as outlined SVG from the guide (`public/img/logo/brand/`, regenerate with `docs/logo.py`), Ochre / Sage / School Blue / School Yellow palette, Cormorant Garamond headings, uppercase tracked labels. Agrandir is a commercial font (Pangram Pangram); Lexend is the stand-in until a web licence is bought.
+
 ## SEO and AI engines
 
 Every route is prerendered to static HTML (`scripts/prerender.mjs`): per-page title, description, canonical, Open Graph and Twitter cards with a 1200×630 image, JSON-LD (ClothingStore with logo and opening hours, WebSite with SearchAction, BreadcrumbList, Product with Offer), `sitemap.xml`, `robots.txt` allowing GPTBot, ClaudeBot, PerplexityBot and others, and `llms.txt` summarising the business for AI assistants.

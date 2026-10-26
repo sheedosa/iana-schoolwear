@@ -19,17 +19,17 @@ export function CartDrawer() {
             <ul className="space-y-4">
               {cart.lines.map((l) => (
                 <li key={l.id} className="flex gap-4">
-                  <div className="h-24 w-20 shrink-0 overflow-hidden rounded-xl border border-line bg-chalk">
+                  <div className="h-24 w-20 shrink-0 overflow-hidden rounded border border-line bg-chalk">
                     {l.product.images[0] && <img src={asset(l.product.images[0])} alt="" className="h-full w-full object-cover" />}
                   </div>
                   <div className="flex-1">
-                    <p className="font-semibold leading-tight">{l.product.title}</p>
+                    <p className="font-medium leading-tight">{l.product.title}</p>
                     <p className="text-sm text-ink/55">{l.size ? `Size ${l.size}` : "One size"}</p>
                     <div className="mt-2 flex items-center gap-2">
                       <button type="button" onClick={() => update(l.id, l.quantity - 1)} className="h-8 w-8 rounded-pill border border-line" aria-label="Decrease">−</button>
                       <span className="w-6 text-center">{l.quantity}</span>
                       <button type="button" onClick={() => update(l.id, l.quantity + 1)} className="h-8 w-8 rounded-pill border border-line" aria-label="Increase">+</button>
-                      <span className="ml-auto font-semibold">{formatPrice(l.product.priceMin * l.quantity)}</span>
+                      <span className="ml-auto font-medium">{formatPrice(l.product.priceMin * l.quantity)}</span>
                     </div>
                   </div>
                 </li>
@@ -38,7 +38,7 @@ export function CartDrawer() {
           )}
         </div>
         <div className="border-t border-line px-5 py-4">
-          <div className="flex justify-between text-lg font-bold"><span>Subtotal</span><span>{formatPrice(cart.subtotal)}</span></div>
+          <div className="flex justify-between text-lg font-medium"><span>Subtotal</span><span>{formatPrice(cart.subtotal)}</span></div>
           <p className="mt-1 text-sm text-ink/55">Delivery, collection and any discounts are worked out at checkout.</p>
           {storefront.mode === "shopify" && cart.checkoutUrl ? (
             <a href={cart.checkoutUrl} className="btn btn-primary mt-4 w-full">Go to secure checkout</a>

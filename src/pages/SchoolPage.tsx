@@ -55,7 +55,7 @@ export function SchoolPage() {
       <section style={{ background: school.tint }}>
         <div className="wrap grid items-center gap-8 py-12 lg:grid-cols-[1fr_380px] lg:py-16">
           <div className="border-l-4 pl-5" style={{ borderColor: school.colour }}>
-            <p className="font-semibold" style={{ color: school.colour }}>{school.area}</p>
+            <p className="font-medium" style={{ color: school.colour }}>{school.area}</p>
             <h1 className="display mt-2 text-4xl sm:text-5xl lg:text-6xl">{school.name}</h1>
             <p className="mt-4 max-w-lg text-ink/70">
               {products.length ? `${products.length} ${school.short} items, embroidered with the school crest in our Tooting shop.` : `${school.short} uniform is coming online soon; everything is in store on Mitcham Road now.`} Can't see a size? Call us and we'll stitch it.
@@ -66,32 +66,32 @@ export function SchoolPage() {
               <span className="pill">Click and collect</span>
             </div>
           </div>
-          {school.tile && <img src={asset(school.tile)} alt="" className="hidden lg:block aspect-square w-full rounded-3xl object-cover" />}
+          {school.tile && <img src={asset(school.tile)} alt="" className="hidden lg:block aspect-square w-full rounded-md object-cover" />}
         </div>
       </section>
 
       {compulsory.length > 0 && (
         <section className="wrap mt-12">
-          <div className="grid gap-6 rounded-3xl border border-line bg-white p-6 lg:grid-cols-[1fr_320px] lg:p-8">
+          <div className="grid gap-6 rounded-md border border-line bg-white p-6 lg:grid-cols-[1fr_320px] lg:p-8">
             <div>
-              <h2 className="text-2xl font-extrabold">The essentials, one tap</h2>
+              <h2 className="text-3xl font-extrabold">The essentials, one tap</h2>
               <p className="mt-1 text-ink/60">The {compulsory.length} logo items most {school.short} parents start with. Pick a size and add all three; change anything in the basket. Your school's own list says what's required.</p>
               <div className="mt-5 grid gap-3 sm:grid-cols-2">
                 {compulsory.map((p) => (
-                  <Link key={p.handle} to={`/products/${p.handle}`} className="flex gap-3 rounded-2xl border border-line p-3 hover:border-ink">
+                  <Link key={p.handle} to={`/products/${p.handle}`} className="flex gap-3 rounded-md border border-line p-3 hover:border-ink">
                     <div className="h-20 w-16 shrink-0 overflow-hidden rounded-lg bg-white">
                       {p.images[0] && <img src={asset(p.images[0])} alt="" className="h-full w-full object-contain p-1" />}
                     </div>
                     <div className="min-w-0">
-                      <p className="line-clamp-2 font-semibold leading-tight">{p.title}</p>
+                      <p className="line-clamp-2 font-medium leading-tight">{p.title}</p>
                       <p className="text-sm text-ink/55">{formatPrice(p.priceMin)}</p>
                     </div>
                   </Link>
                 ))}
               </div>
             </div>
-            <div className="order-first rounded-2xl bg-chalk p-5 lg:order-none">
-              <label className="block text-sm font-semibold">Size</label>
+            <div className="order-first rounded-md bg-chalk p-5 lg:order-none">
+              <label className="block text-sm font-medium">Size</label>
               <div className="mt-1 flex flex-wrap gap-2">
                 {(sizes.length ? sizes : ["One size"]).map((s) => (
                   <button key={s} type="button" onClick={() => setSize(s)} className={`min-h-11 rounded-pill border px-3.5 py-1.5 text-sm ${size === s ? "border-ink bg-ink text-white" : "border-line bg-white"}`}>{s}</button>
@@ -111,7 +111,7 @@ export function SchoolPage() {
 
       {rest.length > 0 && (
         <section className="wrap mt-14">
-          <h2 className="text-2xl font-extrabold">More {school.short} uniform</h2>
+          <h2 className="text-3xl font-extrabold">More {school.short} uniform</h2>
           <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4">
             {rest.map((p) => <ProductCard key={p.handle} p={p} school={school} />)}
           </div>
@@ -121,10 +121,10 @@ export function SchoolPage() {
       <section className="wrap mt-16">
         <div className="flex items-end justify-between">
           <div>
-            <h2 className="text-2xl font-extrabold">Plain basics that go with it</h2>
+            <h2 className="text-3xl font-extrabold">Plain basics that go with it</h2>
             <p className="mt-1 text-ink/60">Trousers, shirts and knitwear: any school, no logo.</p>
           </div>
-          <Link to="/collections/all" className="font-semibold underline">All basics</Link>
+          <Link to="/collections/all" className="font-medium underline">All basics</Link>
         </div>
         <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4">
           {plain.slice(0, 4).map((p) => <ProductCard key={p.handle} p={p} />)}
