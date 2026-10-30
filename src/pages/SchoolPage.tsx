@@ -79,7 +79,7 @@ export function SchoolPage() {
               <div className="mt-5 grid gap-3 sm:grid-cols-2">
                 {compulsory.map((p) => (
                   <Link key={p.handle} to={`/products/${p.handle}`} className="flex gap-3 rounded-md border border-line p-3 hover:border-ink">
-                    <div className="h-20 w-16 shrink-0 overflow-hidden rounded-lg bg-white">
+                    <div className="h-20 w-16 shrink-0 overflow-hidden rounded bg-white">
                       {p.images[0] && <img src={asset(p.images[0])} alt="" className="h-full w-full object-contain p-1" />}
                     </div>
                     <div className="min-w-0">
@@ -94,7 +94,7 @@ export function SchoolPage() {
               <label className="block text-sm font-medium">Size</label>
               <div className="mt-1 flex flex-wrap gap-2">
                 {(sizes.length ? sizes : ["One size"]).map((s) => (
-                  <button key={s} type="button" onClick={() => setSize(s)} className={`min-h-11 rounded-pill border px-3.5 py-1.5 text-sm ${size === s ? "border-ink bg-ink text-white" : "border-line bg-white"}`}>{s}</button>
+                  <button key={s} type="button" onClick={() => setSize(s)} className={`min-h-11 min-w-11 rounded-pill border px-3.5 py-1.5 text-sm ${size === s ? "border-ink bg-ink text-white" : "border-line bg-white"}`}>{s}</button>
                 ))}
               </div>
               <p className="mt-2 text-xs text-ink/55">Between two sizes? Go up; children grow into it by spring.</p>
@@ -103,7 +103,7 @@ export function SchoolPage() {
                 <span className="text-2xl font-extrabold">{formatPrice(kitTotal)}</span>
               </div>
               <button type="button" disabled={adding || (!!sizes.length && !size)} onClick={addKit} className="btn btn-primary mt-3 w-full disabled:opacity-50">{adding ? "Adding…" : "Add the essentials"}</button>
-              <Link to="/size-guide" className="mt-3 block text-center text-sm underline">Open the size guide</Link>
+              <Link to="/size-guide" className="mt-1 flex min-h-11 w-full items-center justify-center text-sm underline">Open the size guide</Link>
             </div>
           </div>
         </section>

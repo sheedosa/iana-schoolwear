@@ -10,7 +10,7 @@ export function CartDrawer() {
       <aside className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-white shadow-2xl">
         <div className="flex items-center justify-between border-b border-line px-5 py-4">
           <h2 className="text-lg font-bold">Your basket</h2>
-          <button type="button" onClick={() => setOpen(false)} className="rounded-pill border border-line px-3 py-1.5 text-sm">Close</button>
+          <button type="button" onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center rounded-pill border border-line px-4 text-sm">Close</button>
         </div>
         <div className="flex-1 overflow-y-auto px-5 py-4">
           {cart.lines.length === 0 ? (
@@ -26,9 +26,9 @@ export function CartDrawer() {
                     <p className="font-medium leading-tight">{l.product.title}</p>
                     <p className="text-sm text-ink/55">{l.size ? `Size ${l.size}` : "One size"}</p>
                     <div className="mt-2 flex items-center gap-2">
-                      <button type="button" onClick={() => update(l.id, l.quantity - 1)} className="h-8 w-8 rounded-pill border border-line" aria-label="Decrease">−</button>
+                      <button type="button" onClick={() => update(l.id, l.quantity - 1)} className="h-11 w-11 rounded-pill border border-line" aria-label="Decrease">−</button>
                       <span className="w-6 text-center">{l.quantity}</span>
-                      <button type="button" onClick={() => update(l.id, l.quantity + 1)} className="h-8 w-8 rounded-pill border border-line" aria-label="Increase">+</button>
+                      <button type="button" onClick={() => update(l.id, l.quantity + 1)} className="h-11 w-11 rounded-pill border border-line" aria-label="Increase">+</button>
                       <span className="ml-auto font-medium">{formatPrice(l.product.priceMin * l.quantity)}</span>
                     </div>
                   </div>
@@ -45,7 +45,7 @@ export function CartDrawer() {
           ) : (
             <button type="button" className="btn btn-primary mt-4 w-full" onClick={() => alert("Preview store: checkout opens on Shopify once the store is connected.")}>Go to secure checkout</button>
           )}
-          <p className="mt-3 text-center text-xs text-ink/50">Apple Pay · Google Pay · PayPal · Klarna</p>
+          <p className="mt-3 text-center text-xs text-ink/50">Payment options, including Klarna Pay in 3, are shown at checkout</p>
         </div>
       </aside>
     </div>

@@ -35,6 +35,7 @@ export function Collection() {
         </div>
       </section>
       <section className="wrap mt-8">
+        <h2 className="sr-only">{c.title} products</h2>
         <div className="flex flex-wrap items-center gap-2">
           <button type="button" onClick={() => setType("")} className={`pill ${!type ? "border-ink bg-ink text-white" : ""}`}>All</button>
           {types.map((t) => <button key={t} type="button" onClick={() => setType(t)} className={`pill ${type === t ? "border-ink bg-ink text-white" : ""}`}>{t}</button>)}

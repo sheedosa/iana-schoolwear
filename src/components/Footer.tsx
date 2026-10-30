@@ -9,12 +9,12 @@ export function Footer() {
         <div>
           <img src={`${import.meta.env.BASE_URL}img/logo/brand/iana-schoolwear-horizontal-white.svg`} alt="I&A Schoolwear" className="h-8 w-auto" />
           <p className="mt-4 max-w-sm text-white/70">Family-run clothing and school uniform shop in Tooting since 1993. We supply embroidered uniform to nine south London schools and plain basics for everyone else.</p>
-          <p className="mt-6 text-white/70">{SITE.address.street}, {SITE.address.area}, {SITE.address.city} {SITE.address.postcode}<br />{SITE.hours}<br /><a href={`tel:${SITE.phoneIntl}`} className="underline">{SITE.phone}</a></p>
-          <p className="mt-4 flex gap-4 text-white/70"><a href={SITE.social.instagram} className="underline" rel="noopener">Instagram</a><a href={SITE.social.facebook} className="underline" rel="noopener">Facebook</a></p>
+          <p className="mt-6 text-white/70">{SITE.address.street}, {SITE.address.area}, {SITE.address.city} {SITE.address.postcode}<br />{SITE.hours}<br /><a href={`tel:${SITE.phoneIntl}`} className="inline-flex min-h-11 items-center underline">{SITE.phone}</a></p>
+          <p className="mt-2 flex gap-4 text-white/70"><a href={SITE.social.instagram} className="inline-flex min-h-11 items-center underline" rel="noopener">Instagram</a><a href={SITE.social.facebook} className="inline-flex min-h-11 items-center underline" rel="noopener">Facebook</a></p>
         </div>
         <div>
-          <h3 className="label text-white">Shop</h3>
-          <ul className="mt-3 space-y-1 text-white/75 [&_a]:inline-block [&_a]:py-1.5">
+          <h2 className="label text-white">Shop</h2>
+          <ul className="mt-3 text-white/75 [&_a]:flex [&_a]:min-h-11 [&_a]:items-center">
             <li><Link to="/schools">By school</Link></li>
             <li><Link to="/collections/boys">Boys</Link></li>
             <li><Link to="/collections/girls">Girls</Link></li>
@@ -24,8 +24,8 @@ export function Footer() {
           </ul>
         </div>
         <div>
-          <h3 className="label text-white">Help</h3>
-          <ul className="mt-3 space-y-1 text-white/75 [&_a]:inline-block [&_a]:py-1.5">
+          <h2 className="label text-white">Help</h2>
+          <ul className="mt-3 text-white/75 [&_a]:flex [&_a]:min-h-11 [&_a]:items-center">
             <li><Link to="/size-guide">Size guide</Link></li>
             <li><Link to="/about#delivery">Delivery and collection</Link></li>
             <li><Link to="/about#returns">Returns</Link></li>
@@ -34,7 +34,7 @@ export function Footer() {
           </ul>
         </div>
         <div>
-          <h3 className="label text-white">For schools</h3>
+          <h2 className="label text-white">For schools</h2>
           <p className="mt-3 text-white/75">Want I&A to supply your uniform? In-house embroidery, stock held all year, a dedicated account manager, and £1 back to the school for every embroidered sweatshirt, jumper or blazer sold. <a href={`tel:${SITE.phoneIntl}`} className="underline">Call {SITE.phone}</a>.</p>
         </div>
       </div>

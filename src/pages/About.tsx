@@ -24,16 +24,16 @@ export function About() {
           <h2 className="text-3xl font-extrabold">Delivery and collection</h2>
           <ul className="mt-4 space-y-2 text-ink/75">
             <li>UK delivery, with the cost shown before you pay at checkout</li>
-            <li>Free collection from the shop, {SITE.hours.toLowerCase()}</li>
+            <li>Collect from the shop, {SITE.hours.toLowerCase()}</li>
             <li>Embroidered items not in stock are stitched in house before dispatch</li>
-            <li>Pay by card, Apple Pay, PayPal, or spread the cost with Klarna Pay in 3</li>
+            <li>Pay by card, or spread the cost with Klarna Pay in 3</li>
           </ul>
         </div>
         <div id="returns" className="rounded-md border border-line bg-white p-7">
           <h2 className="text-3xl font-extrabold">Returns</h2>
           <ul className="mt-4 space-y-2 text-ink/75">
-            <li>Plain items: return unworn with tags within 14 days of delivery for a refund</li>
-            <li>Embroidered items are made to order for your school, so they can't be returned unless faulty</li>
+            <li>Plain items: unworn, with tags, can be returned; call us and we'll confirm how long you have</li>
+            <li>Embroidered items are made to order for your school; ask us about exchanges before you order</li>
             <li>Anything faulty: bring it back or call us and we'll replace it</li>
             <li>Return in person to the shop, or by post; call {SITE.phone} first and we'll arrange it</li>
           </ul>

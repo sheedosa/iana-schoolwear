@@ -56,3 +56,13 @@ h1.font-extrabold, h2.font-extrabold { font-weight: 700; }
 /* image hover: the only decorative transition on the site */
 .lift img { transition: transform 600ms cubic-bezier(.2,.8,.2,1); }
 .lift:hover img { transform: scale(1.02); }
+
+/* Accessibility: translucent Ochre on white or tinted backgrounds falls below 4.5:1 (axe). Pin the muted
+   text steps to solid tones that pass AA on white, Sage and every school tint. Keep the utility names so the
+   markup still reads as a hierarchy. */
+@layer utilities {
+  .text-ink\/40, .text-ink\/50, .text-ink\/55 { color: #6b5a60; }
+  .text-ink\/60, .text-ink\/65 { color: #665359; }
+  .text-ink\/70, .text-ink\/75 { color: #5e4b51; }
+  .placeholder\:text-ink\/40::placeholder { color: #6b5a60; }
+}

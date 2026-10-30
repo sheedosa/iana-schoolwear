@@ -16,7 +16,7 @@ export function ProductCard({ p, school }: { p: Product; school?: School }) {
         {p.logoItem && school && <span className="absolute left-3 top-3 rounded-pill bg-white/90 px-2.5 py-1 text-xs font-medium" style={{ color: school.colour }}>{school.short}</span>}
         {!p.available && <span className="absolute right-3 top-3 rounded-pill bg-white/90 px-2.5 py-1 text-xs font-medium text-ink/70">Out of stock online</span>}
       </div>
-      <div className="mt-3 flex items-start justify-between gap-3">
+      <div className="mt-3 flex flex-wrap items-start justify-between gap-x-3 gap-y-1">
         <div>
           <h3 className="font-normal leading-tight group-hover:underline">{p.title}</h3>
           <p className="label mt-0.5 text-[0.6875rem] text-ink/55">{p.sizes.length > 1 ? `${p.sizes.length} sizes` : p.productType}</p>

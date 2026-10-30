@@ -67,7 +67,7 @@ ${schools}
 ## Facts
 - Legal name: I & A Fashions Limited, trading as I & A School Uniform. Company number 07202123.
 - Member of the Schoolwear Association and the Federation of Small Businesses.
-- Embroidered items are made to order and cannot be returned unless faulty. Plain items can be returned within 14 days.
+- Embroidered items are made to order; ask the shop about exchanges. Plain items can be returned; call the shop to arrange.
 - Prices are in GBP and include VAT. Product pages carry schema.org Product data.
 `);
 console.log(`prerendered ${n} routes, sitemap + llms.txt written`);

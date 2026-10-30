@@ -151,9 +151,9 @@ export function Home() {
           <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr]">
             <div>
               <h2 className="text-4xl font-extrabold">Come and get fitted in Tooting</h2>
-              <p className="mt-3 text-white/75">Not sure between two sizes? Bring your child in. We measure, you try, and embroidered items can be stitched while you shop. The blue shopfront on Mitcham Road, by Tooting Broadway.</p>
+              <p className="mt-3 text-white">Not sure between two sizes? Bring your child in. We measure, you try, and embroidered items can be stitched while you shop. The blue shopfront on Mitcham Road, by Tooting Broadway.</p>
             </div>
-            <div className="text-white/85">
+            <div className="text-white">
               <p className="font-medium">{SITE.address.street}, {SITE.address.area}, {SITE.address.city} {SITE.address.postcode}</p>
               <p className="mt-1">{SITE.hours}</p>
               <p className="mt-1"><a href={`tel:${SITE.phoneIntl}`} className="underline">{SITE.phone}</a></p>

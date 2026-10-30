@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { storefront, type School } from "../lib/shopify";
+import { SITE } from "../data/site";
 
 // The one control the whole site is built around. Large by design.
 export function SchoolFinder({ size = "lg", autoFocus = false }: { size?: "lg" | "sm"; autoFocus?: boolean }) {
@@ -50,22 +51,24 @@ export function SchoolFinder({ size = "lg", autoFocus = false }: { size?: "lg" |
           role="combobox"
           aria-expanded={open}
           aria-controls="school-finder-list"
+          aria-autocomplete="list"
+          aria-activedescendant={open && matches[active] ? `school-option-${matches[active].slug}` : undefined}
         />
         {big && <button type="button" onClick={() => matches[active] && go(matches[active])} className="btn btn-primary shrink-0">Find uniform</button>}
       </div>
       {open && matches.length > 0 && (
-        <ul id="school-finder-list" role="listbox" className="absolute z-30 mt-2 w-full overflow-hidden rounded-md border border-line bg-white shadow-[0_16px_40px_rgba(69,53,58,0.16)]">
-          {matches.map((s, i) => (
-            <li key={s.slug} role="option" aria-selected={i === active}>
-              <button type="button" onMouseEnter={() => setActive(i)} onClick={() => go(s)} className={`flex w-full items-center gap-3 px-4 py-3 text-left ${i === active ? "bg-chalk" : ""}`}>
+        <div className="absolute z-30 mt-2 w-full overflow-hidden rounded-md border border-line bg-white shadow-[0_16px_40px_rgba(69,53,58,0.16)]">
+          <ul id="school-finder-list" role="listbox" aria-label="Matching schools">
+            {matches.map((s, i) => (
+              <li key={s.slug} id={`school-option-${s.slug}`} role="option" aria-selected={i === active} onMouseEnter={() => setActive(i)} onMouseDown={(e) => e.preventDefault()} onClick={() => go(s)} className={`flex min-h-11 w-full cursor-pointer items-center gap-3 px-4 py-3 text-left ${i === active ? "bg-sage-soft" : ""}`}>
                 <span className="h-3 w-3 rounded-full" style={{ background: s.colour }} aria-hidden />
                 <span className="font-normal">{s.name}</span>
                 <span className="ml-auto text-sm text-ink/50">{s.area}</span>
-              </button>
-            </li>
-          ))}
-          <li className="border-t border-line px-4 py-2.5 text-sm text-ink/60">Not listed? <a href="tel:+442087678613" className="underline">Call 020 8767 8613</a> and ask about your school.</li>
-        </ul>
+              </li>
+            ))}
+          </ul>
+          <p className="border-t border-line px-4 py-2.5 text-sm text-ink/60">Not listed? <a href={`tel:${SITE.phoneIntl}`} className="underline">Call {SITE.phone}</a> and ask about your school.</p>
+        </div>
       )}
     </div>
   );

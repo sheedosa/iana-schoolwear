@@ -25,9 +25,18 @@ export type Product = {
   images: string[];
   description: string;
   available: boolean;
+  soldOutSizes?: string[]; // sizes with no stock online (Shopify mode only)
   logoItem: boolean;
   tags: string[];
 };
+
+/** Thrown by the Shopify adapter with a message safe to show to the shopper. */
+export class StorefrontError extends Error {
+  code: "network" | "out_of_stock" | "no_variant" | "shopify";
+  constructor(message: string, code: "network" | "out_of_stock" | "no_variant" | "shopify" = "shopify") {
+    super(message); this.name = "StorefrontError"; this.code = code;
+  }
+}
 
 export type School = {
   name: string;
@@ -170,19 +179,43 @@ class ShopifyStorefront implements Storefront {
   }
 
   private async gql<T>(query: string, variables: Record<string, unknown> = {}): Promise<T> {
-    const res = await fetch(this.endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "X-Shopify-Storefront-Access-Token": this.token },
-      body: JSON.stringify({ query, variables }),
-    });
-    const json = (await res.json()) as { data: T; errors?: unknown };
-    if (json.errors) throw new Error(JSON.stringify(json.errors));
+    let res: Response;
+    try {
+      res = await fetch(this.endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Shopify-Storefront-Access-Token": this.token },
+        body: JSON.stringify({ query, variables }),
+      });
+    } catch {
+      throw new StorefrontError("We couldn't reach the shop. Check your connection and try again.", "network");
+    }
+    if (!res.ok) {
+      console.error("Storefront API", res.status, await res.text().catch(() => ""));
+      throw new StorefrontError(res.status === 429 ? "The shop is busy. Please try again in a moment." : "The shop isn't responding right now. Please try again.", "network");
+    }
+    const json = (await res.json().catch(() => null)) as { data?: T; errors?: { message?: string }[] } | null;
+    if (!json || json.errors?.length || !json.data) {
+      console.error("Storefront API", json?.errors ?? "empty response");
+      throw new StorefrontError("Something went wrong talking to the shop. Please try again.", "shopify");
+    }
     return json.data;
+  }
+
+  /** Shopify mutations return userErrors instead of GraphQL errors; surface the first one. */
+  private assertNoUserErrors(payload: { userErrors?: { message: string }[] } | null | undefined, fallback: string) {
+    if (payload?.userErrors?.length) {
+      console.error("Storefront userErrors", payload.userErrors);
+      throw new StorefrontError(payload.userErrors[0].message || fallback, "shopify");
+    }
   }
 
   private toProduct(n: ShopifyProductNode): Product {
     const school = n.tags.find((t) => t.startsWith("school:"))?.slice(7) ?? null;
     const sizes = n.options.find((o) => /size/i.test(o.name))?.values ?? [];
+    const soldOutSizes = (n.variants?.nodes ?? [])
+      .filter((v) => !v.availableForSale)
+      .map((v) => v.selectedOptions.find((o) => /size/i.test(o.name))?.value)
+      .filter((v): v is string => !!v);
     const colours = n.options.find((o) => /colou?r/i.test(o.name))?.values ?? [];
     const p: Product = {
       id: n.id, handle: n.handle, title: n.title, school,
@@ -192,6 +225,7 @@ class ShopifyStorefront implements Storefront {
       priceMax: Number(n.priceRange.maxVariantPrice.amount),
       currency: n.priceRange.minVariantPrice.currencyCode,
       sizes, colours,
+      soldOutSizes: n.variants ? soldOutSizes : undefined,
       images: n.images.nodes.map((i) => i.url),
       description: n.description,
       available: n.availableForSale,
@@ -228,9 +262,14 @@ class ShopifyStorefront implements Storefront {
   }
 
   private async variantId(handle: string, size: string | null) {
-    const data = await this.gql<{ product: { variants: { nodes: { id: string; selectedOptions: { name: string; value: string }[] }[] } } }>(
-      `query V($h: String!) { product(handle: $h) { variants(first: 100) { nodes { id selectedOptions { name value } } } } }`, { h: handle });
-    const v = data.product.variants.nodes.find((x) => !size || x.selectedOptions.some((o) => o.value === size)) ?? data.product.variants.nodes[0];
+    const data = await this.gql<{ product: { variants: { nodes: { id: string; availableForSale: boolean; selectedOptions: { name: string; value: string }[] }[] } } | null }>(
+      `query V($h: String!) { product(handle: $h) { variants(first: 100) { nodes { id availableForSale selectedOptions { name value } } } } }`, { h: handle });
+    const nodes = data.product?.variants.nodes ?? [];
+    if (!nodes.length) throw new StorefrontError("This product is no longer available online.", "no_variant");
+    // Never fall back to a different size: a wrong-size uniform is a return and an unhappy parent.
+    const v = size ? nodes.find((x) => x.selectedOptions.some((o) => /size/i.test(o.name) && o.value === size)) : nodes[0];
+    if (!v) throw new StorefrontError(`Size ${size} isn't available for this item.`, "no_variant");
+    if (!v.availableForSale) throw new StorefrontError(`${size ? `Size ${size} is` : "This item is"} out of stock online. Call the shop to check the shelf.`, "out_of_stock");
     return v.id;
   }
 
@@ -255,31 +294,40 @@ class ShopifyStorefront implements Storefront {
 
   async cart() { return this.readCart(); }
 
-  async addToCart(handle: string, size: string | null, quantity = 1) {
+  async addToCart(handle: string, size: string | null, quantity = 1): Promise<Cart> {
     const merchandiseId = await this.variantId(handle, size);
     if (!this.cartId) {
-      const data = await this.gql<{ cartCreate: { cart: ShopifyCart } }>(
-        `mutation Create($lines: [CartLineInput!]!) { cartCreate(input: { lines: $lines }) { cart { ${CART_FIELDS} } } }`,
+      const data = await this.gql<{ cartCreate: { cart: ShopifyCart | null; userErrors: { message: string }[] } }>(
+        `mutation Create($lines: [CartLineInput!]!) { cartCreate(input: { lines: $lines }) { cart { ${CART_FIELDS} } userErrors { message } } }`,
         { lines: [{ merchandiseId, quantity }] });
+      this.assertNoUserErrors(data.cartCreate, "Couldn't start a basket.");
+      if (!data.cartCreate.cart) throw new StorefrontError("Couldn't start a basket. Please try again.");
       this.cartId = data.cartCreate.cart.id;
       try { localStorage.setItem("iana-shopify-cart", this.cartId); } catch { /* ignore */ }
       return this.toCart(data.cartCreate.cart);
     }
-    const data = await this.gql<{ cartLinesAdd: { cart: ShopifyCart } }>(
-      `mutation Add($id: ID!, $lines: [CartLineInput!]!) { cartLinesAdd(cartId: $id, lines: $lines) { cart { ${CART_FIELDS} } } }`,
+    const data = await this.gql<{ cartLinesAdd: { cart: ShopifyCart | null; userErrors: { message: string }[] } }>(
+      `mutation Add($id: ID!, $lines: [CartLineInput!]!) { cartLinesAdd(cartId: $id, lines: $lines) { cart { ${CART_FIELDS} } userErrors { message } } }`,
       { id: this.cartId, lines: [{ merchandiseId, quantity }] });
+    this.assertNoUserErrors(data.cartLinesAdd, "Couldn't add that to your basket.");
+    if (!data.cartLinesAdd.cart) {
+      // Stale cart id (e.g. completed checkout): start again.
+      this.cartId = null; try { localStorage.removeItem("iana-shopify-cart"); } catch { /* ignore */ }
+      return this.addToCart(handle, size, quantity);
+    }
     return this.toCart(data.cartLinesAdd.cart);
   }
 
   async updateLine(lineId: string, quantity: number) {
     if (!this.cartId) return this.readCart();
     const data = quantity <= 0
-      ? await this.gql<{ cartLinesRemove: { cart: ShopifyCart } }>(
-          `mutation Rm($id: ID!, $ids: [ID!]!) { cartLinesRemove(cartId: $id, lineIds: $ids) { cart { ${CART_FIELDS} } } }`, { id: this.cartId, ids: [lineId] })
-          .then((d) => d.cartLinesRemove.cart)
-      : await this.gql<{ cartLinesUpdate: { cart: ShopifyCart } }>(
-          `mutation Up($id: ID!, $lines: [CartLineUpdateInput!]!) { cartLinesUpdate(cartId: $id, lines: $lines) { cart { ${CART_FIELDS} } } }`,
-          { id: this.cartId, lines: [{ id: lineId, quantity }] }).then((d) => d.cartLinesUpdate.cart);
+      ? await this.gql<{ cartLinesRemove: { cart: ShopifyCart | null; userErrors: { message: string }[] } }>(
+          `mutation Rm($id: ID!, $ids: [ID!]!) { cartLinesRemove(cartId: $id, lineIds: $ids) { cart { ${CART_FIELDS} } userErrors { message } } }`, { id: this.cartId, ids: [lineId] })
+          .then((d) => { this.assertNoUserErrors(d.cartLinesRemove, "Couldn't remove that item."); return d.cartLinesRemove.cart; })
+      : await this.gql<{ cartLinesUpdate: { cart: ShopifyCart | null; userErrors: { message: string }[] } }>(
+          `mutation Up($id: ID!, $lines: [CartLineUpdateInput!]!) { cartLinesUpdate(cartId: $id, lines: $lines) { cart { ${CART_FIELDS} } userErrors { message } } }`,
+          { id: this.cartId, lines: [{ id: lineId, quantity }] }).then((d) => { this.assertNoUserErrors(d.cartLinesUpdate, "Couldn't update your basket."); return d.cartLinesUpdate.cart; });
+    if (!data) return this.readCart();
     return this.toCart(data);
   }
 
@@ -288,7 +336,8 @@ class ShopifyStorefront implements Storefront {
 
 const PRODUCT_FIELDS = `id handle title productType description tags availableForSale
   priceRange { minVariantPrice { amount currencyCode } maxVariantPrice { amount currencyCode } }
-  options { name values } images(first: 6) { nodes { url } }`;
+  options { name values } images(first: 6) { nodes { url } }
+  variants(first: 100) { nodes { availableForSale selectedOptions { name value } } }`;
 const CART_FIELDS = `id checkoutUrl cost { subtotalAmount { amount } }
   lines(first: 100) { nodes { id quantity merchandise { ... on ProductVariant { selectedOptions { name value } product { ${PRODUCT_FIELDS} } } } } }`;
 
@@ -297,6 +346,7 @@ type ShopifyProductNode = {
   priceRange: { minVariantPrice: { amount: string; currencyCode: string }; maxVariantPrice: { amount: string; currencyCode: string } };
   options: { name: string; values: string[] }[];
   images: { nodes: { url: string }[] };
+  variants?: { nodes: { availableForSale: boolean; selectedOptions: { name: string; value: string }[] }[] };
 };
 type ShopifyCart = {
   id: string; checkoutUrl: string; cost: { subtotalAmount: { amount: string } };
