@@ -56,7 +56,6 @@ header.intro .lede { font-size: 17px; color: var(--mute); max-width: 60ch }
 .jump a.done { border-color: var(--ink) }
 
 form { display: flex; flex-direction: column; gap: 44px; padding-block: 28px 40px }
-.who { display: grid; grid-template-columns: 1fr; gap: 14px }
 section.biz { display: flex; flex-direction: column; gap: 22px; scroll-margin-top: 110px }
 section.biz > header { display: flex; flex-direction: column; gap: 6px; border-top: 1px solid var(--ink); padding-top: 18px }
 section.biz > header p { color: var(--mute); font-size: 15px }
@@ -84,7 +83,6 @@ input:focus-visible, textarea:focus-visible, button:focus-visible, a:focus-visib
 pre.preview { white-space: pre-wrap; word-break: break-word; font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--field); border: 1px solid var(--line); border-radius: 3px; padding: 14px; max-height: 320px; overflow: auto; margin: 0 }
 details summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-size: 15px }
 footer.sig { padding-block: 8px 48px; font-size: 13px; color: var(--mute) }
-@media (min-width: 640px) { .who { grid-template-columns: 1fr 1fr } }
 @media (prefers-reduced-motion: reduce) { .track i { transition: none } html { scroll-behavior: auto } }
 </style>
 
@@ -110,10 +108,6 @@ footer.sig { padding-block: 8px 48px; font-size: 13px; color: var(--mute) }
   </header>
 
   <form id="form" novalidate>
-    <div class="who">
-      <div class="q"><label class="fieldlabel" for="who_name">Your name</label><input type="text" id="who_name" autocomplete="name"></div>
-      <div class="q"><label class="fieldlabel" for="who_role">Business or role</label><input type="text" id="who_role" placeholder="e.g. I&amp;A Group, owner"></div>
-    </div>
     <div id="sections"></div>
 
     <div class="send" id="send">
@@ -192,7 +186,7 @@ footer.sig { padding-block: 8px 48px; font-size: 13px; color: var(--mute) }
   ];
 
   const KEY = "ia-intake-v1";
-  let state = { who_name: "", who_role: "", a: {} };
+  let state = { a: {} };
   try { const s = JSON.parse(localStorage.getItem(KEY) || "null"); if (s && typeof s === "object" && s.a) state = s; } catch (e) {}
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
 
@@ -255,17 +249,10 @@ footer.sig { padding-block: 8px 48px; font-size: 13px; color: var(--mute) }
     jump.appendChild(el("a", { href: "#s-" + s.id, id: "j-" + s.id }, [document.createTextNode(s.title + " "), el("span", { class: "n" })]));
   });
 
-  ["who_name", "who_role"].forEach((id) => {
-    const i = document.getElementById(id);
-    i.value = state[id] || "";
-    i.addEventListener("input", () => { state[id] = i.value; changed(); });
-  });
 
   // Message for WhatsApp
   function message() {
     const lines = ["*I&A website questions*"];
-    const who = [state.who_name, state.who_role].map((x) => (x || "").trim()).filter(Boolean).join(", ");
-    if (who) lines.push("From: " + who);
     SECTIONS.forEach((s) => {
       const done = s.qs.filter(answered);
       if (!done.length) return;
