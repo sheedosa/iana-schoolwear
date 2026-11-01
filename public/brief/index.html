@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#45353a">
+<meta property="og:title" content="I&amp;A websites: a few questions">
+<meta property="og:description" content="Short questions to finish the six I&amp;A websites. About 10 minutes.">
+<link rel="icon" type="image/png" href="../img/logo/favicon-64.png">
+<link rel="apple-touch-icon" href="../img/logo/apple-touch-icon.png">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>I&amp;A Website Questions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Lexend:wght@300;400;500&display=swap">
+<style>
+/* Layout: one calm column built for a phone opened from WhatsApp; sticky progress bar; each business a section with its own count. */
+:root {
+  --ground: #fbfbf9; --ink: #45353a; --mute: #6b5a60; --line: #e6dfe1; --sage: #d8e2dc; --pink: #ffcad4;
+  --field: #ffffff; --chip-on: #45353a; --chip-on-ink: #fbfbf9; --key: #f3e3d0;
+  --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --sans: "Lexend", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --ground: #1f1a1c; --ink: #f1ebec; --mute: #bfb1b5; --line: #3a3135; --sage: #2c3632; --pink: #5a3a42;
+  --field: #2a2427; --chip-on: #f1ebec; --chip-on-ink: #1f1a1c; --key: #4a3a2a; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --ground: #1f1a1c; --ink: #f1ebec; --mute: #bfb1b5; --line: #3a3135; --sage: #2c3632; --pink: #5a3a42;
+  --field: #2a2427; --chip-on: #f1ebec; --chip-on-ink: #1f1a1c; --key: #4a3a2a; color-scheme: dark }
+
+* { box-sizing: border-box }
+body { background: var(--ground); color: var(--ink); font-family: var(--sans); font-weight: 300; font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--ground) }
+.wrap { max-width: 720px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)) }
+h1, h2 { font-family: var(--serif); font-weight: 700; line-height: 1.05; text-wrap: balance; margin: 0 }
+h1 { font-size: clamp(36px, 8vw, 52px) }
+h2 { font-size: clamp(28px, 6vw, 36px) }
+p { margin: 0 }
+.label { text-transform: uppercase; letter-spacing: 0.15em; font-size: 12px; font-weight: 400; color: var(--mute) }
+b, strong { font-weight: 500 }
+
+header.intro { padding-block: 40px 28px; display: flex; flex-direction: column; gap: 14px }
+header.intro .lede { font-size: 17px; color: var(--mute); max-width: 60ch }
+.how { display: flex; flex-direction: column; gap: 6px; background: var(--sage); border-radius: 3px; padding: 16px 18px; font-size: 15px }
+
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--ground); border-bottom: 1px solid var(--line) }
+.bar .wrap { display: flex; flex-direction: column; gap: 8px; padding-block: 10px }
+.prog { display: flex; align-items: center; gap: 12px; font-size: 14px; font-variant-numeric: tabular-nums }
+.track { flex: 1; height: 4px; background: var(--line); border-radius: 2px; overflow: hidden }
+.track i { display: block; height: 100%; width: 0; background: var(--ink); transition: width 300ms ease }
+.jump { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; margin-inline: -4px; padding-inline: 4px }
+.jump::-webkit-scrollbar { display: none }
+.jump a { flex: none; display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 12px; border: 1px solid var(--line); border-radius: 3px; color: var(--ink); text-decoration: none; font-size: 13px; white-space: nowrap }
+.jump a .n { color: var(--mute); font-variant-numeric: tabular-nums }
+.jump a.done { border-color: var(--ink) }
+
+form { display: flex; flex-direction: column; gap: 44px; padding-block: 28px 40px }
+.who { display: grid; grid-template-columns: 1fr; gap: 14px }
+section.biz { display: flex; flex-direction: column; gap: 22px; scroll-margin-top: 110px }
+section.biz > header { display: flex; flex-direction: column; gap: 6px; border-top: 1px solid var(--ink); padding-top: 18px }
+section.biz > header p { color: var(--mute); font-size: 15px }
+.q { display: flex; flex-direction: column; gap: 10px }
+.q .ask { font-size: 17px; font-weight: 400; line-height: 1.4 }
+.q .hint { font-size: 14px; color: var(--mute); margin-top: -4px }
+.key { display: inline-block; vertical-align: 2px; margin-left: 6px; background: var(--key); color: var(--ink); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 7px; border-radius: 3px; font-weight: 400 }
+input[type="text"], textarea { width: 100%; min-width: 0; font: inherit; font-size: 16px; color: var(--ink); background: var(--field); border: 1px solid var(--line); border-radius: 3px; padding: 12px 14px }
+input[type="text"] { min-height: 48px }
+textarea { min-height: 92px; resize: vertical; line-height: 1.5 }
+input:focus-visible, textarea:focus-visible, button:focus-visible, a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-color: var(--ink) }
+.chips { display: flex; flex-wrap: wrap; gap: 8px }
+.chip { min-height: 44px; padding: 0 16px; font: inherit; font-size: 15px; color: var(--ink); background: var(--field); border: 1px solid var(--line); border-radius: 3px; cursor: pointer; text-align: left }
+.chip[aria-pressed="true"] { background: var(--chip-on); color: var(--chip-on-ink); border-color: var(--chip-on) }
+.chip:hover { border-color: var(--ink) }
+.fieldlabel { font-size: 14px; color: var(--mute) }
+
+.send { display: flex; flex-direction: column; gap: 16px; background: var(--sage); border-radius: 3px; padding: 24px 20px }
+.send .row { display: flex; flex-wrap: wrap; gap: 10px }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 22px; border-radius: 3px; font: inherit; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; cursor: pointer; border: 1px solid var(--ink) }
+.btn.primary { background: var(--ink); color: var(--ground) }
+.btn.ghost { background: transparent; color: var(--ink) }
+.btn svg { flex: none }
+.status { font-size: 14px; min-height: 1.4em }
+pre.preview { white-space: pre-wrap; word-break: break-word; font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--field); border: 1px solid var(--line); border-radius: 3px; padding: 14px; max-height: 320px; overflow: auto; margin: 0 }
+details summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-size: 15px }
+footer.sig { padding-block: 8px 48px; font-size: 13px; color: var(--mute) }
+@media (min-width: 640px) { .who { grid-template-columns: 1fr 1fr } }
+@media (prefers-reduced-motion: reduce) { .track i { transition: none } html { scroll-behavior: auto } }
+</style>
+
+</head>
+<body>
+<div class="bar" id="bar">
+  <div class="wrap">
+    <div class="prog"><span id="progText">0 of 0 answered</span><div class="track" aria-hidden="true"><i id="progFill"></i></div></div>
+    <nav class="jump" id="jump" aria-label="Jump to a business"></nav>
+  </div>
+</div>
+
+<div class="wrap">
+  <header class="intro">
+    <p class="label">I&amp;A Group · websites</p>
+    <h1>A few questions before we build.</h1>
+    <p class="lede">Your answers turn the version 1 designs into real shops: the right products, prices and policies on every page. Short answers are fine. Skip anything you're not sure about.</p>
+    <div class="how">
+      <p><b>How it works</b></p>
+      <p>Tap an option or type a short answer. Your answers save on this phone as you go, so you can come back later. When you're done, press <b>Send on WhatsApp</b> at the bottom.</p>
+      <p>Photos (logos, crests, finished projects) are easiest sent straight on WhatsApp.</p>
+    </div>
+  </header>
+
+  <form id="form" novalidate>
+    <div class="who">
+      <div class="q"><label class="fieldlabel" for="who_name">Your name</label><input type="text" id="who_name" autocomplete="name"></div>
+      <div class="q"><label class="fieldlabel" for="who_role">Business or role</label><input type="text" id="who_role" placeholder="e.g. I&amp;A Group, owner"></div>
+    </div>
+    <div id="sections"></div>
+
+    <div class="send" id="send">
+      <h2>Send your answers</h2>
+      <p id="sendSummary">Answer what you can, then send. You can always send more later.</p>
+      <div class="row">
+        <a class="btn primary" id="waBtn" href="https://wa.me/" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.7z"/></svg>
+          Send on WhatsApp
+        </a>
+        <button type="button" class="btn ghost" id="copyBtn">Copy answers</button>
+      </div>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+      <details>
+        <summary>See what will be sent</summary>
+        <pre class="preview" id="preview" tabindex="0"></pre>
+      </details>
+    </div>
+  </form>
+
+  <footer class="sig">Prepared by Elconekt for IandA Group.</footer>
+</div>
+
+<script>
+(function () {
+  // Each business: id, title, note, questions. type: text | long | one (single choice) | many (multi choice).
+  // note: true adds a short "anything to add?" box under a choice. key: true marks answers that change a whole site.
+  const SECTIONS = [
+    { id: "all", title: "All the shops", note: "These apply to every website.", qs: [
+      { id: "delivery", type: "long", ask: "Delivery: what do you charge, is there a free-delivery threshold, and how fast do you ship?", hint: "e.g. £3.95, free over £50, 2–3 working days" },
+      { id: "returns", type: "long", ask: "Returns: how many days, and are any items excluded?" },
+    ]},
+    { id: "school", title: "Schoolwear", qs: [
+      { id: "s_deliver", type: "one", ask: "Do you deliver uniform, or is it collection in the shop only?", opts: ["We deliver and offer collection", "Collection in the shop only", "Not sure yet"], note: true },
+      { id: "s_compulsory", type: "long", ask: "For each school, which items are compulsory?", hint: "e.g. Heathbrook: sweatshirt, polo, book bag" },
+      { id: "s_exchange", type: "one", ask: "Can you exchange embroidered items?", opts: ["Yes", "No", "Case by case"], note: true },
+      { id: "s_crests", type: "one", ask: "Can you send logo files for Gatton, St Andrew's, Vauxhall and Penwortham, and do you have the schools' permission to show their crests?", opts: ["Yes, I'll send them", "I need to ask the schools", "No"], note: true },
+    ]},
+    { id: "modest", title: "Modest wear", note: "I&A Fashions", qs: [
+      { id: "m_range", type: "long", ask: "What do you sell, and roughly how many items?", hint: "e.g. 40 abayas, 25 dresses, 60 hijabs, a few co-ords and prayer sets" },
+      { id: "m_lengths", type: "one", key: true, ask: "Do your abayas and dresses come in different lengths, for example 52\", 56\" and 60\"?", opts: ["Yes, most styles", "Some styles", "One length only"], note: true },
+      { id: "m_fabrics", type: "text", ask: "Which fabrics do you stock most?", hint: "e.g. crepe, satin, linen, jersey, chiffon" },
+      { id: "m_price", type: "text", ask: "What is your price range, from cheapest to most expensive?", hint: "e.g. £15 hijabs to £120 occasion abayas" },
+      { id: "m_preorder", type: "one", ask: "Do you take pre-orders for new collections or Eid?", opts: ["Yes", "Sometimes", "No"] },
+    ]},
+    { id: "formal", title: "Formal wear", qs: [
+      { id: "f_name", type: "one", ask: "Is \"I & A Tailoring\" OK as the name, or would you prefer something else?", opts: ["I & A Tailoring is good", "I & A Formal", "Something else"], note: true },
+      { id: "f_separates", type: "one", key: true, ask: "Do you sell suit jackets and trousers separately, so a customer can buy a different size of each?", opts: ["Yes", "No, matched sets only", "We could start"] },
+      { id: "f_mtm", type: "one", key: true, ask: "Do you do made to measure?", opts: ["Yes", "No", "Thinking about it"], note: true, noteHint: "If yes: price from, deposit, how many weeks, how many fittings" },
+      { id: "f_alter", type: "long", ask: "Are alterations free on suits you sell, and what do you charge otherwise?" },
+      { id: "f_split", type: "text", ask: "Roughly what share of your formal wear is men's, women's and kids'?", hint: "e.g. 60% men, 25% women, 15% kids" },
+      { id: "f_booking", type: "many", ask: "How do customers book appointments now?", opts: ["Phone", "Walk-in", "WhatsApp", "Instagram", "We don't take bookings"] },
+    ]},
+    { id: "perfume", title: "Perfume", qs: [
+      { id: "p_source", type: "one", key: true, ask: "Are these your own scents, other brands you resell, or both?", opts: ["Our own scents", "Other brands we resell", "Both"] },
+      { id: "p_range", type: "text", ask: "How many fragrances, and what sizes?", hint: "e.g. 8 scents, 50ml and 100ml, 2ml samples" },
+      { id: "p_price", type: "text", ask: "What is your price range?" },
+      { id: "p_notes", type: "long", ask: "For each scent, can you give the notes (top, heart, base) or the story behind it?", hint: "A few words each is plenty, or say you'll send a list" },
+      { id: "p_extras", type: "many", ask: "Would you like any of these?", opts: ["Sample sets", "Gift boxes", "A subscription like Ffern's", "Not sure yet"] },
+      { id: "p_name", type: "one", ask: "Does the perfume business have a name, or should it be an I & A sub-brand?", opts: ["It has its own name", "Make it an I & A sub-brand", "Not decided"], note: true, noteHint: "If it has a name, write it here" },
+    ]},
+    { id: "logolab", title: "The London Logo Lab", qs: [
+      { id: "l_services", type: "many", ask: "What do you offer?", opts: ["Embroidery", "Screen printing", "DTF printing", "Vinyl", "Workwear supply", "Uniforms", "Other"], note: true },
+      { id: "l_customers", type: "many", ask: "Who are your main customers?", opts: ["Trades", "Schools", "Sports clubs", "Restaurants & hospitality", "Corporate", "Other"] },
+      { id: "l_min", type: "text", ask: "What is your minimum order, and roughly how long do orders take?", hint: "e.g. 10 items, 7–10 working days" },
+      { id: "l_pricing", type: "one", ask: "Do you price per item, or by quote only?", opts: ["Price per item", "Quote only", "Both"] },
+      { id: "l_feel", type: "many", ask: "What feel do you want for the new brand?", opts: ["Bold", "Premium", "Friendly", "Modern", "Classic"], note: true, noteHint: "Any brands you like the look of?" },
+    ]},
+    { id: "realco", title: "Realco", qs: [
+      { id: "r_lettings", type: "one", ask: "Lettings: do you manage properties for landlords, find tenants, or both?", opts: ["Manage properties", "Find tenants", "Both"], note: true, noteHint: "Which areas?" },
+      { id: "r_short", type: "many", key: true, ask: "Short-term lets: where do guests book?", opts: ["Airbnb", "Booking.com", "We want direct bookings on our own site", "Not doing short lets yet"] },
+      { id: "r_build", type: "long", ask: "Construction: what kind of work, and do you have photos of finished projects?", hint: "e.g. refurbishments, extensions, new builds. Send photos on WhatsApp." },
+      { id: "r_audience", type: "many", ask: "Who is the website mainly for?", opts: ["Landlords", "Tenants", "Short-let guests", "Building clients"] },
+      { id: "r_brand", type: "long", ask: "Does Realco have a logo, and is it a separate company from I & A?" },
+    ]},
+  ];
+
+  const KEY = "ia-intake-v1";
+  let state = { who_name: "", who_role: "", a: {} };
+  try { const s = JSON.parse(localStorage.getItem(KEY) || "null"); if (s && typeof s === "object" && s.a) state = s; } catch (e) {}
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
+
+  const el = (tag, attrs, kids) => {
+    const n = document.createElement(tag);
+    for (const k in (attrs || {})) { if (k === "text") n.textContent = attrs[k]; else if (k.startsWith("on")) n.addEventListener(k.slice(2), attrs[k]); else n.setAttribute(k, attrs[k]); }
+    (kids || []).forEach((c) => c && n.appendChild(c));
+    return n;
+  };
+  const ans = (id) => state.a[id] || (state.a[id] = { v: "", pick: [], note: "" });
+  const answered = (q) => { const a = state.a[q.id]; return !!a && ((a.v || "").trim() !== "" || (a.pick || []).length > 0 || (a.note || "").trim() !== ""); };
+
+  // Build the form
+  const host = document.getElementById("sections");
+  const jump = document.getElementById("jump");
+  SECTIONS.forEach((s) => {
+    const sec = el("section", { class: "biz", id: "s-" + s.id, "aria-labelledby": "h-" + s.id }, [
+      el("header", {}, [el("h2", { id: "h-" + s.id, text: s.title }), s.note ? el("p", { text: s.note }) : null]),
+    ]);
+    s.qs.forEach((q) => {
+      const a = ans(q.id);
+      const fid = "q_" + q.id;
+      const ask = el("p", { class: "ask", id: fid + "_ask" }, [document.createTextNode(q.ask)]);
+      if (q.key) ask.appendChild(el("span", { class: "key", text: "Key question" }));
+      const box = el("div", { class: "q", role: q.type === "one" || q.type === "many" ? "group" : null, "aria-labelledby": fid + "_ask" }, [ask]);
+      if (!box.getAttribute("role")) box.removeAttribute("role");
+      if (q.hint && (q.type === "text" || q.type === "long")) box.appendChild(el("p", { class: "hint", id: fid + "_hint", text: q.hint }));
+      if (q.type === "text" || q.type === "long") {
+        const input = el(q.type === "long" ? "textarea" : "input", { id: fid, "aria-labelledby": fid + "_ask", rows: "3" });
+        if (q.type === "text") { input.setAttribute("type", "text"); input.removeAttribute("rows"); }
+        if (q.hint) input.setAttribute("aria-describedby", fid + "_hint");
+        input.value = a.v || "";
+        input.addEventListener("input", () => { a.v = input.value; changed(); });
+        box.appendChild(input);
+      } else {
+        const chips = el("div", { class: "chips" });
+        q.opts.forEach((o, i) => {
+          const b = el("button", { type: "button", class: "chip", id: fid + "_" + i, "aria-pressed": String(a.pick.includes(o)), text: o });
+          b.addEventListener("click", () => {
+            if (q.type === "one") a.pick = a.pick[0] === o ? [] : [o];
+            else a.pick = a.pick.includes(o) ? a.pick.filter((x) => x !== o) : a.pick.concat(o);
+            chips.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-pressed", String(a.pick.includes(c.textContent))));
+            changed();
+          });
+          chips.appendChild(b);
+        });
+        box.appendChild(chips);
+        if (q.note) {
+          const nid = fid + "_note";
+          const lab = el("label", { class: "fieldlabel", for: nid, text: q.noteHint || "Anything to add? (optional)" });
+          const t = el("input", { type: "text", id: nid });
+          t.value = a.note || "";
+          t.addEventListener("input", () => { a.note = t.value; changed(); });
+          box.appendChild(lab); box.appendChild(t);
+        }
+      }
+      sec.appendChild(box);
+    });
+    host.appendChild(sec);
+    jump.appendChild(el("a", { href: "#s-" + s.id, id: "j-" + s.id }, [document.createTextNode(s.title + " "), el("span", { class: "n" })]));
+  });
+
+  ["who_name", "who_role"].forEach((id) => {
+    const i = document.getElementById(id);
+    i.value = state[id] || "";
+    i.addEventListener("input", () => { state[id] = i.value; changed(); });
+  });
+
+  // Message for WhatsApp
+  function message() {
+    const lines = ["*I&A website questions*"];
+    const who = [state.who_name, state.who_role].map((x) => (x || "").trim()).filter(Boolean).join(", ");
+    if (who) lines.push("From: " + who);
+    SECTIONS.forEach((s) => {
+      const done = s.qs.filter(answered);
+      if (!done.length) return;
+      lines.push("", "*" + s.title + "*");
+      s.qs.forEach((q) => {
+        if (!answered(q)) return;
+        const a = state.a[q.id];
+        const parts = [];
+        if ((a.pick || []).length) parts.push(a.pick.join(", "));
+        if ((a.v || "").trim()) parts.push(a.v.trim());
+        if ((a.note || "").trim()) parts.push(a.note.trim());
+        lines.push("• " + q.ask, "  → " + parts.join(". "));
+      });
+    });
+    const skipped = SECTIONS.reduce((n, s) => n + s.qs.filter((q) => !answered(q)).length, 0);
+    if (skipped) lines.push("", "(" + skipped + " questions left for later)");
+    return lines.join("\n");
+  }
+
+  const total = SECTIONS.reduce((n, s) => n + s.qs.length, 0);
+  function changed() { save(); render(); }
+  function render() {
+    let n = 0;
+    SECTIONS.forEach((s) => {
+      const d = s.qs.filter(answered).length; n += d;
+      const j = document.getElementById("j-" + s.id);
+      j.querySelector(".n").textContent = d + "/" + s.qs.length;
+      j.classList.toggle("done", d === s.qs.length);
+    });
+    document.getElementById("progText").textContent = n + " of " + total + " answered";
+    document.getElementById("progFill").style.width = Math.round((n / total) * 100) + "%";
+    document.getElementById("sendSummary").textContent = n === 0 ? "Answer what you can, then send. You can always send more later."
+      : n === total ? "All " + total + " questions answered. Thank you." : n + " of " + total + " answered. Send now, or come back to finish; your answers stay on this phone.";
+    const msg = message();
+    document.getElementById("preview").textContent = msg;
+    document.getElementById("waBtn").href = "https://wa.me/?text=" + encodeURIComponent(msg);
+  }
+
+  // Copy with a selection fallback
+  document.getElementById("copyBtn").addEventListener("click", () => {
+    const msg = message(); const status = document.getElementById("status");
+    const fallback = () => {
+      const pre = document.getElementById("preview"); pre.closest("details").open = true;
+      const r = document.createRange(); r.selectNodeContents(pre); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+      status.textContent = "Selected below. Copy it, then paste into WhatsApp.";
+    };
+    try { navigator.clipboard.writeText(msg).then(() => { status.textContent = "Copied. Paste it into your WhatsApp chat with Rashid."; }, fallback); } catch (e) { fallback(); }
+  });
+  document.getElementById("waBtn").addEventListener("click", () => {
+    document.getElementById("status").textContent = "WhatsApp should open with your answers. Pick Rashid's chat and press send. If it doesn't open, use Copy answers.";
+  });
+
+  render();
+})();
+</script>
+
+</body>
+</html>
