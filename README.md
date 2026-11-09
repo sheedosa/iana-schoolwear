@@ -22,7 +22,7 @@ npm run dev
 - All copy, prices, hours and company details were checked against iafashions.co.uk on 25 Oct 2026 (`src/data/site.ts`). Product prices and stock come from the live WooCommerce catalogue on that date.
 - Confirmed by the client (Nov 2026) and in `SITE`: standard delivery £4.95 (5 working days), express £7.95 (48 hours), free over £100, drop-off to the child's school £2, click and collect; 28-day returns (suits, bridal and prom excluded group-wide); embroidered items exchanged for the same item in a different size. See `/delivery`.
 - Still to confirm: see `SITE.toConfirm` (cut-off times, school drop-off details, refunds on embroidered items, the official school list, each school's uniform leaflet, crest artwork).
-- Compulsory / optional groups on school pages come from the `list` field in `catalogue.json` (crested garments compulsory; bags, hats, fleeces and swim kit optional) until the school leaflets arrive.
+- School pages group items as "With the school crest" and "Plain items to go with it". Which items are compulsory waits for each school's leaflet.
 - St Andrew's, Vauxhall and Penwortham have no stock online and show as "In store".
 - 23 products have no photo on the current site; they show a designed tile (school colour, garment drawn in line, name in caps) until photographed.
 - Checkout in demo mode shows a notice; with Shopify connected it goes to Shopify's hosted checkout.

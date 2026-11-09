@@ -28,8 +28,6 @@ export type Product = {
   soldOutSizes?: string[]; // sizes with no stock online (Shopify mode only)
   logoItem: boolean;
   tags: string[];
-  /** From the school's uniform list: tag `list:compulsory` / `list:optional` in Shopify. */
-  list?: "compulsory" | "optional";
   /** Maker shown as a line on the card (e.g. Banner), kept out of the title. */
   brand?: string;
   /** Display size -> the option value stored in the store, when they differ. */
@@ -136,8 +134,7 @@ export function tidyProduct(p: Product): Product {
     if (!(shown in sizeMap) || /^0?\d+-[A-Za-z]{3}$/.test(sizeMap[shown])) sizeMap[shown] = raw;
   }
   const sizes = Object.keys(sizeMap);
-  const list = p.list ?? (p.tags.includes("list:compulsory") ? "compulsory" : p.tags.includes("list:optional") ? "optional" : undefined);
-  return { ...p, sizes, sizeMap, list, description: cleanDescription(p.description) };
+  return { ...p, sizes, sizeMap, description: cleanDescription(p.description) };
 }
 
 export function sortSizes(list: string[]) {

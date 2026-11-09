@@ -8,7 +8,7 @@ Target: live on the client's domain between 9 and 16 November 2026. Work top to 
 - [ ] **Products in Shopify**: the 78 products in `src/data/catalogue.json` exist in Shopify with the same handles, prices, sizes as variants, and a `school:<slug>` tag each. (Check: `npm run sync:brand` in the platform repo lists 78 products with a school.)
 - [ ] **Collections in Shopify**: one collection per school (handle = school slug) and per product type, matching `COLLECTIONS` in `src/lib/shopify.ts`.
 - [x] **Policies**: delivery charges, returns window and embroidered exchanges confirmed (Nov 2026) and in `SITE`.
-- [ ] **Still open**: delivery cut-off times; school drop-off details; refunds on embroidered items; official school list; each school's uniform leaflet (set `list:compulsory` / `list:optional` tags in Shopify from it).
+- [ ] **Still open**: delivery cut-off times; school drop-off details; refunds on embroidered items; official school list; each school's uniform leaflet (to show which items are compulsory).
 - [ ] **Original logo files** (AI/EPS/SVG) for I&A Schoolwear and the marque, to replace the rebuilt SVGs in `public/img/logo/brand/`.
 - [ ] **Agrandir web licence** (or a decision to keep Lexend). Swap by changing `--font-sans` in `src/index.css` only.
 - [ ] **School crests** for Gatton, St Andrew's, Vauxhall and Penwortham, with written permission to show them.

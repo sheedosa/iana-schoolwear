@@ -116,8 +116,7 @@
    "logoItem": true,
    "tags": [
     "school:allen-edwards"
-   ],
-   "list": "optional"
+   ]
   },
   {
    "id": "gid://demo/Product/51953",
@@ -153,8 +152,7 @@
    "logoItem": true,
    "tags": [
     "school:allen-edwards"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/51968",
@@ -182,8 +180,7 @@
    "logoItem": true,
    "tags": [
     "school:allen-edwards"
-   ],
-   "list": "optional"
+   ]
   },
   {
    "id": "gid://demo/Product/52008",
@@ -211,8 +208,7 @@
    "logoItem": true,
    "tags": [
     "school:allen-edwards"
-   ],
-   "list": "optional"
+   ]
   },
   {
    "id": "gid://demo/Product/58442",
@@ -250,8 +246,7 @@
    "logoItem": true,
    "tags": [
     "school:allen-edwards"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/52044",
@@ -275,8 +270,7 @@
    "logoItem": true,
    "tags": [
     "school:allen-edwards"
-   ],
-   "list": "optional"
+   ]
   },
   {
    "id": "gid://demo/Product/51983",
@@ -316,8 +310,7 @@
    "logoItem": true,
    "tags": [
     "school:allen-edwards"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/62621",
@@ -796,8 +789,7 @@
    "logoItem": true,
    "tags": [
     "school:fircroft"
-   ],
-   "list": "optional"
+   ]
   },
   {
    "id": "gid://demo/Product/53602",
@@ -825,8 +817,7 @@
    "logoItem": true,
    "tags": [
     "school:fircroft"
-   ],
-   "list": "optional"
+   ]
   },
   {
    "id": "gid://demo/Product/70062",
@@ -855,8 +846,7 @@
    "logoItem": true,
    "tags": [
     "school:fircroft"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/54731",
@@ -880,8 +870,7 @@
    "logoItem": true,
    "tags": [
     "school:fircroft"
-   ],
-   "list": "optional"
+   ]
   },
   {
    "id": "gid://demo/Product/70041",
@@ -913,8 +902,7 @@
    "logoItem": true,
    "tags": [
     "school:fircroft"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/70052",
@@ -945,8 +933,7 @@
    "logoItem": true,
    "tags": [
     "school:fircroft"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/56570",
@@ -979,8 +966,7 @@
    "logoItem": true,
    "tags": [
     "school:fircroft"
-   ],
-   "list": "optional"
+   ]
   },
   {
    "id": "gid://demo/Product/70080",
@@ -1016,8 +1002,7 @@
    "logoItem": true,
    "tags": [
     "school:fircroft"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/63560",
@@ -1041,8 +1026,7 @@
    "logoItem": true,
    "tags": [
     "school:fircroft"
-   ],
-   "list": "optional"
+   ]
   },
   {
    "id": "gid://demo/Product/57513",
@@ -1119,8 +1103,7 @@
    "logoItem": true,
    "tags": [
     "school:gatton"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/67218",
@@ -1147,8 +1130,7 @@
    "logoItem": true,
    "tags": [
     "school:gatton"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/66877",
@@ -1177,8 +1159,7 @@
    "logoItem": true,
    "tags": [
     "school:gatton"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/63578",
@@ -1261,8 +1242,7 @@
    "logoItem": true,
    "tags": [
     "school:heathbrook"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/69837",
@@ -1295,8 +1275,7 @@
    "logoItem": true,
    "tags": [
     "school:heathbrook"
-   ],
-   "list": "optional"
+   ]
   },
   {
    "id": "gid://demo/Product/59947",
@@ -1322,8 +1301,7 @@
    "logoItem": true,
    "tags": [
     "school:heathbrook"
-   ],
-   "list": "optional"
+   ]
   },
   {
    "id": "gid://demo/Product/52113",
@@ -1351,8 +1329,7 @@
    "logoItem": true,
    "tags": [
     "school:heathbrook"
-   ],
-   "list": "optional"
+   ]
   },
   {
    "id": "gid://demo/Product/52170",
@@ -1380,8 +1357,7 @@
    "logoItem": true,
    "tags": [
     "school:heathbrook"
-   ],
-   "list": "optional"
+   ]
   },
   {
    "id": "gid://demo/Product/58740",
@@ -1410,8 +1386,7 @@
    "logoItem": true,
    "tags": [
     "school:heathbrook"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/52086",
@@ -1454,8 +1429,7 @@
    "logoItem": true,
    "tags": [
     "school:heathbrook"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/64107",
@@ -1816,8 +1790,7 @@
    "tags": [
     "school:allen-edwards"
    ],
-   "brand": "Speedo",
-   "list": "optional"
+   "brand": "Speedo"
   },
   {
    "id": "gid://demo/Product/59209",
@@ -1845,8 +1818,7 @@
    "logoItem": true,
    "tags": [
     "school:st-annes"
-   ],
-   "list": "optional"
+   ]
   },
   {
    "id": "gid://demo/Product/50204",
@@ -1874,8 +1846,7 @@
    "logoItem": true,
    "tags": [
     "school:st-annes"
-   ],
-   "list": "optional"
+   ]
   },
   {
    "id": "gid://demo/Product/53169",
@@ -1900,8 +1871,7 @@
    "logoItem": true,
    "tags": [
     "school:st-annes"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/54330",
@@ -1929,8 +1899,7 @@
    "logoItem": true,
    "tags": [
     "school:st-annes"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/51064",
@@ -1958,8 +1927,7 @@
    "logoItem": true,
    "tags": [
     "school:st-annes"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/49531",
@@ -1990,8 +1958,7 @@
    "logoItem": true,
    "tags": [
     "school:st-annes"
-   ],
-   "list": "optional"
+   ]
   },
   {
    "id": "gid://demo/Product/64448",
@@ -2015,8 +1982,7 @@
    "logoItem": true,
    "tags": [
     "school:st-annes"
-   ],
-   "list": "optional"
+   ]
   },
   {
    "id": "gid://demo/Product/52936",
@@ -2051,8 +2017,7 @@
    "logoItem": true,
    "tags": [
     "school:st-annes"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/64451",
@@ -2083,8 +2048,7 @@
    "logoItem": true,
    "tags": [
     "school:st-annes"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/58885",
@@ -2111,8 +2075,7 @@
    "logoItem": true,
    "tags": [
     "school:st-annes"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/64471",
@@ -2141,8 +2104,7 @@
    "logoItem": true,
    "tags": [
     "school:st-annes"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/51274",
@@ -2172,8 +2134,7 @@
    "logoItem": true,
    "tags": [
     "school:st-annes"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/56649",
@@ -2359,8 +2320,7 @@
    "logoItem": true,
    "tags": [
     "school:trinity-st-marys"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/55372",
@@ -2391,8 +2351,7 @@
    "logoItem": true,
    "tags": [
     "school:trinity-st-marys"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/55701",
@@ -2421,8 +2380,7 @@
    "logoItem": true,
    "tags": [
     "school:trinity-st-marys"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/64680",
@@ -2442,8 +2400,7 @@
    "logoItem": true,
    "tags": [
     "school:trinity-st-marys"
-   ],
-   "list": "optional"
+   ]
   },
   {
    "id": "gid://demo/Product/58690",
@@ -2465,8 +2422,7 @@
    "logoItem": true,
    "tags": [
     "school:trinity-st-marys"
-   ],
-   "list": "optional"
+   ]
   },
   {
    "id": "gid://demo/Product/56528",
@@ -2488,8 +2444,7 @@
    "logoItem": true,
    "tags": [
     "school:trinity-st-marys"
-   ],
-   "list": "optional"
+   ]
   },
   {
    "id": "gid://demo/Product/49837",
@@ -2525,8 +2480,7 @@
    "logoItem": true,
    "tags": [
     "school:trinity-st-marys"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/58580",
@@ -2546,8 +2500,7 @@
    "logoItem": true,
    "tags": [
     "school:trinity-st-marys"
-   ],
-   "list": "optional"
+   ]
   },
   {
    "id": "gid://demo/Product/57401",
@@ -2580,8 +2533,7 @@
    "logoItem": true,
    "tags": [
     "school:trinity-st-marys"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/58456",
@@ -2621,8 +2573,7 @@
    "logoItem": true,
    "tags": [
     "school:trinity-st-marys"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/55973",
@@ -2656,8 +2607,7 @@
    "logoItem": true,
    "tags": [
     "school:trinity-st-marys"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/57243",
@@ -2686,8 +2636,7 @@
    "logoItem": true,
    "tags": [
     "school:trinity-st-marys"
-   ],
-   "list": "compulsory"
+   ]
   },
   {
    "id": "gid://demo/Product/64770",

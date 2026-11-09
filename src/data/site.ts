@@ -33,7 +33,7 @@ export const SITE = {
     "school drop-off: which schools, and on which days",
     "whether embroidered items can be refunded, or exchanged for size only, and within how long",
     "which schools I&A officially supplies (the list on the site is from the current website)",
-    "uniform leaflet for each school, showing compulsory and optional items (the client will send these; until then the groups on school pages follow the catalogue)",
+    "uniform leaflet for each school, showing compulsory and optional items (the client will send these; until then school pages group items as crested or plain only)",
     "school crest artwork, with each school's permission",
   ],
 };

@@ -43,13 +43,10 @@ export function SchoolPage() {
     window.scrollTo(0, 0);
   }, [slug]);
 
-  const compulsory = products.filter((p) => p.list !== "optional");
-  const optional = products.filter((p) => p.list === "optional");
-
-  // The one-tap bundle: priced, photographed garments from the compulsory group, and only sizes every one of them comes in.
+  // The one-tap bundle: priced, photographed crested garments, and only sizes every one of them comes in.
   const bundle = useMemo(() => {
     const picked: Product[] = [];
-    const ok = (p: Product) => p.priceMin > 0 && p.images.length > 0 && p.available && p.list !== "optional";
+    const ok = (p: Product) => p.priceMin > 0 && p.images.length > 0 && p.available;
     for (const t of ESSENTIAL_TYPES) {
       const p = products.find((x) => x.productType === t && ok(x) && !picked.includes(x));
       if (p) picked.push(p);
@@ -126,31 +123,19 @@ export function SchoolPage() {
         </section>
       )}
 
-      {products.length > 0 && (
-        <section className="wrap mt-14" aria-labelledby="list-h">
-          <p className="label text-ink/65">From the school's uniform list</p>
-          <h2 id="list-h" className="mt-2 text-3xl font-extrabold">Everything for {school.short}</h2>
-          <p className="mt-2 max-w-[62ch] text-ink/65">Ask to see the school's uniform leaflet in the shop; we're adding each school's leaflet here.</p>
-          {compulsory.length > 0 && (
-            <div className="mt-8">
-              <h3 className="flex items-baseline gap-3 border-b border-ink pb-2 text-xl"><span>Compulsory</span><span className="label text-ink/65">{plural(compulsory.length, "item")}</span></h3>
-              <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4">
-                {compulsory.map((p) => <ProductCard key={p.handle} p={p} school={school} />)}
-              </div>
+      <section className="wrap mt-14" aria-labelledby="list-h">
+        <h2 id="list-h" className="text-3xl font-extrabold">From the school's uniform list</h2>
+        <p className="mt-2 max-w-[62ch] text-ink/70">Which items are compulsory is on the school's uniform leaflet; we'll add it here soon.</p>
+        {products.length > 0 && (
+          <div className="mt-8">
+            <h3 className="flex items-baseline gap-3 border-b border-ink pb-2 text-xl"><span>With the school crest</span><span className="label text-ink/65">{plural(products.length, "item")}</span></h3>
+            <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4">
+              {products.map((p) => <ProductCard key={p.handle} p={p} school={school} />)}
             </div>
-          )}
-          {optional.length > 0 && (
-            <div className="mt-12">
-              <h3 className="flex items-baseline gap-3 border-b border-line pb-2 text-xl"><span>Optional</span><span className="label text-ink/65">{plural(optional.length, "item")}</span></h3>
-              <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4">
-                {optional.map((p) => <ProductCard key={p.handle} p={p} school={school} />)}
-              </div>
-            </div>
-          )}
-        </section>
-      )}
-
-      <Basics plain={plain} />
+          </div>
+        )}
+        <Basics plain={plain} nested />
+      </section>
     </>
   );
 }
@@ -181,20 +166,30 @@ function SchoolHero({ school, children }: { school: School; children: React.Reac
   );
 }
 
-function Basics({ plain }: { plain: Product[] }) {
+function Basics({ plain, nested = false }: { plain: Product[]; nested?: boolean }) {
   if (!plain.length) return null;
+  const grid = (
+    <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4">
+      {plain.map((p) => <ProductCard key={p.handle} p={p} />)}
+    </div>
+  );
+  if (nested) return (
+    <div className="mt-12">
+      <h3 className="border-b border-line pb-2 text-xl">Plain items to go with it</h3>
+      <p className="mt-3 text-ink/70">Trousers, shirts, skirts and knitwear: any school, no logo. <Link to="/collections/all" className="font-medium underline">All plain uniform</Link></p>
+      {grid}
+    </div>
+  );
   return (
     <section className="wrap mt-16">
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
-          <h2 className="text-3xl font-extrabold">Plain basics that go with it</h2>
+          <h2 className="text-3xl font-extrabold">Plain items to go with it</h2>
           <p className="mt-1 text-ink/65">Trousers, shirts, skirts and knitwear: any school, no logo.</p>
         </div>
-        <Link to="/collections/all" className="inline-flex min-h-11 items-center font-medium underline">All basics</Link>
+        <Link to="/collections/all" className="inline-flex min-h-11 items-center font-medium underline">All plain uniform</Link>
       </div>
-      <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4">
-        {plain.map((p) => <ProductCard key={p.handle} p={p} />)}
-      </div>
+      {grid}
     </section>
   );
 }
