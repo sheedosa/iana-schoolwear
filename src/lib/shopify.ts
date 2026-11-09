@@ -28,6 +28,12 @@ export type Product = {
   soldOutSizes?: string[]; // sizes with no stock online (Shopify mode only)
   logoItem: boolean;
   tags: string[];
+  /** From the school's uniform list: tag `list:compulsory` / `list:optional` in Shopify. */
+  list?: "compulsory" | "optional";
+  /** Maker shown as a line on the card (e.g. Banner), kept out of the title. */
+  brand?: string;
+  /** Display size -> the option value stored in the store, when they differ. */
+  sizeMap?: Record<string, string>;
 };
 
 /** Thrown by the Shopify adapter with a message safe to show to the shopper. */
@@ -45,9 +51,15 @@ export type School = {
   colour: string;
   tint: string;
   tile: string | null;
+  /** The school's own crest artwork, once supplied with permission. */
+  crest?: string | null;
   area: string;
   productCount: number;
 };
+
+/** Schools with fewer than this many products online are shown as "In store". */
+export const ONLINE_MIN = 3;
+export const inStoreOnly = (s: School) => s.productCount < ONLINE_MIN;
 
 export type CartLine = { id: string; product: Product; size: string | null; quantity: number };
 export type Cart = { lines: CartLine[]; subtotal: number; checkoutUrl: string | null };
@@ -65,9 +77,11 @@ export interface Storefront {
 }
 
 // ---------- shared helpers ----------
+const NOT_CLOTHING = new Set(["Bags", "Accessories"]);
+const isBag = (p: Product) => p.productType === "Bags" || /\b(bag|backpack|bookbag)\b/i.test(p.title);
 export const COLLECTIONS: Record<string, { title: string; banner: string; match: (p: Product) => boolean; blurb: string }> = {
-  boys: { title: "Boys", banner: "/img/banners/boys.webp", match: (p) => p.gender !== "Girls", blurb: "Trousers, shirts and knitwear that last the year." },
-  girls: { title: "Girls", banner: "/img/banners/girls.webp", match: (p) => p.gender !== "Boys", blurb: "Dresses, skirts, pinafores and cardigans." },
+  boys: { title: "Boys", banner: "/img/banners/boys.webp", match: (p) => p.gender !== "Girls" && !NOT_CLOTHING.has(p.productType) && !isBag(p), blurb: "Trousers, shirts and knitwear that last the year." },
+  girls: { title: "Girls", banner: "/img/banners/girls.webp", match: (p) => p.gender !== "Boys" && !NOT_CLOTHING.has(p.productType) && !isBag(p), blurb: "Dresses, skirts, pinafores and cardigans." },
   "pe-kit": { title: "PE kit", banner: "/img/banners/pe-kit.webp", match: (p) => p.productType === "PE kit", blurb: "T-shirts, shorts, bags and swim kit for every school." },
   bags: { title: "Bags", banner: "/img/banners/bags.webp", match: (p) => p.productType === "Bags", blurb: "Book bags, backpacks and PE bags with your school's crest." },
   blazers: { title: "Blazers", banner: "/img/banners/blazers.webp", match: (p) => p.productType === "Blazers", blurb: "Banner flannel and S-Cut blazers, fitted in store or at home." },
@@ -84,13 +98,69 @@ export function priceLabel(p: Product) {
   return formatPrice(p.priceMin);
 }
 
+// ---------- data hygiene (both modes) ----------
+const MONTHS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+const LETTERS: Record<string, string> = { "x-small": "XS", "xsmall": "XS", small: "S", medium: "M", large: "L", "x-large": "XL" };
+
+/** One size vocabulary: "3–4 yrs", "13 yrs", "XS", "28". Also repairs spreadsheet dates ("03-Apr" -> "3–4 yrs"). */
+export function normaliseSize(raw: string, letterWords = true): string {
+  let s = raw.trim().replace(/\s+/g, " ");
+  const date = s.match(/^0?(\d{1,2})-([A-Za-z]{3})$/);
+  if (date && MONTHS.includes(date[2].toLowerCase())) s = `${Number(date[1])}-${MONTHS.indexOf(date[2].toLowerCase()) + 1}`;
+  const range = s.match(/^(\d{1,2})\s*[-/–]\s*(\d{1,2})\s*(y|yr|yrs|years?)?$/i);
+  if (range) return `${Number(range[1])}–${Number(range[2])} yrs`;
+  const single = s.match(/^(\d{1,2})\s*(y|yr|yrs|years?)$/i);
+  if (single) return `${Number(single[1])} yrs`;
+  if (/^one size$/i.test(s)) return "One size";
+  if (letterWords && LETTERS[s.toLowerCase()]) return LETTERS[s.toLowerCase()];
+  return s;
+}
+
+/** Descriptions imported from the old site were cut at 300 characters. End on a full sentence, or drop them. */
+export function cleanDescription(d: string): string {
+  const t = d.replace(/\u00a0/g, " ").replace(/[ \t]+/g, " ").trim();
+  if (!t) return "";
+  if (/[.!?)]$/.test(t)) return t;
+  const stop = Math.max(t.lastIndexOf(". "), t.lastIndexOf(".\n"), t.lastIndexOf("! "));
+  if (stop > 40) return t.slice(0, stop + 1).trim();
+  return t.length <= 140 ? `${t}.` : "";
+}
+
+/** Normalise sizes (dedupe, keep the store value for checkout) and descriptions. */
+export function tidyProduct(p: Product): Product {
+  const sizeMap: Record<string, string> = {};
+  const letterWords = p.sizes.length > 1 && p.productType !== "Bags";
+  for (const raw of p.sizes) {
+    const shown = normaliseSize(raw, letterWords);
+    // Prefer an uncorrupted store value when two collapse to the same label.
+    if (!(shown in sizeMap) || /^0?\d+-[A-Za-z]{3}$/.test(sizeMap[shown])) sizeMap[shown] = raw;
+  }
+  const sizes = Object.keys(sizeMap);
+  const list = p.list ?? (p.tags.includes("list:compulsory") ? "compulsory" : p.tags.includes("list:optional") ? "optional" : undefined);
+  return { ...p, sizes, sizeMap, list, description: cleanDescription(p.description) };
+}
+
+export function sortSizes(list: string[]) {
+  const letters = ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL"];
+  const key = (s: string): [number, number] => {
+    if (letters.includes(s)) return [2, letters.indexOf(s)];
+    const m = s.match(/\d+(\.\d+)?/);
+    if (!m) return [3, 0];
+    return [/yrs$/.test(s) ? 0 : 1, Number(m[0])];
+  };
+  return [...list].sort((a, b) => { const ka = key(a), kb = key(b); return ka[0] - kb[0] || ka[1] - kb[1] || a.localeCompare(b); });
+}
+
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 export const asset = (path: string) => (path.startsWith("http") ? path : `${base}${path}`);
 
 // ---------- demo implementation ----------
 class DemoStorefront implements Storefront {
   mode = "demo" as const;
-  private data = catalogue as { schools: School[]; products: Product[] };
+  private data = (() => {
+    const raw = catalogue as { schools: School[]; products: Product[] };
+    return { schools: raw.schools, products: raw.products.map(tidyProduct) };
+  })();
   private lines: CartLine[] = [];
   private listeners = new Set<(c: Cart) => void>();
 
@@ -137,8 +207,8 @@ class DemoStorefront implements Storefront {
       const q = f.query.toLowerCase();
       list = list.filter((p) => p.title.toLowerCase().includes(q) || p.productType.toLowerCase().includes(q));
     }
-    // images first, then logo items, then by title
-    return [...list].sort((a, b) => Number(!!b.images.length) - Number(!!a.images.length) || Number(b.available) - Number(a.available) || Number(b.logoItem) - Number(a.logoItem) || a.title.localeCompare(b.title));
+    // garments before bags, images first, then logo items, then by title
+    return [...list].sort((a, b) => Number(isBag(a)) - Number(isBag(b)) || Number(!!b.images.length) - Number(!!a.images.length) || Number(b.available) - Number(a.available) || Number(b.logoItem) - Number(a.logoItem) || a.title.localeCompare(b.title));
   }
   async product(handle: string) { return this.data.products.find((p) => p.handle === handle); }
   async cart() { return this.snapshot(); }
@@ -232,7 +302,11 @@ class ShopifyStorefront implements Storefront {
       logoItem: !!school,
       tags: n.tags,
     };
-    this.productCache.set(p.handle, p);
+    const tidy = tidyProduct(p);
+    // Sold-out flags are keyed by the store's value; map them to the shown label.
+    if (tidy.soldOutSizes) tidy.soldOutSizes = tidy.sizes.filter((s) => tidy.soldOutSizes!.includes(tidy.sizeMap?.[s] ?? s));
+    this.productCache.set(tidy.handle, tidy);
+    return tidy;
     return p;
   }
 
@@ -267,7 +341,9 @@ class ShopifyStorefront implements Storefront {
     const nodes = data.product?.variants.nodes ?? [];
     if (!nodes.length) throw new StorefrontError("This product is no longer available online.", "no_variant");
     // Never fall back to a different size: a wrong-size uniform is a return and an unhappy parent.
-    const v = size ? nodes.find((x) => x.selectedOptions.some((o) => /size/i.test(o.name) && o.value === size)) : nodes[0];
+    const cached = this.productCache.get(handle);
+    const storeValue = size ? cached?.sizeMap?.[size] ?? size : null;
+    const v = storeValue ? nodes.find((x) => x.selectedOptions.some((o) => /size/i.test(o.name) && o.value === storeValue)) : nodes[0];
     if (!v) throw new StorefrontError(`Size ${size} isn't available for this item.`, "no_variant");
     if (!v.availableForSale) throw new StorefrontError(`${size ? `Size ${size} is` : "This item is"} out of stock online. Call the shop to check the shelf.`, "out_of_stock");
     return v.id;
@@ -281,12 +357,15 @@ class ShopifyStorefront implements Storefront {
   }
 
   private toCart(c: ShopifyCart): Cart {
-    const lines: CartLine[] = c.lines.nodes.map((l) => ({
+    const lines: CartLine[] = c.lines.nodes.map((l) => {
+      const rawSize = l.merchandise.selectedOptions.find((o) => /size/i.test(o.name))?.value;
+      return {
       id: l.id,
       quantity: l.quantity,
-      size: l.merchandise.selectedOptions.find((o) => /size/i.test(o.name))?.value ?? null,
+      size: rawSize ? normaliseSize(rawSize) : null,
       product: this.productCache.get(l.merchandise.product.handle) ?? this.toProduct(l.merchandise.product),
-    }));
+      };
+    });
     const cart = { lines, subtotal: Number(c.cost.subtotalAmount.amount), checkoutUrl: c.checkoutUrl };
     this.listeners.forEach((fn) => fn(cart));
     return cart;

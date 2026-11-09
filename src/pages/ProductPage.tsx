@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ProductCard } from "../components/ProductCard";
+import { PhotoComing, ProductCard } from "../components/ProductCard";
 import { useCart } from "../lib/cart";
-import { asset, priceLabel, storefront, StorefrontError, type Product, type School } from "../lib/shopify";
-import { sortSizes } from "./SchoolPage";
+import { asset, priceLabel, sortSizes, storefront, StorefrontError, type Product, type School } from "../lib/shopify";
 import { Seo, breadcrumbs } from "../components/Seo";
-import { SITE } from "../data/site";
+import { SITE, money } from "../data/site";
 
 export function ProductPage() {
   const { handle = "" } = useParams();
@@ -33,7 +32,7 @@ export function ProductPage() {
       if (!prod) return;
       setSchool(prod.school ? await storefront.school(prod.school) : undefined);
       const rel = await storefront.products(prod.school ? { school: prod.school } : { type: prod.productType });
-      setRelated(rel.filter((r) => r.handle !== prod.handle).slice(0, 4));
+      setRelated(rel.filter((r) => r.handle !== prod.handle && !(r.images[0] && prod.images.includes(r.images[0]))).slice(0, 4));
     });
   }, [handle]);
 
@@ -49,21 +48,19 @@ export function ProductPage() {
   return (
     <>
       <Seo title={p.title} description={`${p.title}${school ? ` for ${school.name}` : ""}: ${priceLabel(p)}. ${p.description || "Embroidered school uniform from I&A, Tooting."}`.slice(0, 160)} path={`/products/${p.handle}`} image={p.images[0]} type="product" jsonLd={[productLd, breadcrumbs([{ name: "Home", path: "/" }, ...(school ? [{ name: school.short, path: `/schools/${school.slug}` }] : [{ name: p.productType, path: "/collections/all" }]), { name: p.title, path: `/products/${p.handle}` }])]} />
-      <section className="wrap grid gap-10 py-8 lg:grid-cols-[1.1fr_1fr] lg:py-12">
+      <section className="wrap grid gap-6 py-5 sm:gap-10 sm:py-8 lg:grid-cols-[1.1fr_1fr] lg:py-12">
         <div>
-          <div className="aspect-[4/5] overflow-hidden rounded-md border border-line bg-white">
+          <div className="aspect-[4/3] overflow-hidden rounded-md border border-line bg-white sm:aspect-[4/5]">
             {p.images[img] ? (
-              <img src={asset(p.images[img])} alt={p.title} className="h-full w-full object-cover" />
+              <img src={asset(p.images[img])} alt={p.title} className="h-full w-full object-contain sm:object-cover" />
             ) : (
-              <div className="flex h-full items-center justify-center p-10 text-center" style={{ background: school?.tint ?? "#eef0f3" }}>
-                <p className="text-ink/60">Photo coming soon. This item is in store now, embroidered with the {school?.short ?? "school"} crest.</p>
-              </div>
+              <PhotoComing p={p} school={p.logoItem ? school : undefined} large />
             )}
           </div>
           {p.images.length > 1 && (
             <div className="mt-3 flex flex-wrap gap-2">
               {p.images.map((src, i) => (
-                <button key={src} type="button" onClick={() => setImg(i)} aria-label={`Show photo ${i + 1} of ${p.images.length}`} aria-pressed={i === img} className={`h-20 w-16 overflow-hidden rounded border ${i === img ? "border-ink" : "border-line"}`}><img src={asset(src)} alt="" className="h-full w-full object-cover" /></button>
+                <button key={src} type="button" onClick={() => setImg(i)} aria-label={`Show photo ${i + 1} of ${p.images.length}`} aria-pressed={i === img} className={`h-16 w-14 overflow-hidden rounded border sm:h-20 sm:w-16 ${i === img ? "border-ink" : "border-line"}`}><img src={asset(src)} alt="" className="h-full w-full object-cover" /></button>
               ))}
             </div>
           )}
@@ -73,23 +70,24 @@ export function ProductPage() {
           {school && <Link to={`/schools/${school.slug}`} className="inline-flex min-h-11 items-center gap-2 font-medium" style={{ color: school.colour }}><span className="h-2.5 w-2.5 rounded-full" style={{ background: school.colour }} />{school.name}</Link>}
           <h1 className="mt-2 text-3xl font-extrabold sm:text-4xl">{p.title}</h1>
           <p className="mt-2 text-2xl font-medium">{p.priceMin > 0 ? priceLabel(p) : "Price in store"}</p>
-          {p.description && <p className="mt-4 whitespace-pre-line break-words text-ink/70">{p.description.replace(/\u00a0/g, " ")}</p>}
+          {p.brand && <p className="label mt-1 text-ink/65">By {p.brand}</p>}
+          {p.description && <p className="mt-4 whitespace-pre-line break-words text-ink/75">{p.description}</p>}
 
           {needsSize && (
             <div className="mt-6" id="size-picker">
               <div className="flex items-center justify-between">
                 <span className="font-medium">Size</span>
-                <button type="button" onClick={() => setGuide(true)} className="min-h-11 px-2 text-sm underline">Size guide</button>
+                <button type="button" onClick={() => setGuide(true)} className="min-h-11 px-2 underline">Size guide</button>
               </div>
               <div className="mt-2 flex flex-wrap gap-2">
                 {sortSizes(p.sizes).map((s) => {
                   const soldOut = p.soldOutSizes?.includes(s) ?? false;
                   return (
-                    <button key={s} type="button" aria-pressed={size === s} aria-label={soldOut ? `${s}, out of stock online` : s} onClick={() => { setSize(s); setErr(null); }} className={`min-h-11 min-w-14 rounded-pill border px-3 py-2 text-sm font-medium ${size === s ? "border-ink bg-ink text-white" : soldOut ? "border-line bg-white text-ink/50 line-through hover:border-ink" : "border-line bg-white hover:border-ink"}`}>{s}</button>
+                    <button key={s} type="button" aria-pressed={size === s} aria-label={soldOut ? `${s}, out of stock online` : s} onClick={() => { setSize(s); setErr(null); }} className={`pill min-w-14 justify-center font-medium ${soldOut && size !== s ? "text-ink/50 line-through" : ""}`}>{s}</button>
                   );
                 })}
               </div>
-              <p className="mt-2 text-sm text-ink/55">Between two sizes? Go up; children grow into it by spring.</p>
+              <p className="mt-2 text-ink/65">Between two sizes? Go up; children grow into it by spring.</p>
             </div>
           )}
 
@@ -103,22 +101,23 @@ export function ProductPage() {
               {p.available ? "Add to basket" : "Out of stock online"}
             </button>
           </div>
-          {err ? <p role="alert" className="mt-2 text-sm text-ink">{err} {err.includes("stock") ? <>Call <a href={`tel:${SITE.phoneIntl}`} className="underline">{SITE.phone}</a> to check the shelf in Tooting.</> : null}</p> : null}
-          {!p.available ? <p className="mt-2 text-sm text-ink/55">Call {SITE.phone} to check what's in the shop; most sizes are on the shelf in Tooting.</p> : needsSize && !size ? <p className="mt-2 text-sm text-ink/55">Choose a size to add this.</p> : null}
+          {err ? <p role="alert" className="mt-2 text-ink">{err} {err.includes("stock") ? <>Call <a href={`tel:${SITE.phoneIntl}`} className="underline">{SITE.phone}</a> to check the shelf in Tooting.</> : null}</p> : null}
+          {!p.available ? <p className="mt-2 text-ink/65">Call {SITE.phone} to check what's in the shop; most sizes are on the shelf in Tooting.</p> : needsSize && !size ? <p className="mt-2 text-ink/65">Choose a size to add this.</p> : null}
 
-          <dl className="mt-8 divide-y divide-line border-y border-line text-[15px]">
-            <div className="flex justify-between gap-4 py-3"><dt className="text-ink/60">Delivery</dt><dd className="text-right">UK delivery; costs shown at checkout</dd></div>
-            <div className="flex justify-between gap-4 py-3"><dt className="text-ink/60">Collect</dt><dd className="text-right">Collect from {SITE.address.street}, {SITE.address.area}</dd></div>
-            <div className="flex justify-between gap-4 py-3"><dt className="text-ink/60">Returns</dt><dd className="text-right">{p.logoItem ? "Embroidered to order; faulty items replaced" : "Plain items can be returned; call us to arrange"}</dd></div>
-            <div className="flex justify-between gap-4 py-3"><dt className="text-ink/60">Pay</dt><dd className="text-right">Card, or Klarna Pay in 3</dd></div>
+          <dl className="mt-8 divide-y divide-line border-y border-line">
+            <div className="grid gap-1 py-3 sm:grid-cols-[110px_1fr] sm:gap-4"><dt className="label pt-0.5 text-ink/65">Delivery</dt><dd>Standard {money(SITE.delivery.standard.price)}, {SITE.delivery.standard.time}. Express {money(SITE.delivery.express.price)}, {SITE.delivery.express.time}. Free on orders of £{SITE.delivery.freeOver} and over.</dd></div>
+            <div className="grid gap-1 py-3 sm:grid-cols-[110px_1fr] sm:gap-4"><dt className="label pt-0.5 text-ink/65">To school</dt><dd>Drop-off to your child's school for £{SITE.delivery.schoolDropOff}.</dd></div>
+            <div className="grid gap-1 py-3 sm:grid-cols-[110px_1fr] sm:gap-4"><dt className="label pt-0.5 text-ink/65">Collect</dt><dd>Click and collect from {SITE.address.street}, {SITE.address.area}.</dd></div>
+            <div className="grid gap-1 py-3 sm:grid-cols-[110px_1fr] sm:gap-4"><dt className="label pt-0.5 text-ink/65">{p.logoItem ? "Exchanges" : "Returns"}</dt><dd>{p.logoItem ? SITE.returns.embroidered : `${SITE.returns.days}-day returns.`} <Link to="/delivery" className="underline">Delivery and returns</Link></dd></div>
+            <div className="grid gap-1 py-3 sm:grid-cols-[110px_1fr] sm:gap-4"><dt className="label pt-0.5 text-ink/65">Pay</dt><dd>Card, or Klarna Pay in 3.</dd></div>
           </dl>
         </div>
       </section>
 
       <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-white/95 p-3 backdrop-blur lg:hidden">
         <div className="flex items-center gap-3">
-          <div className="min-w-0 flex-1"><p className="truncate text-sm font-medium">{p.title}</p><p className="text-sm text-ink/60">{size ? `Size ${size}` : needsSize ? "Choose a size" : priceLabel(p)}</p></div>
-          <button type="button" disabled={busy || (needsSize && !size)} onClick={async () => { if (needsSize && !size) { document.getElementById("size-picker")?.scrollIntoView({ behavior: "smooth", block: "center" }); return; } void tryAdd(p.handle, size || null); }} className="btn btn-primary shrink-0 disabled:opacity-60">{priceLabel(p)} · Add</button>
+          <div className="min-w-0 flex-1"><p className="truncate text-sm font-medium">{p.title}</p><p className="text-ink/65">{size ? `Size ${size}` : needsSize ? "Choose a size" : priceLabel(p)}</p></div>
+          <button type="button" disabled={busy || (needsSize && !size)} onClick={async () => { if (needsSize && !size) { document.getElementById("size-picker")?.scrollIntoView({ behavior: "smooth", block: "center" }); return; } void tryAdd(p.handle, size || null); }} className="btn btn-primary shrink-0 disabled:opacity-60">{p.priceMin > 0 ? `${priceLabel(p)} · Add` : "Add to basket"}</button>
         </div>
       </div>
       <div className="h-20 lg:hidden" aria-hidden />
@@ -137,7 +136,7 @@ export function ProductPage() {
       {related.length > 0 && (
         <section className="wrap mt-8">
           <h2 className="text-3xl font-extrabold">{school ? `More for ${school.short}` : "You might also need"}</h2>
-          <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4">{related.map((r) => <ProductCard key={r.handle} p={r} school={school} />)}</div>
+          <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4">{related.map((r) => <ProductCard key={r.handle} p={r} school={school ?? undefined} />)}</div>
         </section>
       )}
     </>
@@ -154,7 +153,7 @@ export function SizeTable() {
     ["13", "158", "82", "70", "96"],
   ];
   return (
-    <table className="mt-4 w-full text-sm">
+    <table className="mt-4 w-full">
       <thead><tr className="text-left text-ink/55"><th className="py-2 font-medium">Age</th><th className="font-medium">Height cm</th><th className="font-medium">Chest cm</th><th className="font-medium">Waist cm</th><th className="font-medium">Inside leg cm</th></tr></thead>
       <tbody className="divide-y divide-line">{rows.map((r) => <tr key={r[0]}>{r.map((c, i) => <td key={i} className={`py-2 ${i === 0 ? "font-medium" : ""}`}>{c}</td>)}</tr>)}</tbody>
     </table>

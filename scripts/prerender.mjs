@@ -10,7 +10,7 @@ const SITE = "https://sheedosa.github.io" + BASE;
 const dist = new URL("../dist/", import.meta.url).pathname;
 const cat = JSON.parse(readFileSync(new URL("../src/data/catalogue.json", import.meta.url)));
 
-const routes = ["/", "/schools", "/size-guide", "/about",
+const routes = ["/", "/schools", "/size-guide", "/about", "/delivery",
   ...cat.schools.map((s) => `/schools/${s.slug}`),
   ...["boys", "girls", "pe-kit", "bags", "blazers", "all"].map((c) => `/collections/${c}`),
   ...cat.products.map((p) => `/products/${p.handle}`)];
@@ -44,10 +44,10 @@ await browser.close(); server.close();
 const today = new Date().toISOString().slice(0, 10);
 writeFileSync(join(dist, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${routes.map((r) => `  <url><loc>${SITE}${r === "/" ? "/" : r}</loc><lastmod>${today}</lastmod><changefreq>${r.startsWith("/products") ? "weekly" : "monthly"}</changefreq><priority>${r === "/" ? "1.0" : r.startsWith("/schools/") ? "0.9" : "0.7"}</priority></url>`).join("\n")}\n</urlset>\n`);
 
-const schools = cat.schools.map((s) => `- [${s.name}](${SITE}/schools/${s.slug}): ${s.area}, ${s.productCount} embroidered items`).join("\n");
+const schools = cat.schools.map((s) => `- [${s.name}](${SITE}/schools/${s.slug}): ${s.area}, ${s.productCount < 3 ? "in store only" : `${s.productCount} embroidered items online`}`).join("\n");
 writeFileSync(join(dist, "llms.txt"), `# I&A Schoolwear
 
-> Family-run school uniform and clothing shop at 84 Mitcham Road, Tooting, London SW17 9NG, trading since 1993. Supplies embroidered uniform to nine south London schools and plain school basics for any school. In-house embroidery, eco uniform range, Klarna Pay in 3, click and collect. Open Monday to Sunday 9am to 6pm. Phone 020 8767 8613.
+> Family-run school uniform and clothing shop at 84 Mitcham Road, Tooting, London SW17 9NG, trading since 1993. Supplies embroidered uniform to nine south London schools and plain school basics for any school. In-house embroidery, eco uniform range, Klarna Pay in 3. Standard delivery £4.95 (5 working days), express £7.95 (48 hours), free over £100, drop-off to your child's school £2, click and collect. Open Monday to Sunday 9am to 6pm. Phone 020 8767 8613.
 
 ## Schools supplied
 ${schools}
@@ -62,12 +62,13 @@ ${schools}
 
 ## Help
 - [Size guide](${SITE}/size-guide): measure by height, chest, waist and inside leg; size up if between sizes
-- [About, delivery, returns, eco uniform](${SITE}/about)
+- [Delivery and returns](${SITE}/delivery): standard £4.95, express £7.95, free over £100, school drop-off £2, 28-day returns
+- [About and eco uniform](${SITE}/about)
 
 ## Facts
 - Legal name: I & A Fashions Limited, trading as I & A School Uniform. Company number 07202123.
 - Member of the Schoolwear Association and the Federation of Small Businesses.
-- Embroidered items are made to order; ask the shop about exchanges. Plain items can be returned; call the shop to arrange.
+- 28-day returns. Embroidered items can be exchanged for the same item in a different size.
 - Prices are in GBP and include VAT. Product pages carry schema.org Product data.
 `);
 console.log(`prerendered ${n} routes, sitemap + llms.txt written`);

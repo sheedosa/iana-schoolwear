@@ -2,9 +2,15 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { SchoolFinder } from "../components/SchoolFinder";
 import { ProductCard } from "../components/ProductCard";
-import { asset, COLLECTIONS, storefront, type Product, type School } from "../lib/shopify";
+import { asset, COLLECTIONS, inStoreOnly, storefront, type Product, type School } from "../lib/shopify";
 import { Seo } from "../components/Seo";
-import { SITE } from "../data/site";
+import { SITE, money } from "../data/site";
+
+const FIRST_DAY = [
+  { img: "heathbrook-walk", school: "heathbrook", label: "Heathbrook", alt: "A child seen from behind, walking to school with a Heathbrook backpack" },
+  { img: "trinity-pe-gym", school: "trinity-st-marys", label: "Trinity St Mary's PE kit", alt: "Trinity St Mary's PE T-shirt and drawstring PE bag in a school hall" },
+  { img: "st-annes-hallway", school: "st-annes", label: "St Anne's", alt: "A St Anne's backpack and striped tie hanging on a hallway peg" },
+];
 
 export function Home() {
   const [schools, setSchools] = useState<School[]>([]);
@@ -18,73 +24,62 @@ export function Home() {
   return (
     <>
       <Seo title="School uniform for south London schools" description="Embroidered school uniform, PE kit and bags for Heathbrook, Fircroft, Allen Edwards, Trinity St Mary's, St Anne's and more, plus plain basics. Family-run in Tooting since 1993. Pay in 3 with Klarna." path="/" jsonLd={{ "@context": "https://schema.org", "@type": "WebSite", url: SITE.url, name: SITE.name, potentialAction: { "@type": "SearchAction", target: `${SITE.url}/schools?q={search_term_string}`, "query-input": "required name=search_term_string" } }} />
-      {/* Hero: the peg rail, and one question */}
+      {/* Hero: the peg rail, and one question. One h1; on desktop the copy sits in a panel over the wall, never on the garments. */}
       <section className="relative">
         <picture>
           <source media="(max-width: 1023px)" srcSet={asset("/img/hero/home-mobile.webp")} />
-          <img src={asset("/img/hero/home-desktop.webp")} alt="Four school sweatshirts hanging on a peg rail with two backpacks below" className="h-[56vh] min-h-[420px] w-full object-cover object-[50%_30%] lg:h-[78vh] lg:min-h-[560px] lg:object-[20%_center]" fetchPriority="high" />
+          <img src={asset("/img/hero/home-desktop.webp")} alt="Four school sweatshirts hanging on a peg rail with two backpacks below" className="h-[30vh] min-h-[220px] w-full object-cover object-[50%_35%] lg:h-[74vh] lg:min-h-[560px] lg:object-[0%_center]" fetchPriority="high" />
         </picture>
-        <div className="absolute inset-0 hidden lg:block lg:bg-gradient-to-l lg:from-ink/50 lg:via-ink/20 lg:to-transparent" />
-        <div className="absolute inset-0 hidden lg:block">
-          <div className="wrap flex h-full flex-col justify-end pb-10 lg:items-end lg:justify-center lg:pb-0">
-            <div className="max-w-2xl text-white lg:w-[52%]">
-              <h1 className="display text-[2.6rem] lg:text-6xl lg:text-7xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.25)]">School uniform, sorted in one visit.</h1>
-              <p className="mt-4 max-w-md text-lg text-white/90">Embroidered uniform for nine south London schools, plus the plain basics, from a family shop in Tooting since 1993. Pick your school and we'll show you what's on the list.</p>
-            </div>
-            <div className="mt-6 w-full max-w-xl lg:w-[52%]"><SchoolFinder size="lg" /></div>
-            <p className="mt-3 text-sm text-white/80 lg:w-[52%]">Embroidered in house. Pay in 3 with Klarna. Collect from Mitcham Road.</p>
-          </div>
-        </div>
-        <div className="wrap -mt-6 relative lg:hidden">
-          <div className="rounded-md bg-white p-5 shadow-[0_12px_40px_rgba(27,42,74,0.12)]">
-            <h1 className="display text-[2.3rem]">School uniform, sorted in one visit.</h1>
-            <p className="mt-3 text-ink/70">Embroidered uniform for nine south London schools, plus the plain basics. Tooting since 1993.</p>
-            <div className="mt-4"><SchoolFinder size="lg" /></div>
+        <div className="wrap relative -mt-8 lg:absolute lg:inset-0 lg:mt-0 lg:flex lg:items-center lg:justify-end">
+          <div className="rounded-md bg-white p-5 shadow-[0_12px_40px_rgba(69,53,58,0.12)] sm:p-7 lg:w-[46%] lg:max-w-[560px] lg:p-10">
+            <h1 className="display text-[2.25rem] sm:text-5xl lg:text-[3.6rem]">School uniform, sorted in one visit.</h1>
+            <p className="mt-3 max-w-md text-ink/70 lg:mt-4 lg:text-lg">Embroidered uniform for south London schools, plus the plain basics, from a family shop in Tooting since 1993. Pick your school and we'll show you what's on the list.</p>
+            <div className="mt-5"><SchoolFinder size="lg" id="school-finder-hero" /></div>
           </div>
         </div>
       </section>
 
       {/* Schools */}
-      <section className="bg-sage-soft py-14">
+      <section className="mt-12 bg-sage-soft py-14 lg:mt-0">
         <div className="wrap">
         <div className="flex items-end justify-between gap-4">
           <div>
             <h2 className="text-4xl font-extrabold">Shop by school</h2>
-            <p className="mt-1 text-ink/60">Each page shows your school's embroidered items first, then the plain basics that go with them.</p>
+            <p className="mt-1 max-w-[52ch] text-ink/65">Each page shows your school's embroidered items first, then the plain basics that go with them.</p>
           </div>
-          <Link to="/schools" className="hidden sm:inline font-medium underline">All schools</Link>
+          <Link to="/schools" className="hidden min-h-11 items-center font-medium underline sm:inline-flex">All schools</Link>
         </div>
         <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
           {schools.filter((s) => s.tile).map((s) => (
             <Link key={s.slug} to={`/schools/${s.slug}`} className="lift group block">
-              <div className="aspect-square overflow-hidden rounded-md" style={{ background: s.tint }}>
-                <img src={asset(s.tile!)} alt="" className="h-full w-full object-cover" loading="lazy" />
+              <div className="aspect-square overflow-hidden rounded-md bg-sage">
+                <img src={asset(s.tile!.replace("/tiles/", "/tiles/sage/"))} alt="" className="h-full w-full object-cover" loading="lazy" />
               </div>
               <div className="mt-2.5 flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-full" style={{ background: s.colour }} />
                 <span className="font-medium group-hover:underline">{s.short}</span>
-                <span className="ml-auto hidden text-sm text-ink/50 sm:inline">{s.area}</span>
+                <span className="ml-auto hidden text-sm text-ink/60 sm:inline">{s.area}</span>
               </div>
             </Link>
           ))}
-        </div>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {schools.filter((s) => !s.tile).map((s) => (
-            <Link key={s.slug} to={`/schools/${s.slug}`} className="pill font-medium hover:border-ink">
-              <span className="mr-2 h-2 w-2 rounded-full" style={{ background: s.colour }} />{s.short}
-            </Link>
-          ))}
+          <div className="col-span-2 flex flex-col justify-center rounded-md border border-ink/15 bg-white p-4 sm:col-span-3 lg:col-span-5 lg:flex-row lg:items-center lg:gap-6">
+            <p className="label text-ink/70 lg:shrink-0">Also supplied</p>
+            <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1 lg:mt-0">
+              {schools.filter((s) => !s.tile).map((s) => (
+                <li key={s.slug}><Link to={`/schools/${s.slug}`} className="inline-flex min-h-11 items-center gap-2 font-medium underline-offset-4 hover:underline">{s.short}{inStoreOnly(s) && <span className="label text-[0.6875rem] text-ink/60">In store</span>}</Link></li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
       </section>
 
       {/* Why I&A: verified facts, one quiet row */}
       <section className="wrap mt-10">
-        <ul className="hairline grid gap-x-8 gap-y-3 py-6 text-[15px] text-ink/75 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="hairline grid gap-x-8 gap-y-3 py-6 text-ink/75 sm:grid-cols-2 lg:grid-cols-4">
           <li><strong className="text-ink">Since 1993.</strong> Family-run on Mitcham Road, Tooting.</li>
           <li><strong className="text-ink">Embroidered in house.</strong> Crests stitched here, not shipped in.</li>
-          <li><strong className="text-ink">Pay in 3.</strong> Klarna at checkout, no interest.</li>
-          <li><strong className="text-ink">Click and collect.</strong> Seven days a week, 9am to 6pm.</li>
+          <li><strong className="text-ink">Drop-off to school, £{SITE.delivery.schoolDropOff}.</strong> Or collect from the shop, seven days a week.</li>
+          <li><strong className="text-ink">Free delivery over £{SITE.delivery.freeOver}.</strong> <Link to="/delivery" className="underline">Standard {money(SITE.delivery.standard.price)}, express {money(SITE.delivery.express.price)}</Link>.</li>
         </ul>
       </section>
 
@@ -98,9 +93,9 @@ export function Home() {
             return (
               <Link key={k} to={`/collections/${k}`} className="lift group block">
                 <div className="overflow-hidden rounded-md"><img src={asset(c.banner)} alt="" className="aspect-[21/9] w-full object-cover" loading="lazy" /></div>
-                <div className="mt-3 flex items-baseline justify-between gap-4">
+                <div className="mt-3 sm:flex sm:items-baseline sm:justify-between sm:gap-4">
                   <h3 className="whitespace-nowrap font-serif text-[1.75rem] font-bold leading-none group-hover:underline">{c.title}</h3>
-                  <p className="text-right text-sm text-ink/60">{c.blurb}</p>
+                  <p className="mt-1 text-ink/65 sm:mt-0 sm:text-right">{c.blurb}</p>
                 </div>
               </Link>
             );
@@ -125,12 +120,16 @@ export function Home() {
         </div>
       </section>
 
-      {/* Lifestyle strip */}
-      <section className="mt-20">
-        <div className="wrap"><h2 className="text-4xl font-extrabold">Ready for the first day</h2></div>
-        <div className="wrap mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">
-          {["heathbrook-walk", "trinity-pe-gym", "heathbrook-door", "st-annes-hallway"].map((n) => (
-            <img key={n} src={asset(`/img/lifestyle/${n}.webp`)} alt="" className="aspect-[4/5] w-full rounded-md object-cover" loading="lazy" />
+      {/* First day: each photo goes to its school */}
+      <section className="wrap mt-20">
+        <h2 className="text-4xl font-extrabold">Ready for the first day</h2>
+        <p className="mt-1 max-w-[52ch] text-ink/65">Uniform from three of the schools we stitch for. Tap a photo to see that school's list.</p>
+        <div className="mt-6 grid gap-3 md:h-[620px] md:grid-cols-[1.3fr_1fr] md:grid-rows-2">
+          {FIRST_DAY.map((f, i) => (
+            <Link key={f.img} to={`/schools/${f.school}`} className={`lift group relative block overflow-hidden rounded-md md:min-h-0 ${i === 0 ? "md:row-span-2" : ""}`}>
+              <img src={asset(`/img/lifestyle/${f.img}.webp`)} alt={f.alt} className={`w-full object-cover ${i === 0 ? "aspect-[4/5] md:aspect-auto md:h-full" : "aspect-[4/3] md:aspect-auto md:h-full"}`} loading="lazy" />
+              <span className="absolute bottom-3 left-3 rounded-[3px] bg-white px-3 py-2 label text-[0.6875rem] group-hover:underline">{f.label}</span>
+            </Link>
           ))}
         </div>
       </section>
@@ -140,7 +139,7 @@ export function Home() {
         <section className="wrap mt-20">
           <h2 className="text-4xl font-extrabold">Plain basics, every school</h2>
           <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4">
-            {picks.map((p) => <ProductCard key={p.handle} p={p} school={p.school ? bySlug[p.school] : undefined} />)}
+            {picks.map((p) => <ProductCard key={p.handle} p={p} school={p.school ? bySlug[p.school] : undefined} showSchool />)}
           </div>
         </section>
       )}
@@ -151,7 +150,7 @@ export function Home() {
           <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr]">
             <div>
               <h2 className="text-4xl font-extrabold">Come and get fitted in Tooting</h2>
-              <p className="mt-3 text-white">Not sure between two sizes? Bring your child in. We measure, you try, and embroidered items can be stitched while you shop. The blue shopfront on Mitcham Road, by Tooting Broadway.</p>
+              <p className="mt-3 text-white">Not sure between two sizes? Bring your child in. We measure, you try, and you leave with the right size. The blue shopfront on Mitcham Road, by Tooting Broadway.</p>
             </div>
             <div className="text-white">
               <p className="font-medium">{SITE.address.street}, {SITE.address.area}, {SITE.address.city} {SITE.address.postcode}</p>

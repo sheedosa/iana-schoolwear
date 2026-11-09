@@ -22,40 +22,49 @@
   --radius-pill: 3px;          /* the brand is rectilinear: the marque is a sharp rectangle */
 }
 
-html { scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+@layer base {
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
 
-body {
-  @apply bg-chalk text-ink font-sans antialiased;
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 1.6;
+  body {
+    @apply bg-chalk text-ink font-sans antialiased;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+  strong, b { font-weight: 500; }
+
+  h1, h2 { font-family: var(--font-serif); font-weight: 700; letter-spacing: -0.005em; line-height: 1.04; text-wrap: balance; }
+  h3 { font-weight: 500; text-wrap: balance; }
+  a, button, input, select, summary { @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink; }
 }
-strong, b { font-weight: 500; }
 
-h1, h2, .display { font-family: var(--font-serif); font-weight: 700; letter-spacing: -0.005em; line-height: 1.04; text-wrap: balance; }
-h3 { font-weight: 500; text-wrap: balance; }
-/* Tailwind weight utilities on serif headings would ask for 800; Cormorant tops out at 700 */
-h1.font-extrabold, h2.font-extrabold { font-weight: 700; }
+@layer components {
+  .display { font-family: var(--font-serif); font-weight: 700; letter-spacing: -0.005em; line-height: 1.04; text-wrap: balance; }
+  /* Tailwind weight utilities on serif headings would ask for 800; Cormorant tops out at 700 */
+  h1.font-extrabold, h2.font-extrabold { font-weight: 700; }
 
-/* Brand label: Agrandir Thin, uppercase, 0.15em tracking. Thin only at large sizes; light below 18px for legibility on screen. */
-.label { text-transform: uppercase; letter-spacing: 0.15em; font-weight: 300; font-size: 0.8125rem; }
-.label-lg { text-transform: uppercase; letter-spacing: 0.15em; font-weight: 200; font-size: 1.25rem; }
+  /* Brand label: Agrandir, uppercase, 0.15em tracking, always the sans face (even on an h2). */
+  .label { font-family: var(--font-sans); line-height: 1.4; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 400; font-size: 0.8125rem; }
+  .label-lg { font-family: var(--font-sans); text-transform: uppercase; letter-spacing: 0.15em; font-weight: 200; font-size: 1.25rem; }
 
-.wrap { @apply mx-auto w-full max-w-[1200px] px-4 sm:px-6; }
+  .wrap { @apply mx-auto w-full max-w-[1200px] px-4 sm:px-6; }
 
-.btn { @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-pill px-6 py-3 text-[0.8125rem] font-normal uppercase tracking-[0.15em] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink; }
-.btn-primary { @apply bg-sun text-ink hover:bg-sun-deep; }
-.btn-ink { @apply bg-ink text-white hover:bg-ink-soft; }
-.btn-blue { @apply bg-blue text-white hover:bg-blue-deep; }
-.btn-ghost { @apply border border-ink/25 bg-white text-ink hover:border-ink; }
+  .btn { @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-pill px-6 py-3 text-[0.8125rem] font-normal uppercase tracking-[0.15em] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink; }
+  .btn-primary { @apply bg-sun text-ink hover:bg-sun-deep; }
+  .btn-ink { @apply bg-ink text-white hover:bg-ink-soft; }
+  .btn-blue { @apply bg-blue text-white hover:bg-blue-deep; }
+  .btn-ghost { @apply border border-ink/25 bg-white text-ink hover:border-ink; }
 
-.hairline { @apply border-t border-line; }
-.pill { @apply inline-flex min-h-11 items-center rounded-pill border border-line bg-white px-3.5 py-1 text-sm; }
+  .hairline { @apply border-t border-line; }
+  /* Filter and size chips: the pressed state is driven by aria-pressed so it can never be overridden. */
+  .pill { @apply inline-flex min-h-11 items-center rounded-pill border border-line bg-white px-3.5 py-1 text-[15px] text-ink hover:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink; }
+  .pill[aria-pressed="true"] { @apply border-ink bg-ink text-white; }
 
-/* image hover: the only decorative transition on the site */
-.lift img { transition: transform 600ms cubic-bezier(.2,.8,.2,1); }
-.lift:hover img { transform: scale(1.02); }
+  /* image hover: the only decorative transition on the site */
+  .lift img { transition: transform 600ms cubic-bezier(.2,.8,.2,1); }
+  .lift:hover img { transform: scale(1.02); }
+}
 
 /* Accessibility: translucent Ochre on white or tinted backgrounds falls below 4.5:1 (axe). Pin the muted
    text steps to solid tones that pass AA on white, Sage and every school tint. Keep the utility names so the

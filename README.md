@@ -8,7 +8,7 @@ Parent-first school uniform store for I&A (Stockwell, London). Static React site
 
 - `src/lib/shopify.ts` is the only place that talks to commerce. With `VITE_SHOPIFY_DOMAIN` and `VITE_SHOPIFY_STOREFRONT_TOKEN` set it uses the Shopify Storefront API (products, collections, cart, checkout URL). Without them it runs on the preview catalogue in `src/data/catalogue.json` with a local basket.
 - Every page is keyed by **school**: products carry a `school:<slug>` tag (set the same tag in Shopify) and `productType` drives the collections. School metadata (name, colour, tint, tile) lives in `catalogue.json` and stays in the repo.
-- Images are in `public/img` (WebP, web-sized). Generated with Higgsfield from the client's real garments; see `docs/` in the platform repo for the asset system.
+- Images are in `public/img` (WebP, web-sized). Product and lifestyle imagery made from the client's real garments (disclosed in the footer).
 
 ## Run locally
 
@@ -20,8 +20,11 @@ npm run dev
 ## Version 1 demo notes
 
 - All copy, prices, hours and company details were checked against iafashions.co.uk on 25 Oct 2026 (`src/data/site.ts`). Product prices and stock come from the live WooCommerce catalogue on that date.
-- Still to confirm with the client before launch: delivery charges and cut-offs, returns window, exchange policy for embroidered items, which items each school lists as compulsory, logo files for Gatton, St Andrew's, Vauxhall and Penwortham.
-- 23 products have no photo on the current site; they show a school-tinted placeholder until photographed or generated.
+- Confirmed by the client (Nov 2026) and in `SITE`: standard delivery £4.95 (5 working days), express £7.95 (48 hours), free over £100, drop-off to the child's school £2, click and collect; 28-day returns (suits, bridal and prom excluded group-wide); embroidered items exchanged for the same item in a different size. See `/delivery`.
+- Still to confirm: see `SITE.toConfirm` (cut-off times, school drop-off details, refunds on embroidered items, the official school list, each school's uniform leaflet, crest artwork).
+- Compulsory / optional groups on school pages come from the `list` field in `catalogue.json` (crested garments compulsory; bags, hats, fleeces and swim kit optional) until the school leaflets arrive.
+- St Andrew's, Vauxhall and Penwortham have no stock online and show as "In store".
+- 23 products have no photo on the current site; they show a designed tile (school colour, garment drawn in line, name in caps) until photographed.
 - Checkout in demo mode shows a notice; with Shopify connected it goes to Shopify's hosted checkout.
 
 ## Brand

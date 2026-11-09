@@ -31,7 +31,7 @@
    "productCount": 8
   },
   {
-   "name": "Trinity St.Marys School",
+   "name": "Trinity St Mary's School",
    "slug": "trinity-st-marys",
    "short": "Trinity St Mary's",
    "colour": "#1C4FD1",
@@ -61,7 +61,7 @@
    "productCount": 3
   },
   {
-   "name": "St. Andrew's School",
+   "name": "St Andrew's School",
    "slug": "st-andrews",
    "short": "St Andrew's",
    "colour": "#B91C1C",
@@ -95,7 +95,7 @@
   {
    "id": "gid://demo/Product/51944",
    "handle": "allen-edwards-bookbag-1",
-   "title": "Allen Edwards Bookbag  1",
+   "title": "Allen Edwards book bag",
    "school": "allen-edwards",
    "productType": "Bags",
    "gender": "Unisex",
@@ -116,12 +116,13 @@
    "logoItem": true,
    "tags": [
     "school:allen-edwards"
-   ]
+   ],
+   "list": "optional"
   },
   {
    "id": "gid://demo/Product/51953",
    "handle": "allen-edwards-cardigan",
-   "title": "Allen Edwards Cardigan",
+   "title": "Allen Edwards cardigan",
    "school": "allen-edwards",
    "productType": "Knitwear",
    "gender": "Unisex",
@@ -152,12 +153,13 @@
    "logoItem": true,
    "tags": [
     "school:allen-edwards"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/51968",
    "handle": "allen-edwards-infant-backpack",
-   "title": "Allen Edwards Infant Backpack",
+   "title": "Allen Edwards infant backpack",
    "school": "allen-edwards",
    "productType": "Bags",
    "gender": "Unisex",
@@ -180,12 +182,13 @@
    "logoItem": true,
    "tags": [
     "school:allen-edwards"
-   ]
+   ],
+   "list": "optional"
   },
   {
    "id": "gid://demo/Product/52008",
    "handle": "allen-edwards-junior-backpack",
-   "title": "Allen Edwards Junior Backpack",
+   "title": "Allen Edwards junior backpack",
    "school": "allen-edwards",
    "productType": "Bags",
    "gender": "Unisex",
@@ -208,12 +211,13 @@
    "logoItem": true,
    "tags": [
     "school:allen-edwards"
-   ]
+   ],
+   "list": "optional"
   },
   {
    "id": "gid://demo/Product/58442",
    "handle": "allen-edwards-pe-t-shirt",
-   "title": "Allen Edwards PE T-Shirt",
+   "title": "Allen Edwards PE T-shirt",
    "school": "allen-edwards",
    "productType": "PE kit",
    "gender": "Unisex",
@@ -246,7 +250,8 @@
    "logoItem": true,
    "tags": [
     "school:allen-edwards"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/52044",
@@ -270,12 +275,13 @@
    "logoItem": true,
    "tags": [
     "school:allen-edwards"
-   ]
+   ],
+   "list": "optional"
   },
   {
    "id": "gid://demo/Product/51983",
    "handle": "allen-edwards-sweatshirt",
-   "title": "Allen Edwards Sweatshirt",
+   "title": "Allen Edwards sweatshirt",
    "school": "allen-edwards",
    "productType": "Sweatshirts",
    "gender": "Unisex",
@@ -310,12 +316,13 @@
    "logoItem": true,
    "tags": [
     "school:allen-edwards"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/62621",
    "handle": "avon-corded-gingham-dress",
-   "title": "Avon Corded Gingham Dress",
+   "title": "Avon corded gingham dress",
    "school": null,
    "productType": "Skirts & dresses",
    "gender": "Girls",
@@ -355,7 +362,7 @@
   {
    "id": "gid://demo/Product/62589",
    "handle": "ayr-button-front-corded-gingham-dress",
-   "title": "Ayr Button Front Corded Gingham Dress",
+   "title": "Ayr button-front corded gingham dress",
    "school": null,
    "productType": "Skirts & dresses",
    "gender": "Girls",
@@ -394,7 +401,7 @@
   {
    "id": "gid://demo/Product/56112",
    "handle": "banner-50-50-v-neck-jumper",
-   "title": "Banner 50/50 V-Neck Jumper",
+   "title": "Banner 50/50 V-neck jumper",
    "school": null,
    "productType": "Knitwear",
    "gender": "Unisex",
@@ -436,12 +443,13 @@
    "logoItem": false,
    "tags": [
     "plain"
-   ]
+   ],
+   "brand": "Banner"
   },
   {
    "id": "gid://demo/Product/63264",
    "handle": "banner-premier-l-c-sleeveless-slipover",
-   "title": "Banner Premier L/C Sleeveless Slipover",
+   "title": "Banner Premier sleeveless slipover",
    "school": null,
    "productType": "Knitwear",
    "gender": "Unisex",
@@ -481,12 +489,13 @@
    "logoItem": false,
    "tags": [
     "plain"
-   ]
+   ],
+   "brand": "Banner"
   },
   {
    "id": "gid://demo/Product/62674",
    "handle": "banner-twin-pack-regular-fit-short-sleeve-shirt",
-   "title": "Banner Twin Pack Regular Fit Short Sleeve Shirt",
+   "title": "Banner short-sleeve shirt, twin pack",
    "school": null,
    "productType": "Shirts",
    "gender": "Unisex",
@@ -524,12 +533,13 @@
    "logoItem": false,
    "tags": [
     "plain"
-   ]
+   ],
+   "brand": "Banner"
   },
   {
    "id": "gid://demo/Product/57453",
    "handle": "boys-adjustable-trousers",
-   "title": "Boys Adjustable Trousers",
+   "title": "Boys' adjustable trousers",
    "school": null,
    "productType": "Trousers & shorts",
    "gender": "Boys",
@@ -565,7 +575,7 @@
   {
    "id": "gid://demo/Product/49283",
    "handle": "boys-pull-up-trousers",
-   "title": "Boys Pull Up Trousers",
+   "title": "Boys' pull-up trousers",
    "school": null,
    "productType": "Trousers & shorts",
    "gender": "Boys",
@@ -573,14 +583,6 @@
    "priceMax": 7.5,
    "currency": "GBP",
    "sizes": [
-    "02-Mar",
-    "03-Apr",
-    "04-May",
-    "05-Jun",
-    "06-Jul",
-    "07-Aug",
-    "08-Sep",
-    "09-Oct",
     "2-3",
     "3-4",
     "4-5",
@@ -608,7 +610,7 @@
   {
    "id": "gid://demo/Product/66312",
    "handle": "boys-school-shirt-single-pack",
-   "title": "Boys School Shirt – Single Pack",
+   "title": "Boys' school shirt, single",
    "school": null,
    "productType": "Shirts",
    "gender": "Boys",
@@ -646,7 +648,7 @@
   {
    "id": "gid://demo/Product/68916",
    "handle": "boys-zip-and-clip-school-shorts",
-   "title": "Boys Zip and Clip School Shorts",
+   "title": "Boys' zip and clip shorts",
    "school": null,
    "productType": "Trousers & shorts",
    "gender": "Boys",
@@ -685,7 +687,7 @@
   {
    "id": "gid://demo/Product/63928",
    "handle": "boys-zip-and-clip-trousers",
-   "title": "Boys Zip and Clip Trousers",
+   "title": "Boys' zip and clip trousers",
    "school": null,
    "productType": "Trousers & shorts",
    "gender": "Boys",
@@ -693,7 +695,7 @@
    "priceMax": 12.0,
    "currency": "GBP",
    "sizes": [
-    "03-Apr",
+    "3-4",
     "10-11",
     "10-11yrs",
     "11-12",
@@ -733,7 +735,7 @@
   {
    "id": "gid://demo/Product/62976",
    "handle": "davenport-knife-pleat-skirt",
-   "title": "Davenport Knife Pleat Skirt",
+   "title": "Davenport knife-pleat skirt",
    "school": null,
    "productType": "Skirts & dresses",
    "gender": "Girls",
@@ -771,7 +773,7 @@
   {
    "id": "gid://demo/Product/52926",
    "handle": "fircroft-backpack",
-   "title": "Fircroft Backpack",
+   "title": "Fircroft backpack",
    "school": "fircroft",
    "productType": "Bags",
    "gender": "Unisex",
@@ -794,12 +796,13 @@
    "logoItem": true,
    "tags": [
     "school:fircroft"
-   ]
+   ],
+   "list": "optional"
   },
   {
    "id": "gid://demo/Product/53602",
    "handle": "fircroft-bookbag",
-   "title": "Fircroft Bookbag",
+   "title": "Fircroft book bag",
    "school": "fircroft",
    "productType": "Bags",
    "gender": "Unisex",
@@ -822,12 +825,13 @@
    "logoItem": true,
    "tags": [
     "school:fircroft"
-   ]
+   ],
+   "list": "optional"
   },
   {
    "id": "gid://demo/Product/70062",
    "handle": "fircroft-cardigan-premium-cotton",
-   "title": "Fircroft Cardigan Premium cotton",
+   "title": "Fircroft premium cotton cardigan",
    "school": "fircroft",
    "productType": "Knitwear",
    "gender": "Unisex",
@@ -851,12 +855,13 @@
    "logoItem": true,
    "tags": [
     "school:fircroft"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/54731",
    "handle": "fircroft-gym-bag",
-   "title": "Fircroft Gym Bag",
+   "title": "Fircroft gym bag",
    "school": "fircroft",
    "productType": "PE kit",
    "gender": "Unisex",
@@ -875,7 +880,8 @@
    "logoItem": true,
    "tags": [
     "school:fircroft"
-   ]
+   ],
+   "list": "optional"
   },
   {
    "id": "gid://demo/Product/70041",
@@ -907,12 +913,13 @@
    "logoItem": true,
    "tags": [
     "school:fircroft"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/70052",
    "handle": "fircroft-polo-shirt",
-   "title": "Fircroft Polo Shirt",
+   "title": "Fircroft polo shirt",
    "school": "fircroft",
    "productType": "Polo shirts",
    "gender": "Unisex",
@@ -938,12 +945,13 @@
    "logoItem": true,
    "tags": [
     "school:fircroft"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/56570",
    "handle": "fircroft-premium-reversible-fleece",
-   "title": "Fircroft Premium Reversible Fleece",
+   "title": "Fircroft reversible fleece",
    "school": "fircroft",
    "productType": "Knitwear",
    "gender": "Unisex",
@@ -971,12 +979,13 @@
    "logoItem": true,
    "tags": [
     "school:fircroft"
-   ]
+   ],
+   "list": "optional"
   },
   {
    "id": "gid://demo/Product/70080",
    "handle": "fircroft-primary-premium-cotton-sweatshirt",
-   "title": "Fircroft Primary  Premium Cotton Sweatshirt",
+   "title": "Fircroft premium cotton sweatshirt",
    "school": "fircroft",
    "productType": "Sweatshirts",
    "gender": "Unisex",
@@ -1007,12 +1016,13 @@
    "logoItem": true,
    "tags": [
     "school:fircroft"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/63560",
    "handle": "fircroft-sun-hat",
-   "title": "Fircroft Sun Hat",
+   "title": "Fircroft sun hat",
    "school": "fircroft",
    "productType": "Accessories",
    "gender": "Unisex",
@@ -1031,12 +1041,13 @@
    "logoItem": true,
    "tags": [
     "school:fircroft"
-   ]
+   ],
+   "list": "optional"
   },
   {
    "id": "gid://demo/Product/57513",
    "handle": "flannel-blazer-by-banner",
-   "title": "Flannel Blazer by Banner",
+   "title": "Flannel blazer",
    "school": null,
    "productType": "Blazers",
    "gender": "Unisex",
@@ -1078,12 +1089,13 @@
    "logoItem": false,
    "tags": [
     "plain"
-   ]
+   ],
+   "brand": "Banner"
   },
   {
    "id": "gid://demo/Product/66887",
    "handle": "gatton-cardigan",
-   "title": "Gatton Cardigan",
+   "title": "Gatton cardigan",
    "school": "gatton",
    "productType": "Knitwear",
    "gender": "Unisex",
@@ -1107,12 +1119,13 @@
    "logoItem": true,
    "tags": [
     "school:gatton"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/67218",
    "handle": "gatton-pinafore",
-   "title": "Gatton Pinafore",
+   "title": "Gatton pinafore",
    "school": "gatton",
    "productType": "Skirts & dresses",
    "gender": "Girls",
@@ -1134,12 +1147,13 @@
    "logoItem": true,
    "tags": [
     "school:gatton"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/66877",
    "handle": "gatton-v-neck-jumper",
-   "title": "Gatton V-Neck Jumper",
+   "title": "Gatton V-neck jumper",
    "school": "gatton",
    "productType": "Knitwear",
    "gender": "Unisex",
@@ -1163,12 +1177,13 @@
    "logoItem": true,
    "tags": [
     "school:gatton"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/63578",
    "handle": "gingham-summer-dress",
-   "title": "Gingham Summer Dress",
+   "title": "Gingham summer dress",
    "school": null,
    "productType": "Skirts & dresses",
    "gender": "Girls",
@@ -1215,7 +1230,7 @@
   {
    "id": "gid://demo/Product/52131",
    "handle": "heathbrook-cardigan",
-   "title": "Heathbrook Cardigan",
+   "title": "Heathbrook cardigan",
    "school": "heathbrook",
    "productType": "Knitwear",
    "gender": "Unisex",
@@ -1246,12 +1261,13 @@
    "logoItem": true,
    "tags": [
     "school:heathbrook"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/69837",
    "handle": "heathbrook-fleece-royal",
-   "title": "Heathbrook Fleece Royal",
+   "title": "Heathbrook fleece, royal blue",
    "school": "heathbrook",
    "productType": "Knitwear",
    "gender": "Unisex",
@@ -1279,12 +1295,13 @@
    "logoItem": true,
    "tags": [
     "school:heathbrook"
-   ]
+   ],
+   "list": "optional"
   },
   {
    "id": "gid://demo/Product/59947",
    "handle": "heathbrook-hard-deluxe-bookbag",
-   "title": "Heathbrook Hard Deluxe Bookbag",
+   "title": "Heathbrook deluxe book bag",
    "school": "heathbrook",
    "productType": "Bags",
    "gender": "Unisex",
@@ -1305,12 +1322,13 @@
    "logoItem": true,
    "tags": [
     "school:heathbrook"
-   ]
+   ],
+   "list": "optional"
   },
   {
    "id": "gid://demo/Product/52113",
    "handle": "heathbrook-infant-backpack",
-   "title": "Heathbrook Infant Backpack",
+   "title": "Heathbrook infant backpack",
    "school": "heathbrook",
    "productType": "Bags",
    "gender": "Unisex",
@@ -1333,12 +1351,13 @@
    "logoItem": true,
    "tags": [
     "school:heathbrook"
-   ]
+   ],
+   "list": "optional"
   },
   {
    "id": "gid://demo/Product/52170",
    "handle": "heathbrook-junior-backpack",
-   "title": "Heathbrook Junior Backpack",
+   "title": "Heathbrook junior backpack",
    "school": "heathbrook",
    "productType": "Bags",
    "gender": "Unisex",
@@ -1361,12 +1380,13 @@
    "logoItem": true,
    "tags": [
     "school:heathbrook"
-   ]
+   ],
+   "list": "optional"
   },
   {
    "id": "gid://demo/Product/58740",
    "handle": "heathbrook-pe-t-shirt",
-   "title": "Heathbrook PE T-Shirt",
+   "title": "Heathbrook PE T-shirt",
    "school": "heathbrook",
    "productType": "PE kit",
    "gender": "Unisex",
@@ -1390,12 +1410,13 @@
    "logoItem": true,
    "tags": [
     "school:heathbrook"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/52086",
    "handle": "heathbrook-sweatshirt",
-   "title": "Heathbrook Sweatshirt",
+   "title": "Heathbrook sweatshirt",
    "school": "heathbrook",
    "productType": "Sweatshirts",
    "gender": "Unisex",
@@ -1433,12 +1454,13 @@
    "logoItem": true,
    "tags": [
     "school:heathbrook"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/64107",
    "handle": "i-a-basics-cotton-t-shirt",
-   "title": "I & A Basics Cotton T-Shirt",
+   "title": "I&A basics cotton T-shirt",
    "school": null,
    "productType": "Shirts",
    "gender": "Unisex",
@@ -1493,7 +1515,7 @@
   {
    "id": "gid://demo/Product/63437",
    "handle": "junior-boys-slim-fit-trousers",
-   "title": "Junior Boys Slim Fit Trousers",
+   "title": "Junior boys' slim-fit trousers",
    "school": null,
    "productType": "Trousers & shorts",
    "gender": "Boys",
@@ -1533,7 +1555,7 @@
   {
    "id": "gid://demo/Product/67550",
    "handle": "knitted-plain-school-cardigan",
-   "title": "Knitted Plain School Cardigan",
+   "title": "Knitted plain cardigan",
    "school": null,
    "productType": "Knitwear",
    "gender": "Unisex",
@@ -1576,7 +1598,7 @@
   {
    "id": "gid://demo/Product/57181",
    "handle": "s-cut-boys-trousers-by-banner",
-   "title": "S-Cut Boys Trousers by Banner",
+   "title": "S-Cut boys' trousers",
    "school": null,
    "productType": "Trousers & shorts",
    "gender": "Boys",
@@ -1611,12 +1633,13 @@
    "logoItem": false,
    "tags": [
     "plain"
-   ]
+   ],
+   "brand": "Banner"
   },
   {
    "id": "gid://demo/Product/64252",
    "handle": "s-cut-fitted-jacket-blazer-by-banner",
-   "title": "S-Cut Fitted Jacket (Blazer) by Banner",
+   "title": "S-Cut fitted blazer",
    "school": null,
    "productType": "Blazers",
    "gender": "Unisex",
@@ -1657,12 +1680,13 @@
    "logoItem": false,
    "tags": [
     "plain"
-   ]
+   ],
+   "brand": "Banner"
   },
   {
    "id": "gid://demo/Product/55399",
    "handle": "s-cut-jacket-blazer-by-banner",
-   "title": "S-Cut Jacket (Blazer) by Banner",
+   "title": "S-Cut blazer",
    "school": null,
    "productType": "Blazers",
    "gender": "Unisex",
@@ -1703,12 +1727,13 @@
    "logoItem": false,
    "tags": [
     "plain"
-   ]
+   ],
+   "brand": "Banner"
   },
   {
    "id": "gid://demo/Product/55330",
    "handle": "signature-boys-classic-trousers",
-   "title": "Signature Boys Classic Trousers",
+   "title": "Signature boys' classic trousers",
    "school": null,
    "productType": "Trousers & shorts",
    "gender": "Boys",
@@ -1736,7 +1761,7 @@
   {
    "id": "gid://demo/Product/64432",
    "handle": "speedo-junior-eco-endurance-medalist-swimsuit",
-   "title": "Speedo Junior Eco Endurance+ Medalist Swimsuit",
+   "title": "Speedo junior Eco Endurance+ swimsuit",
    "school": null,
    "productType": "PE kit",
    "gender": "Unisex",
@@ -1763,12 +1788,13 @@
    "logoItem": false,
    "tags": [
     "plain"
-   ]
+   ],
+   "brand": "Speedo"
   },
   {
    "id": "gid://demo/Product/64444",
    "handle": "speedo-long-hair-moulded-silicone-swim-cap",
-   "title": "Speedo Long Hair Moulded Silicone Swim Cap",
+   "title": "Speedo long-hair silicone swim cap",
    "school": "allen-edwards",
    "productType": "PE kit",
    "gender": "Unisex",
@@ -1789,12 +1815,14 @@
    "logoItem": true,
    "tags": [
     "school:allen-edwards"
-   ]
+   ],
+   "brand": "Speedo",
+   "list": "optional"
   },
   {
    "id": "gid://demo/Product/59209",
    "handle": "st-annes-backpack",
-   "title": "St. Annes Backpack",
+   "title": "St Anne's backpack",
    "school": "st-annes",
    "productType": "Bags",
    "gender": "Unisex",
@@ -1817,12 +1845,13 @@
    "logoItem": true,
    "tags": [
     "school:st-annes"
-   ]
+   ],
+   "list": "optional"
   },
   {
    "id": "gid://demo/Product/50204",
    "handle": "st-anne-s-bookbag",
-   "title": "St. Anne's Bookbag",
+   "title": "St Anne's book bag",
    "school": "st-annes",
    "productType": "Bags",
    "gender": "Unisex",
@@ -1845,12 +1874,13 @@
    "logoItem": true,
    "tags": [
     "school:st-annes"
-   ]
+   ],
+   "list": "optional"
   },
   {
    "id": "gid://demo/Product/53169",
    "handle": "st-anne-s-clip-on-tie",
-   "title": "St. Anne's Clip on tie",
+   "title": "St Anne's clip-on tie",
    "school": "st-annes",
    "productType": "Accessories",
    "gender": "Unisex",
@@ -1870,12 +1900,13 @@
    "logoItem": true,
    "tags": [
     "school:st-annes"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/54330",
    "handle": "st-anne-s-cotton-rich-cardigan",
-   "title": "St. Anne's Cotton Rich Cardigan",
+   "title": "St Anne's cotton-rich cardigan",
    "school": "st-annes",
    "productType": "Knitwear",
    "gender": "Unisex",
@@ -1898,12 +1929,13 @@
    "logoItem": true,
    "tags": [
     "school:st-annes"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/51064",
    "handle": "st-anne-s-cotton-rich-jumper",
-   "title": "St. Anne's Cotton Rich Jumper",
+   "title": "St Anne's cotton-rich jumper",
    "school": "st-annes",
    "productType": "Knitwear",
    "gender": "Unisex",
@@ -1926,12 +1958,13 @@
    "logoItem": true,
    "tags": [
     "school:st-annes"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/49531",
    "handle": "st-anne-s-fleece-jacket",
-   "title": "St. Anne's Fleece Jacket",
+   "title": "St Anne's fleece jacket",
    "school": "st-annes",
    "productType": "Blazers",
    "gender": "Unisex",
@@ -1957,12 +1990,13 @@
    "logoItem": true,
    "tags": [
     "school:st-annes"
-   ]
+   ],
+   "list": "optional"
   },
   {
    "id": "gid://demo/Product/64448",
    "handle": "st-anne-s-gym-bag",
-   "title": "St. Anne's Gym bag",
+   "title": "St Anne's gym bag",
    "school": "st-annes",
    "productType": "PE kit",
    "gender": "Unisex",
@@ -1981,12 +2015,13 @@
    "logoItem": true,
    "tags": [
     "school:st-annes"
-   ]
+   ],
+   "list": "optional"
   },
   {
    "id": "gid://demo/Product/52936",
    "handle": "st-anne-s-pe-t-shirt",
-   "title": "St. Anne's PE T-shirt",
+   "title": "St Anne's PE T-shirt",
    "school": "st-annes",
    "productType": "PE kit",
    "gender": "Unisex",
@@ -2016,12 +2051,13 @@
    "logoItem": true,
    "tags": [
     "school:st-annes"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/64451",
    "handle": "st-anne-s-polo-shirt",
-   "title": "St. Anne's Polo Shirt",
+   "title": "St Anne's polo shirt",
    "school": "st-annes",
    "productType": "Polo shirts",
    "gender": "Unisex",
@@ -2047,14 +2083,15 @@
    "logoItem": true,
    "tags": [
     "school:st-annes"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/58885",
    "handle": "st-anne-s-stripe-tie",
-   "title": "St. Anne's Stripe Tie",
+   "title": "St Anne's stripe tie",
    "school": "st-annes",
-   "productType": "PE kit",
+   "productType": "Accessories",
    "gender": "Unisex",
    "priceMin": 4.0,
    "priceMax": 5.0,
@@ -2074,12 +2111,13 @@
    "logoItem": true,
    "tags": [
     "school:st-annes"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/64471",
    "handle": "st-anne-s-sweat-cardigan",
-   "title": "St. Anne's Sweat Cardigan",
+   "title": "St Anne's sweat cardigan",
    "school": "st-annes",
    "productType": "Knitwear",
    "gender": "Unisex",
@@ -2103,12 +2141,13 @@
    "logoItem": true,
    "tags": [
     "school:st-annes"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/51274",
    "handle": "st-anne-s-sweatshirt",
-   "title": "St. Anne's Sweatshirt",
+   "title": "St Anne's sweatshirt",
    "school": "st-annes",
    "productType": "Sweatshirts",
    "gender": "Unisex",
@@ -2133,12 +2172,13 @@
    "logoItem": true,
    "tags": [
     "school:st-annes"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/56649",
    "handle": "sturdy-fit-kids-trousers",
-   "title": "Sturdy Fit Kids Trousers",
+   "title": "Sturdy-fit trousers",
    "school": null,
    "productType": "Trousers & shorts",
    "gender": "Unisex",
@@ -2160,8 +2200,8 @@
     "Navy"
    ],
    "images": [
-    "/img/products/sturdy-fit-kids-trousers-1.webp",
     "/img/products/sturdy-fit-kids-trousers-2.webp",
+    "/img/products/sturdy-fit-kids-trousers-1.webp",
     "/img/products/sturdy-fit-kids-trousers-3.webp"
    ],
    "description": "",
@@ -2174,7 +2214,7 @@
   {
    "id": "gid://demo/Product/54501",
    "handle": "sturdy-fit-teenage-boys-trousers",
-   "title": "Sturdy Fit Teenage Boys Trousers",
+   "title": "Sturdy-fit teenage trousers",
    "school": null,
    "productType": "Trousers & shorts",
    "gender": "Boys",
@@ -2199,9 +2239,9 @@
     "Navy"
    ],
    "images": [
+    "/img/products/sturdy-fit-teenage-boys-trousers-3.webp",
     "/img/products/sturdy-fit-teenage-boys-trousers-1.webp",
-    "/img/products/sturdy-fit-teenage-boys-trousers-2.webp",
-    "/img/products/sturdy-fit-teenage-boys-trousers-3.webp"
+    "/img/products/sturdy-fit-teenage-boys-trousers-2.webp"
    ],
    "description": "",
    "available": true,
@@ -2213,7 +2253,7 @@
   {
    "id": "gid://demo/Product/64489",
    "handle": "teenager-mens-trousers-school",
-   "title": "Teenager / Mens Trousers – School",
+   "title": "Teen and men's school trousers",
    "school": null,
    "productType": "Trousers & shorts",
    "gender": "Boys",
@@ -2259,7 +2299,7 @@
   {
    "id": "gid://demo/Product/65421",
    "handle": "thornton-skirt",
-   "title": "Thornton Skirt",
+   "title": "Thornton skirt",
    "school": null,
    "productType": "Skirts & dresses",
    "gender": "Girls",
@@ -2292,7 +2332,7 @@
   {
    "id": "gid://demo/Product/49474",
    "handle": "trinity-st-mary-jumper-year-6",
-   "title": "Trinity St Mary Jumper – Year 6",
+   "title": "Trinity St Mary's jumper, Year 6",
    "school": "trinity-st-marys",
    "productType": "Knitwear",
    "gender": "Unisex",
@@ -2319,12 +2359,13 @@
    "logoItem": true,
    "tags": [
     "school:trinity-st-marys"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/55372",
    "handle": "trinity-st-mary-jumper-years-1-5",
-   "title": "Trinity St Mary Jumper – Years 1-5",
+   "title": "Trinity St Mary's jumper, Years 1 to 5",
    "school": "trinity-st-marys",
    "productType": "Knitwear",
    "gender": "Unisex",
@@ -2350,12 +2391,13 @@
    "logoItem": true,
    "tags": [
     "school:trinity-st-marys"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/55701",
    "handle": "trinity-st-mary-tie",
-   "title": "Trinity St Mary Tie",
+   "title": "Trinity St Mary's tie",
    "school": "trinity-st-marys",
    "productType": "Accessories",
    "gender": "Unisex",
@@ -2379,12 +2421,13 @@
    "logoItem": true,
    "tags": [
     "school:trinity-st-marys"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/64680",
    "handle": "trinity-st-mary-s-bookbag",
-   "title": "Trinity St Mary's BookBag",
+   "title": "Trinity St Mary's book bag",
    "school": "trinity-st-marys",
    "productType": "Bags",
    "gender": "Unisex",
@@ -2399,12 +2442,13 @@
    "logoItem": true,
    "tags": [
     "school:trinity-st-marys"
-   ]
+   ],
+   "list": "optional"
   },
   {
    "id": "gid://demo/Product/58690",
    "handle": "trinity-st-mary-s-junior-backpack",
-   "title": "Trinity St Mary's Junior Backpack",
+   "title": "Trinity St Mary's junior backpack",
    "school": "trinity-st-marys",
    "productType": "Bags",
    "gender": "Unisex",
@@ -2421,12 +2465,13 @@
    "logoItem": true,
    "tags": [
     "school:trinity-st-marys"
-   ]
+   ],
+   "list": "optional"
   },
   {
    "id": "gid://demo/Product/56528",
    "handle": "trinity-st-mary-s-pe-bag",
-   "title": "Trinity St Mary's PE Bag",
+   "title": "Trinity St Mary's PE bag",
    "school": "trinity-st-marys",
    "productType": "PE kit",
    "gender": "Unisex",
@@ -2443,12 +2488,13 @@
    "logoItem": true,
    "tags": [
     "school:trinity-st-marys"
-   ]
+   ],
+   "list": "optional"
   },
   {
    "id": "gid://demo/Product/49837",
    "handle": "trinity-st-mary-s-pe-t-shirt",
-   "title": "Trinity St Mary's PE T-Shirt",
+   "title": "Trinity St Mary's PE T-shirt",
    "school": "trinity-st-marys",
    "productType": "PE kit",
    "gender": "Unisex",
@@ -2479,12 +2525,13 @@
    "logoItem": true,
    "tags": [
     "school:trinity-st-marys"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/58580",
    "handle": "trinity-st-mary-s-small-backpack",
-   "title": "Trinity St Mary's Small Backpack",
+   "title": "Trinity St Mary's small backpack",
    "school": "trinity-st-marys",
    "productType": "Bags",
    "gender": "Unisex",
@@ -2499,12 +2546,13 @@
    "logoItem": true,
    "tags": [
     "school:trinity-st-marys"
-   ]
+   ],
+   "list": "optional"
   },
   {
    "id": "gid://demo/Product/57401",
    "handle": "trinity-st-mary-s-sweatshirt-cardigan",
-   "title": "Trinity St Mary's Sweatshirt Cardigan",
+   "title": "Trinity St Mary's sweatshirt cardigan",
    "school": "trinity-st-marys",
    "productType": "Knitwear",
    "gender": "Unisex",
@@ -2532,12 +2580,13 @@
    "logoItem": true,
    "tags": [
     "school:trinity-st-marys"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/58456",
    "handle": "trinity-st-mary-s-unisex-blazer",
-   "title": "Trinity St Mary's Unisex Blazer",
+   "title": "Trinity St Mary's blazer",
    "school": "trinity-st-marys",
    "productType": "Blazers",
    "gender": "Unisex",
@@ -2572,12 +2621,13 @@
    "logoItem": true,
    "tags": [
     "school:trinity-st-marys"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/55973",
    "handle": "trinity-st-mary-sweatshirt",
-   "title": "Trinity St. Mary Sweatshirt",
+   "title": "Trinity St Mary's sweatshirt",
    "school": "trinity-st-marys",
    "productType": "Sweatshirts",
    "gender": "Unisex",
@@ -2606,12 +2656,13 @@
    "logoItem": true,
    "tags": [
     "school:trinity-st-marys"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/57243",
    "handle": "trinity-st-marys-polo-shirt",
-   "title": "Trinity St. Marys Polo Shirt",
+   "title": "Trinity St Mary's polo shirt",
    "school": "trinity-st-marys",
    "productType": "Polo shirts",
    "gender": "Unisex",
@@ -2635,12 +2686,13 @@
    "logoItem": true,
    "tags": [
     "school:trinity-st-marys"
-   ]
+   ],
+   "list": "compulsory"
   },
   {
    "id": "gid://demo/Product/64770",
    "handle": "viscount-girls-blazer-by-banner",
-   "title": "Viscount Girls Blazer by Banner",
+   "title": "Viscount girls' blazer",
    "school": null,
    "productType": "Blazers",
    "gender": "Girls",
@@ -2693,12 +2745,13 @@
    "logoItem": false,
    "tags": [
     "plain"
-   ]
+   ],
+   "brand": "Banner"
   },
   {
    "id": "gid://demo/Product/64932",
    "handle": "ziggys-blazer-by-banner",
-   "title": "Ziggys Blazer by Banner",
+   "title": "Ziggy's blazer",
    "school": null,
    "productType": "Blazers",
    "gender": "Unisex",
@@ -2743,7 +2796,8 @@
    "logoItem": false,
    "tags": [
     "plain"
-   ]
+   ],
+   "brand": "Banner"
   }
  ]
 }

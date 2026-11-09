@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { storefront } from "../lib/shopify";
-import { SITE } from "../data/site";
+import { SITE, money } from "../data/site";
 
 export function Footer() {
   return (
@@ -27,8 +27,8 @@ export function Footer() {
           <h2 className="label text-white">Help</h2>
           <ul className="mt-3 text-white/75 [&_a]:flex [&_a]:min-h-11 [&_a]:items-center">
             <li><Link to="/size-guide">Size guide</Link></li>
-            <li><Link to="/about#delivery">Delivery and collection</Link></li>
-            <li><Link to="/about#returns">Returns</Link></li>
+            <li><Link to="/delivery">Delivery and returns</Link></li>
+            <li><Link to="/delivery#exchanges">Exchanges</Link></li>
             <li><Link to="/about#eco">Eco uniform</Link></li>
             <li><Link to="/about">About the shop</Link></li>
           </ul>
@@ -37,6 +37,11 @@ export function Footer() {
           <h2 className="label text-white">For schools</h2>
           <p className="mt-3 text-white/75">Want I&A to supply your uniform? In-house embroidery, stock held all year, a dedicated account manager, and £1 back to the school for every embroidered sweatshirt, jumper or blazer sold. <a href={`tel:${SITE.phoneIntl}`} className="underline">Call {SITE.phone}</a>.</p>
         </div>
+      </div>
+      <div className="border-t border-white/15">
+        <p className="wrap py-4 text-white/80">
+          <Link to="/delivery" className="underline-offset-4 hover:underline">Standard delivery {money(SITE.delivery.standard.price)} ({SITE.delivery.standard.time}) · Express {money(SITE.delivery.express.price)} ({SITE.delivery.express.time}) · Free over £{SITE.delivery.freeOver} · Drop-off to school £{SITE.delivery.schoolDropOff} · Click and collect · {SITE.returns.days}-day returns</Link>
+        </p>
       </div>
       <div className="border-t border-white/15">
         <div className="wrap flex flex-wrap items-center justify-between gap-2 py-5 text-sm text-white/55">

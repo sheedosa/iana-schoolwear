@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { asset } from "../lib/shopify";
 import { Seo, breadcrumbs } from "../components/Seo";
-import { SITE } from "../data/site";
+import { Link } from "react-router-dom";
+import { SITE, money } from "../data/site";
 
 // Facts on this page come from iafashions.co.uk (About, Eco Uniform, Want us to supply your school, Contact, Terms).
 export function About() {
@@ -19,25 +20,12 @@ export function About() {
         <img src={asset("/img/lifestyle/fircroft-flatlay.webp")} alt="A folded Fircroft school kit laid out on a desk" className="aspect-[4/5] w-full rounded-md object-cover" />
       </section>
 
-      <section className="wrap mt-8 grid gap-6 md:grid-cols-2">
-        <div id="delivery" className="rounded-md border border-line bg-white p-7">
-          <h2 className="text-3xl font-extrabold">Delivery and collection</h2>
-          <ul className="mt-4 space-y-2 text-ink/75">
-            <li>UK delivery, with the cost shown before you pay at checkout</li>
-            <li>Collect from the shop, {SITE.hours.toLowerCase()}</li>
-            <li>Embroidered items not in stock are stitched in house before dispatch</li>
-            <li>Pay by card, or spread the cost with Klarna Pay in 3</li>
-          </ul>
+      <section className="wrap mt-8 grid gap-6 border-y border-line py-8 md:grid-cols-[1fr_auto] md:items-center">
+        <div id="delivery">
+          <h2 className="text-3xl font-extrabold">Delivery, collection and returns</h2>
+          <p className="mt-3 max-w-[64ch] text-ink/75">Standard delivery {money(SITE.delivery.standard.price)}, express {money(SITE.delivery.express.price)}, free on orders of £{SITE.delivery.freeOver} and over. Drop-off to your child's school for £{SITE.delivery.schoolDropOff}, or collect from the shop, {SITE.hours}. {SITE.returns.days}-day returns; embroidered items exchanged for a different size.</p>
         </div>
-        <div id="returns" className="rounded-md border border-line bg-white p-7">
-          <h2 className="text-3xl font-extrabold">Returns</h2>
-          <ul className="mt-4 space-y-2 text-ink/75">
-            <li>Plain items: unworn, with tags, can be returned; call us and we'll confirm how long you have</li>
-            <li>Embroidered items are made to order for your school; ask us about exchanges before you order</li>
-            <li>Anything faulty: bring it back or call us and we'll replace it</li>
-            <li>Return in person to the shop, or by post; call {SITE.phone} first and we'll arrange it</li>
-          </ul>
-        </div>
+        <Link to="/delivery" className="btn btn-ghost">Delivery and returns</Link>
       </section>
 
       <section id="eco" className="wrap mt-6">
