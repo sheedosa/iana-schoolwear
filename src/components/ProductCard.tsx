@@ -59,7 +59,7 @@ export function ProductCard({ p, school, showSchool = false }: { p: Product; sch
         {img ? (
           <img src={asset(img)} alt={p.title} loading="lazy" className="h-full w-full object-contain p-3" />
         ) : (
-          <PhotoComing p={p} school={p.logoItem ? school : undefined} />
+          <PhotoComing p={p} school={p.logoItem && !showSchool ? school : undefined} />
         )}
         {showSchool && p.logoItem && school && img && <span className="absolute left-3 top-3 rounded-pill bg-white px-2.5 py-1 text-xs font-medium" style={{ color: school.colour }}>{school.short}</span>}
         {!p.available && <span className="absolute right-3 top-3 rounded-pill bg-white px-2.5 py-1 text-xs font-medium text-ink/70">Out of stock online</span>}

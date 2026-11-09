@@ -125,7 +125,7 @@ export function SchoolPage() {
 
       <section className="wrap mt-14" aria-labelledby="list-h">
         <h2 id="list-h" className="text-3xl font-extrabold">From the school's uniform list</h2>
-        <p className="mt-2 max-w-[62ch] text-ink/70">Which items are compulsory is on the school's uniform leaflet; we'll add it here soon.</p>
+        <p className="mt-2 max-w-[62ch] text-ink/70">The school's uniform leaflet shows which items are compulsory. Not sure? Call us on {SITE.phone} and we'll tell you.</p>
         {products.length > 0 && (
           <div className="mt-8">
             <h3 className="flex items-baseline gap-3 border-b border-ink pb-2 text-xl"><span>With the school crest</span><span className="label text-ink/65">{plural(products.length, "item")}</span></h3>
@@ -211,8 +211,8 @@ function InStoreSchool({ school, products, plain, crumbs }: { school: School; pr
           </dl>
           <a href={`tel:${SITE.phoneIntl}`} className="btn btn-primary mt-6">Call the shop</a>
         </div>
-        <div className="rounded-md bg-blue p-7 text-white">
-          <p className="label">Two minutes from Tooting Broadway</p>
+        <div className="self-start rounded-md bg-blue p-7 text-white">
+          <p className="label">By Tooting Broadway</p>
           <p className="mt-3">Look for the blue shopfront on Mitcham Road. Bring your child and we'll measure them for the right size.</p>
           {products.length > 0 && (
             <>

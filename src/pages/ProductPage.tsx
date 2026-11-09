@@ -52,7 +52,7 @@ export function ProductPage() {
         <div>
           <div className="aspect-[4/3] overflow-hidden rounded-md border border-line bg-white sm:aspect-[4/5]">
             {p.images[img] ? (
-              <img src={asset(p.images[img])} alt={p.title} className="h-full w-full object-contain sm:object-cover" />
+              <img src={asset(p.images[img])} alt={p.title} className="h-full w-full object-contain p-3" />
             ) : (
               <PhotoComing p={p} school={p.logoItem ? school : undefined} large />
             )}

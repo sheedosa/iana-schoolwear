@@ -25,9 +25,9 @@ export function Header() {
       <div className="bg-blue text-white">
         <div className="wrap flex h-9 items-center justify-between gap-3">
           <Link to="/delivery" className="label truncate text-[0.6875rem] hover:underline sm:text-xs">
-            <span className="sm:hidden">Free delivery over £{SITE.delivery.freeOver}</span>
-            <span className="hidden sm:inline lg:hidden">Free delivery over £{SITE.delivery.freeOver} · School drop-off £{SITE.delivery.schoolDropOff}</span>
-            <span className="hidden lg:inline">Free delivery over £{SITE.delivery.freeOver} · Drop-off to your child's school £{SITE.delivery.schoolDropOff} · Click and collect in Tooting</span>
+            <span className="sm:hidden">Free delivery from £{SITE.delivery.freeOver}</span>
+            <span className="hidden sm:inline lg:hidden">Free delivery from £{SITE.delivery.freeOver} · School drop-off £{SITE.delivery.schoolDropOff}</span>
+            <span className="hidden lg:inline">Free delivery from £{SITE.delivery.freeOver} · Drop-off to your child's school £{SITE.delivery.schoolDropOff} · Click and collect in Tooting</span>
           </Link>
           {storefront.mode === "demo" && (
             <span className="label shrink-0 rounded-[3px] border border-white/80 px-2 py-0.5 text-[0.6875rem] leading-none" title="Preview catalogue: checkout opens once the shop is connected">Preview</span>

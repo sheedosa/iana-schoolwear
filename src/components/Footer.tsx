@@ -40,7 +40,7 @@ export function Footer() {
       </div>
       <div className="border-t border-white/15">
         <p className="wrap py-4 text-white/80">
-          <Link to="/delivery" className="underline-offset-4 hover:underline">Standard delivery {money(SITE.delivery.standard.price)} ({SITE.delivery.standard.time}) · Express {money(SITE.delivery.express.price)} ({SITE.delivery.express.time}) · Free over £{SITE.delivery.freeOver} · Drop-off to school £{SITE.delivery.schoolDropOff} · Click and collect · {SITE.returns.days}-day returns</Link>
+          <Link to="/delivery" className="underline-offset-4 hover:underline">Standard delivery {money(SITE.delivery.standard.price)} ({SITE.delivery.standard.time}) · Express {money(SITE.delivery.express.price)} ({SITE.delivery.express.time}) · Free from £{SITE.delivery.freeOver} · Drop-off to school £{SITE.delivery.schoolDropOff} · Click and collect · {SITE.returns.days}-day returns</Link>
         </p>
       </div>
       <div className="border-t border-white/15">

@@ -34,10 +34,11 @@ export const SITE = {
     "whether embroidered items can be refunded, or exchanged for size only, and within how long",
     "which schools I&A officially supplies (the list on the site is from the current website)",
     "uniform leaflet for each school, showing compulsory and optional items (the client will send these; until then school pages group items as crested or plain only)",
+    "click and collect: confirm there is no charge (the delivery page shows no price for it until then)",
     "school crest artwork, with each school's permission",
   ],
 };
 
 export const money = (n: number) => `£${n.toFixed(2)}`;
 /** The one-line delivery summary used in the header strip, footer and product pages. */
-export const DELIVERY_LINE = `Free delivery over £${SITE.delivery.freeOver} · School drop-off £${SITE.delivery.schoolDropOff}`;
+export const DELIVERY_LINE = `Free delivery from £${SITE.delivery.freeOver} · School drop-off £${SITE.delivery.schoolDropOff}`;

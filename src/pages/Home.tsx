@@ -79,7 +79,7 @@ export function Home() {
           <li><strong className="text-ink">Since 1993.</strong> Family-run on Mitcham Road, Tooting.</li>
           <li><strong className="text-ink">Embroidered in house.</strong> Crests stitched here, not shipped in.</li>
           <li><strong className="text-ink">Drop-off to school, £{SITE.delivery.schoolDropOff}.</strong> Or collect from the shop, seven days a week.</li>
-          <li><strong className="text-ink">Free delivery over £{SITE.delivery.freeOver}.</strong> <Link to="/delivery" className="underline">Standard {money(SITE.delivery.standard.price)}, express {money(SITE.delivery.express.price)}</Link>.</li>
+          <li><strong className="text-ink">Free delivery from £{SITE.delivery.freeOver}.</strong> <Link to="/delivery" className="underline">Standard {money(SITE.delivery.standard.price)}, express {money(SITE.delivery.express.price)}</Link>.</li>
         </ul>
       </section>
 

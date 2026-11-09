@@ -12,11 +12,11 @@ export function Delivery() {
     { name: "Standard delivery", price: money(d.standard.price), when: d.standard.time },
     { name: "Express delivery", price: money(d.express.price), when: d.express.time },
     { name: "Drop-off to your child's school", price: money(d.schoolDropOff), when: "We drop the order at your child's school" },
-    { name: "Click and collect", price: "Free", when: `${SITE.address.street}, ${SITE.address.area}. ${SITE.hours}` },
+    { name: "Click and collect", price: "", when: `${SITE.address.street}, ${SITE.address.area}. ${SITE.hours}` },
   ];
   return (
     <>
-      <Seo title="Delivery and returns" description={`Standard delivery ${money(d.standard.price)} (${d.standard.time}), express ${money(d.express.price)} (${d.express.time}), free over £${d.freeOver}. Drop-off to your child's school for £${d.schoolDropOff}, or click and collect in Tooting. ${SITE.returns.days}-day returns.`} path="/delivery" jsonLd={breadcrumbs([{ name: "Home", path: "/" }, { name: "Delivery and returns", path: "/delivery" }])} />
+      <Seo title="Delivery and returns" description={`Standard delivery ${money(d.standard.price)} (${d.standard.time}), express ${money(d.express.price)} (${d.express.time}), free from £${d.freeOver}. Drop-off to your child's school for £${d.schoolDropOff}, or click and collect in Tooting. ${SITE.returns.days}-day returns.`} path="/delivery" jsonLd={breadcrumbs([{ name: "Home", path: "/" }, { name: "Delivery and returns", path: "/delivery" }])} />
       <section className="wrap py-12">
         <h1 className="display text-4xl sm:text-5xl">Delivery and returns</h1>
         <p className="mt-3 max-w-[60ch] text-lg text-ink/75">Free delivery on orders of £{d.freeOver} and over. Or we'll drop the uniform at your child's school for £{d.schoolDropOff}.</p>
@@ -39,7 +39,6 @@ export function Delivery() {
                 ))}
               </tbody>
             </table>
-            <p className="mt-4 text-ink/75">Delivery is free on orders of £{d.freeOver} and over.</p>
           </div>
 
           <aside className="self-start rounded-md bg-sage-soft p-6">
