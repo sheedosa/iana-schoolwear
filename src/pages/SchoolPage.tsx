@@ -122,8 +122,8 @@ export function SchoolPage() {
                 {bundle.map((p) => (
                   <li key={p.handle} className="item-line sm:!grid-cols-[4rem_minmax(0,1fr)_auto]">
                     <Thumb p={p} />
-                    <div className="min-w-0">
-                      <Link to={`/products/${p.handle}`} className="font-semibold leading-tight underline decoration-line decoration-2 underline-offset-4 hover:decoration-blue">{garmentName(p, school)}</Link>
+                    <div className="row-text min-w-0">
+                      <Link to={`/products/${p.handle}`} className="row-link font-semibold leading-tight underline decoration-line decoration-2 underline-offset-4 hover:decoration-blue">{garmentName(p, school)}</Link>
                       <p className="t-small mt-0.5 text-mute">{!p.sizes.length ? "One size" : size ? `Size ${size}` : "Size to choose"}</p>
                     </div>
                     <span className="num font-medium">{formatPrice(p.priceMin)}</span>
