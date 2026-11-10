@@ -7,9 +7,21 @@ export function CartDrawer() {
   const { cart, open, setOpen, update } = useCart();
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    const opener = document.activeElement as HTMLElement | null;
+    const box = () => document.querySelector<HTMLElement>('[role="dialog"][aria-label="Basket"] aside');
+    box()?.querySelector<HTMLElement>("button")?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") return setOpen(false);
+      const el = box();
+      if (e.key !== "Tab" || !el) return;
+      // Keep Tab inside the basket while it is open.
+      const stops = [...el.querySelectorAll<HTMLElement>("a[href], button:not([disabled])")];
+      const first = stops[0], last = stops[stops.length - 1], at = document.activeElement;
+      if (e.shiftKey && (at === first || !el.contains(at))) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && (at === last || !el.contains(at))) { e.preventDefault(); first.focus(); }
+    };
     document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+    return () => { document.removeEventListener("keydown", onKey); if (opener?.isConnected) opener.focus(); };
   }, [open, setOpen]);
   if (!open) return null;
   return (
