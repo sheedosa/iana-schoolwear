@@ -1,92 +1,69 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Logo } from "./Logo";
 import { useCart } from "../lib/cart";
-import { SchoolSearch } from "./SchoolFinder";
-import { useEffect, useState } from "react";
+import { useSchools } from "../lib/school";
+import { SchoolMark, SchoolSearch, schoolStatus } from "./SchoolFinder";
+import { VLink } from "./VLink";
 import { storefront } from "../lib/shopify";
-import { SITE } from "../data/site";
 
-const nav = [
-  { to: "/schools", label: "Schools" },
-  { to: "/collections/boys", label: "Boys" },
-  { to: "/collections/girls", label: "Girls" },
-  { to: "/collections/pe-kit", label: "PE kit" },
-  { to: "/collections/bags", label: "Bags" },
+const places = [
+  { to: "/collections/plain", label: "Plain basics" },
   { to: "/size-guide", label: "Size guide" },
-  { to: "/delivery", label: "Delivery" },
+  { to: "/delivery", label: "Delivery and returns" },
 ];
 
+/** The header is the school search: a solid blue bar with the lockup, the field and the basket.
+    Under it, one white line names the school you chose (remembered on this device). */
 export function Header() {
   const { count, setOpen } = useCart();
-  const [menu, setMenu] = useState(false);
-  const { pathname } = useLocation();
-  useEffect(() => setMenu(false), [pathname]);
-  useEffect(() => {
-    if (!menu) return;
-    const onKey = (e: KeyboardEvent) => {
-      const bar = document.querySelector<HTMLElement>("header");
-      if (e.key === "Escape") { setMenu(false); bar?.querySelector<HTMLElement>("button[aria-controls]")?.focus(); return; }
-      if (e.key !== "Tab" || !bar) return;
-      // Keep Tab inside the header and its open panel.
-      const stops = [...bar.querySelectorAll<HTMLElement>("a[href], button, input")].filter((el) => el.offsetParent !== null);
-      const first = stops[0], last = stops[stops.length - 1], at = document.activeElement;
-      if (e.shiftKey && (at === first || !bar.contains(at))) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && (at === last || !bar.contains(at))) { e.preventDefault(); first.focus(); }
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [menu]);
-  const d = SITE.delivery;
+  const { chosen } = useSchools();
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-white">
-      {/* One strip: the delivery message on the left, the preview tag on the right. */}
-      <div className="on-dark bg-blue text-white">
-        <div className="wrap flex h-9 items-center justify-between gap-3">
-          <Link to="/delivery" className="t-small relative flex h-9 min-w-0 items-center underline-offset-4 after:absolute after:inset-x-0 after:-bottom-2 after:top-0 hover:underline"><span className="truncate">
-            <span className="sm:hidden">Free delivery from £{d.freeOver}</span>
-            <span className="hidden sm:inline lg:hidden">Free delivery from £{d.freeOver}, or drop-off to school for £{d.schoolDropOff}</span>
-            <span className="hidden lg:inline">Free delivery from £{d.freeOver}, drop-off to your child's school for £{d.schoolDropOff}, or click and collect in Tooting</span>
-          </span></Link>
-          {storefront.mode === "demo" && (
-            <span className="label shrink-0 rounded-[3px] border border-white/80 px-2 py-0.5 text-[0.6875rem] leading-none" title="Preview catalogue: checkout opens once the shop is connected">Preview</span>
-          )}
-        </div>
-      </div>
-      <div className="wrap flex h-16 items-center gap-2.5 sm:gap-6 lg:h-[72px]">
-        <Link to="/" aria-label="I&A Schoolwear home" className="inline-flex min-h-11 min-w-0 shrink items-center lg:shrink-0"><Logo className="h-auto max-h-7 w-full max-w-[200px] object-contain object-left sm:max-w-[233px]" /></Link>
-        <nav aria-label="Main" className="label hidden items-center gap-4 whitespace-nowrap text-xs lg:flex xl:gap-6">
-          {nav.map((n) => (
-            <NavLink key={n.to} to={n.to} className={({ isActive }) => `inline-flex min-h-11 items-center border-b-2 border-t-2 border-t-transparent ${isActive ? "border-b-ink" : "border-b-transparent hover:border-b-ink/30"}`}>{n.label}</NavLink>
-          ))}
-        </nav>
-        <div className="ml-auto hidden w-[230px] lg:block xl:w-[300px]"><SchoolSearch id="school-finder-header" /></div>
-        <button type="button" onClick={() => setOpen(true)} className="label relative ml-auto inline-flex min-h-11 shrink-0 items-center rounded-pill border border-ink/25 bg-white px-3 hover:border-ink sm:px-4 lg:ml-2" aria-label={`Basket, ${count} ${count === 1 ? "item" : "items"}`}>
-          Basket{count > 0 && <span className="ml-2 inline-flex h-6 min-w-6 items-center justify-center rounded-pill bg-sun px-1.5 text-xs font-medium tracking-normal">{count}</span>}
-        </button>
-        <button type="button" onClick={() => setMenu(!menu)} className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-pill border border-ink/25 bg-white lg:hidden" aria-expanded={menu} aria-controls="mobile-menu" aria-label={menu ? "Close menu" : "Menu"}>
-          {menu ? (
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden><path d="M6 6l12 12M18 6 6 18" /></svg>
-          ) : (
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden><path d="M4 7h16M4 12h16M4 17h16" /></svg>
-          )}
-        </button>
-      </div>
-      {menu && (
-        <div id="mobile-menu" className="panel-in absolute inset-x-0 top-full max-h-[calc(100dvh-6.25rem)] overflow-y-auto border-y border-ink bg-white lg:hidden">
-          <div className="wrap pb-6 pt-4">
-            <SchoolSearch id="school-finder-menu" onGo={() => setMenu(false)} />
-            <nav aria-label="Main" className="mt-4 grid grid-cols-2 gap-x-6 border-t border-ink">
-              {[...nav, { to: "/about", label: "About" }].map((n) => (
-                <NavLink key={n.to} to={n.to} onClick={() => setMenu(false)} className={({ isActive }) => `flex min-h-12 items-center border-b border-line text-lg ${isActive ? "font-medium" : ""}`}>{n.label}</NavLink>
-              ))}
-            </nav>
-            <div className="mt-5 grid gap-4 sm:grid-cols-2">
-              <a href={`tel:${SITE.phoneIntl}`} className="btn btn-ink w-full">Call {SITE.phone}</a>
-              <p className="text-ink/75">{SITE.address.street}, {SITE.address.area}, {SITE.address.city} {SITE.address.postcode}<br />{SITE.hours}</p>
-            </div>
+    <header className="z-40 lg:sticky lg:top-0">
+      <div className="bar on-blue">
+        <div className="wrap grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-2 py-2.5 lg:h-16 lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:gap-x-8 lg:py-0">
+          <Link to="/" aria-label="I&A Schoolwear home" className="tap min-w-0"><Logo white className="h-auto w-full max-w-[212px]" /></Link>
+          {storefront.mode === "demo" && <span className="t-small font-medium lg:hidden" title="Preview catalogue: checkout opens once the shop is connected">Preview</span>}
+          <div className="col-span-2 lg:col-span-1 lg:max-w-[640px]"><SchoolSearch id="school-field" /></div>
+          <div className="hidden items-center gap-4 lg:flex">
+            {storefront.mode === "demo" && <span className="t-small font-medium" title="Preview catalogue: checkout opens once the shop is connected">Preview</span>}
+            <button type="button" onClick={() => setOpen(true)} className="bar-btn" aria-label={`Basket, ${count} ${count === 1 ? "item" : "items"}`}>
+              Basket <span className="count">{count}</span>
+            </button>
           </div>
         </div>
-      )}
+      </div>
+      <div className={`schoolbar ${chosen ? "" : "hidden lg:block"}`}>
+        <div className="wrap flex min-h-11 items-center gap-x-6">
+          {chosen ? (
+            <p className="flex min-w-0 flex-1 items-center gap-2.5">
+              <SchoolMark school={chosen} size="mark-sm" />
+              <VLink to={`/schools/${chosen.slug}`} className="tap min-w-0 font-semibold"><span className="truncate">{chosen.short}, {chosen.area}</span></VLink>
+              <span className="hidden text-mute sm:inline">{schoolStatus(chosen)}</span>
+              <VLink to="/schools" className="link tap shrink-0">Change school</VLink>
+            </p>
+          ) : (
+            <p className="flex-1 text-mute">Type your school in the blue bar, or <VLink to="/schools" className="link">pick it from the list</VLink>.</p>
+          )}
+          <nav aria-label="Main" className="hidden shrink-0 gap-6 lg:flex">
+            {places.map((n) => <NavLink key={n.to} to={n.to} className={({ isActive }) => `tap ${isActive ? "font-semibold underline decoration-2 underline-offset-4" : "hover:underline hover:underline-offset-4"}`}>{n.label}</NavLink>)}
+          </nav>
+        </div>
+      </div>
     </header>
+  );
+}
+
+/** Phones: three places, fixed at the bottom. Pages and the footer leave room for it. */
+export function TabBar() {
+  const { count, setOpen } = useCart();
+  const { pathname } = useLocation();
+  const onSchools = pathname === "/" || pathname.startsWith("/schools");
+  const onPlain = pathname === "/collections/plain";
+  return (
+    <nav className="tabbar" aria-label="Shop">
+      <VLink to="/schools" aria-current={onSchools ? "page" : undefined}>Schools</VLink>
+      <VLink to="/collections/plain" aria-current={onPlain ? "page" : undefined}>Plain basics</VLink>
+      <button type="button" onClick={() => setOpen(true)} aria-label={`Basket, ${count} ${count === 1 ? "item" : "items"}`}>Basket <span className="count">{count}</span></button>
+    </nav>
   );
 }

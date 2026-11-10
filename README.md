@@ -8,7 +8,7 @@ Parent-first school uniform store for I&A (Stockwell, London). Static React site
 
 - `src/lib/shopify.ts` is the only place that talks to commerce. With `VITE_SHOPIFY_DOMAIN` and `VITE_SHOPIFY_STOREFRONT_TOKEN` set it uses the Shopify Storefront API (products, collections, cart, checkout URL). Without them it runs on the preview catalogue in `src/data/catalogue.json` with a local basket.
 - Every page is keyed by **school**: products carry a `school:<slug>` tag (set the same tag in Shopify) and `productType` drives the collections. School metadata (name, colour, tint, tile) lives in `catalogue.json` and stays in the repo.
-- Images are in `public/img` (WebP, web-sized). Product and lifestyle imagery made from the client's real garments (disclosed in the footer).
+- Images are in `public/img` (WebP, web-sized): product photos only, shown as cut-outs. The imagery disclosure line is in the footer.
 
 ## Run locally
 
@@ -29,7 +29,7 @@ npm run dev
 
 ## Brand
 
-Follows the I&A brand guide 2022 (in `docs/`): official Schoolwear lockups rebuilt as outlined SVG from the guide (`public/img/logo/brand/`, regenerate with `docs/logo.py`), Ochre / Sage / School Blue / School Yellow palette, Cormorant Garamond headings, uppercase tracked labels. Agrandir is a commercial font (Pangram Pangram); Lexend is the stand-in until a web licence is bought.
+Follows the I&A brand guide 2022 (in `docs/`): official Schoolwear lockups rebuilt as outlined SVG from the guide (`public/img/logo/brand/`, regenerate with `docs/logo.py`), White, School Blue and School Yellow, with Ochre text. Type is Lexend throughout; Cormorant appears only inside the lockup. See `CLAUDE.md` for the version 4 rules (the shop as an order form).
 
 ## SEO and AI engines
 

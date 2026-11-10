@@ -17,51 +17,47 @@ export function Delivery() {
   return (
     <>
       <Seo title="Delivery and returns" description={`Standard delivery ${money(d.standard.price)} (${d.standard.time}), express ${money(d.express.price)} (${d.express.time}), free from £${d.freeOver}. Drop-off to your child's school for £${d.schoolDropOff}, or click and collect in Tooting. ${SITE.returns.days}-day returns.`} path="/delivery" jsonLd={breadcrumbs([{ name: "Home", path: "/" }, { name: "Delivery and returns", path: "/delivery" }])} />
-      <section className="wrap py-10 lg:py-14">
+      <div className="wrap py-8 lg:py-10"><div className="max-w-[760px]">
         <h1>Delivery and returns</h1>
-        <p className="t-lede measure mt-3 text-ink/75">Free delivery on orders of £{d.freeOver} and over. Or we'll drop the uniform at your child's school for £{d.schoolDropOff}.</p>
+        <p className="measure mt-2 text-mute">Delivery is free on orders of £{d.freeOver} and over.</p>
 
-        <div className="mt-10 grid gap-x-16 gap-y-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
-          <div id="delivery" className="scroll-mt-32">
-            <h2>Getting it to you</h2>
-            <table className="mt-5 w-full border-y border-ink text-left">
-              <caption className="sr-only">Delivery options and prices</caption>
-              <thead className="sr-only sm:not-sr-only">
-                <tr className="border-b border-line"><th scope="col" className="label py-3 pr-4 font-normal text-ink/65">Option</th><th scope="col" className="label py-3 pr-4 font-normal text-ink/65">Price</th><th scope="col" className="label py-3 font-normal text-ink/65">When</th></tr>
-              </thead>
-              <tbody className="divide-y divide-line">
-                {rows.map((r) => (
-                  <tr key={r.name} className="grid grid-cols-[1fr_auto] gap-x-4 py-3 sm:table-row sm:py-0">
-                    <th scope="row" className="font-medium sm:py-4 sm:pr-4">{r.name}</th>
-                    <td className="figure text-right text-[1.5rem] sm:py-4 sm:pr-4 sm:text-left">{r.price}</td>
-                    <td className="col-span-2 text-ink/70 sm:py-4">{r.when}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+        <section id="delivery" className="mt-7" aria-labelledby="del-h">
+          <h2 id="del-h">Four ways to get your order</h2>
+          <table className="mt-3 w-full border-t-2 border-blue text-left">
+            <caption className="sr-only">Delivery options and prices</caption>
+            <thead className="sr-only sm:not-sr-only">
+              <tr className="t-small border-b border-line text-mute"><th scope="col" className="py-2 pr-4 font-medium">Option</th><th scope="col" className="py-2 pr-4 font-medium">Price</th><th scope="col" className="py-2 font-medium">When and where</th></tr>
+            </thead>
+            <tbody>
+              {rows.map((r) => (
+                <tr key={r.name} className="grid grid-cols-[1fr_auto] gap-x-4 border-b border-line py-3 sm:table-row sm:py-0">
+                  <th scope="row" className="font-semibold sm:py-3.5 sm:pr-4">{r.name}</th>
+                  <td className="num text-right font-semibold sm:py-3.5 sm:pr-4 sm:text-left">{r.price}</td>
+                  <td className="col-span-2 text-mute sm:py-3.5">{r.when}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
 
-          <aside className="self-start rounded-[3px] bg-sage p-6 sm:p-8">
-            <h2 className="t-h3">Rather come in?</h2>
-            <p className="mt-2">Bring your child to the shop and we'll measure them for the right size. No appointment needed.</p>
-            <p className="mt-4">{SITE.address.street}, {SITE.address.area}, {SITE.address.city} {SITE.address.postcode}<br />{SITE.hours}</p>
-            <a href={`tel:${SITE.phoneIntl}`} className="btn btn-ink mt-5 w-full">Call {SITE.phone}</a>
-          </aside>
-        </div>
+        <section id="returns" className="mt-10" aria-labelledby="ret-h">
+          <h2 id="ret-h">Returns</h2>
+          <p className="measure mt-2">You have {SITE.returns.days} days to return plain uniform. Bring it back to the shop, or call <a href={`tel:${SITE.phoneIntl}`} className="link">{SITE.phone}</a> and we'll arrange it.</p>
+          <p className="measure mt-2">Across I&A shops, {list(SITE.returns.excluded)} can't be returned.</p>
+        </section>
 
-        <div className="mt-14 grid gap-x-16 gap-y-10 border-t border-ink pt-10 md:grid-cols-2">
-          <div id="returns" className="scroll-mt-32">
-            <h2>Returns</h2>
-            <p className="mt-3 text-ink/75">You have {SITE.returns.days} days to return plain uniform. Bring it back to the shop, or call {SITE.phone} and we'll arrange it.</p>
-            <p className="mt-3 text-ink/75">Across I&A shops, {list(SITE.returns.excluded)} can't be returned.</p>
-          </div>
-          <div id="exchanges" className="scroll-mt-32">
-            <h2>Exchanges on embroidered items</h2>
-            <p className="mt-3 text-ink/75">{SITE.returns.embroidered} Bring it to the shop, or call us first and we'll check we have the size.</p>
-            <p className="mt-3 text-ink/75">Not sure of the size? The <Link to="/size-guide" className="underline underline-offset-4">size guide</Link> helps, or come in and we'll measure.</p>
-          </div>
-        </div>
-      </section>
+        <section id="exchanges" className="mt-10" aria-labelledby="exc-h">
+          <h2 id="exc-h">Exchanges on embroidered items</h2>
+          <p className="measure mt-2">{SITE.returns.embroidered} Bring it to the shop, or call us first and we'll check we have the size.</p>
+          <p className="measure mt-2">To get the size right first time, use the <Link to="/size-guide" className="link">size guide</Link>.</p>
+        </section>
+
+        <section className="mt-10" aria-labelledby="visit-h">
+          <h2 id="visit-h">Or come in</h2>
+          <p className="measure mt-2">Bring your child to the shop and we measure them for the right size. No appointment needed.</p>
+          <address className="mt-2">{SITE.address.street}, {SITE.address.area}, {SITE.address.city} {SITE.address.postcode}<br />{SITE.hours}<br /><a href={`tel:${SITE.phoneIntl}`} className="link">{SITE.phone}</a></address>
+        </section>
+      </div></div>
     </>
   );
 }

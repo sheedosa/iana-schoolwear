@@ -45,7 +45,7 @@ export const ORG_LD = {
 
 export function Seo({ title, description, path, image = "/img/og/og-home.jpg", type = "website", jsonLd, noindex }: Props) {
   useEffect(() => {
-    const full = path === "/" ? `${title} — I&A Schoolwear` : `${title} | I&A Schoolwear`;
+    const full = path === "/" ? `${title} | I&A Schoolwear` : `${title} | I&A Schoolwear`;
     document.title = full;
     const url = `${SITE.url}${path === "/" ? "/" : path}`;
     const img = absolute(image);

@@ -12,7 +12,7 @@ const cat = JSON.parse(readFileSync(new URL("../src/data/catalogue.json", import
 
 const routes = ["/", "/schools", "/size-guide", "/about", "/delivery",
   ...cat.schools.map((s) => `/schools/${s.slug}`),
-  ...["boys", "girls", "pe-kit", "bags", "blazers", "all"].map((c) => `/collections/${c}`),
+  ...["plain", "boys", "girls", "pe-kit", "bags", "blazers", "all"].map((c) => `/collections/${c}`),
   ...cat.products.map((p) => `/products/${p.handle}`)];
 
 const types = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".webp": "image/webp", ".png": "image/png", ".jpg": "image/jpeg", ".json": "application/json", ".ico": "image/x-icon", ".txt": "text/plain", ".xml": "application/xml", ".webmanifest": "application/manifest+json" };
@@ -55,6 +55,7 @@ writeFileSync(join(dist, "llms.txt"), `# I&A Schoolwear
 ${schools}
 
 ## Collections
+- [Plain basics](${SITE}/collections/plain)
 - [Boys](${SITE}/collections/boys)
 - [Girls](${SITE}/collections/girls)
 - [PE kit](${SITE}/collections/pe-kit)

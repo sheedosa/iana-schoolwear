@@ -1,13 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ProductCard, garmentName } from "../components/ProductCard";
-import { SchoolTile } from "../components/SchoolFinder";
-import { StickyBar } from "../components/StickyBar";
-import { scrollBehaviour } from "../components/VLink";
+import { ProductRows, Thumb, garmentName } from "../components/ProductRow";
+import { SchoolMark } from "../components/SchoolFinder";
 import { useCart } from "../lib/cart";
-import { asset, formatPrice, inStoreOnly, sortSizes, storefront, StorefrontError, type Product, type School } from "../lib/shopify";
+import { useSchools } from "../lib/school";
+import { formatPrice, inStoreOnly, sortSizes, storefront, StorefrontError, type Product, type School } from "../lib/shopify";
 import { Seo, breadcrumbs } from "../components/Seo";
-import { SITE } from "../data/site";
+import { SITE, money } from "../data/site";
 
 export { sortSizes };
 
@@ -36,17 +35,18 @@ export function SchoolPage() {
   const [plain, setPlain] = useState<Product[]>([]);
   const [size, setSize] = useState("");
   const { add } = useCart();
+  const { choose } = useSchools();
   const [adding, setAdding] = useState(false);
   const [err, setErr] = useState<string | null>(null);
-  const [addBtn, setAddBtn] = useState<HTMLElement | null>(null);
+  const [nudge, setNudge] = useState(false);
 
   useEffect(() => {
-    setSize(""); setErr(null);
-    storefront.school(slug).then(setSchool);
+    setSize(""); setErr(null); setNudge(false);
+    storefront.school(slug).then((s) => { setSchool(s); if (s) choose(s.slug); }); // opening a school's page chooses it
     storefront.products({ school: slug }).then(setProducts);
     storefront.products().then((ps) => setPlain(pickBasics(ps, slug)));
     window.scrollTo(0, 0);
-  }, [slug]);
+  }, [slug, choose]);
 
   // The one-tap bundle: priced, photographed crested garments, and only sizes every one of them comes in.
   const bundle = useMemo(() => {
@@ -78,158 +78,160 @@ export function SchoolPage() {
   const count = words[bundle.length] || String(bundle.length);
   const allWord = bundle.length === 2 ? "both" : `all ${count}`;
   const addOrAsk = () => {
-    if (needSize) { document.getElementById("bundle-size")?.scrollIntoView({ behavior: scrollBehaviour(), block: "start" }); return; }
+    if (needSize) {
+      setNudge(true);
+      const el = document.getElementById("bundle-size");
+      el?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
+      el?.querySelector<HTMLElement>("button")?.focus({ preventScroll: true });
+      return;
+    }
     void addKit();
   };
 
-  if (!school) return <div className="wrap py-20 text-ink/60">Loading school…</div>;
+  if (!school) return <div className="wrap py-16 text-mute">Loading school…</div>;
   const crumbs = breadcrumbs([{ name: "Home", path: "/" }, { name: "Schools", path: "/schools" }, { name: school.short, path: `/schools/${school.slug}` }]);
+  const photo = products.find((p) => p.images[0])?.images[0];
 
   if (inStoreOnly(school)) return <InStoreSchool school={school} products={products} plain={plain} crumbs={crumbs} />;
 
   return (
-    <>
-      <Seo title={`${school.name} uniform`} description={`${school.name} school uniform: embroidered sweatshirts, cardigans, PE kit and bags, plus plain basics. Supplied and embroidered by I&A in Tooting. Pay in 3 with Klarna.`} path={`/schools/${school.slug}`} image={school.tile ?? undefined} jsonLd={crumbs} />
-      <SchoolHero school={school}>
-        {plural(products.length, `${school.short} item`)}, embroidered with the school crest in our Tooting shop. Can't see a size? Call us on <a href={`tel:${SITE.phoneIntl}`} className="underline">{SITE.phone}</a>.
-      </SchoolHero>
+    <div className="wrap py-6 lg:py-8">
+      <Seo title={`${school.name} uniform`} description={`${school.name} school uniform: embroidered sweatshirts, cardigans, PE kit and bags, plus plain basics. Supplied and embroidered by I&A in Tooting. Pay in 3 with Klarna.`} path={`/schools/${school.slug}`} image={photo} jsonLd={crumbs} />
+      <SchoolTitle school={school}>{school.area}. {plural(products.length, "item")} with the {school.short} crest online.</SchoolTitle>
 
-      {showBundle && (
-        <section className="wrap mt-10 lg:mt-14" aria-labelledby="bundle-h">
-          <div className="grid gap-x-16 gap-y-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
-            <div>
-              <h2 id="bundle-h">The essentials, one tap</h2>
-              <p className="measure mt-2 text-ink/75">The {count} logo items most {school.short} parents start with. Pick the size once and add {allWord}; change anything in the basket.</p>
+      <div className="mt-8 grid gap-x-14 gap-y-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)]">
+        <div className="min-w-0 space-y-12">
+          {showBundle && (
+            <section aria-labelledby="bundle-h">
+              <h2 id="bundle-h">The essentials</h2>
+              <p className="mt-1 text-mute">The {count} crested {school.short} items to start with. {sizes.length > 0 ? `Choose one size for ${allWord}, then add them together.` : "Add them together."}</p>
               {sizes.length > 0 && (
-                <fieldset className="mt-6 scroll-mt-32" id="bundle-size">
-                  <legend className="t-h3 font-medium">Size, for {allWord}</legend>
-                  <div className="sizes mt-3">
+                <fieldset className="mt-4" id="bundle-size">
+                  <legend className="flex w-full items-center justify-between gap-4 font-semibold">
+                    <span aria-live="polite">{size ? `Size ${size}, for ${allWord}` : `Size, for ${allWord}`}</span>
+                    <Link to="/size-guide" className="link tap font-normal">Size guide</Link>
+                  </legend>
+                  <div className="keys">
                     {sizes.map((s) => (
-                      <button key={s} type="button" aria-pressed={size === s} onClick={() => { setSize(s); setErr(null); }} className="pill">{s}</button>
+                      <button key={s} type="button" aria-pressed={size === s} onClick={() => { setSize(s); setErr(null); setNudge(false); }} className="key">{s}</button>
                     ))}
                   </div>
-                  <p className="mt-3 text-ink/75">Between two sizes? Go up; children grow into it by spring. <Link to="/size-guide" className="underline underline-offset-4">Size guide</Link></p>
                 </fieldset>
               )}
-            </div>
-            <div>
-              <ul className="packing" aria-label={`${school.short} essentials`}>
+              <ul className="sheet mt-5" aria-label={`${school.short} essentials`}>
                 {bundle.map((p) => (
-                  <li key={p.handle} className="packing-line">
-                    <img src={asset(p.images[0])} alt="" className="h-16 w-14 rounded-[3px] border border-line bg-white object-contain p-0.5" />
+                  <li key={p.handle} className="item-line sm:!grid-cols-[4rem_minmax(0,1fr)_auto]">
+                    <Thumb p={p} />
                     <div className="min-w-0">
-                      <Link to={`/products/${p.handle}`} className="font-medium leading-tight underline decoration-ink/30 underline-offset-4 hover:decoration-ink">{garmentName(p, school)}</Link>
-                      <p className={`mt-0.5 ${p.sizes.length && !size ? "text-ink/65" : ""}`} aria-live="polite">{!p.sizes.length ? "One size" : size ? `Size ${size}` : "Size to choose"}</p>
+                      <Link to={`/products/${p.handle}`} className="font-semibold leading-tight underline decoration-line decoration-2 underline-offset-4 hover:decoration-blue">{garmentName(p, school)}</Link>
+                      <p className="t-small mt-0.5 text-mute">{!p.sizes.length ? "One size" : size ? `Size ${size}` : "Size to choose"}</p>
                     </div>
-                    <span className="font-medium">{formatPrice(p.priceMin)}</span>
+                    <span className="num font-medium">{formatPrice(p.priceMin)}</span>
                   </li>
                 ))}
               </ul>
-              <div className="packing-total">
-                <span className="font-medium">Essentials total</span>
-                <span className="figure text-[2rem]">{formatPrice(kitTotal)}</span>
+              <div className="order-foot">
+                <p className="flex items-baseline justify-between gap-4 pb-2.5"><span className="font-semibold">Essentials total</span><span className="num text-xl font-semibold">{formatPrice(kitTotal)}</span></p>
+                {nudge && needSize && <p role="alert" className="mb-2 font-medium">Choose the size first, then add.</p>}
+                <button type="button" disabled={adding} aria-disabled={needSize} onClick={addOrAsk} className="btn btn-buy w-full">{adding ? "Adding…" : `Add ${allWord} to basket, ${formatPrice(kitTotal)}`}</button>
+                {err && <p role="alert" className="mt-2 font-medium">{err} Call <a href={`tel:${SITE.phoneIntl}`} className="link">{SITE.phone}</a> if it keeps happening.</p>}
               </div>
-              <button ref={setAddBtn} type="button" disabled={adding} aria-disabled={needSize} onClick={addOrAsk} className="btn btn-primary mt-4 w-full py-4 text-[0.9375rem] disabled:opacity-60">{adding ? "Adding…" : needSize ? "Choose a size to add" : `Add ${allWord} to basket`}</button>
-              {err && <p role="alert" className="mt-2 font-medium">{err} Call <a href={`tel:${SITE.phoneIntl}`} className="underline">{SITE.phone}</a> if it keeps happening.</p>}
-            </div>
-          </div>
-          <StickyBar target={addBtn} label="Add the essentials">
-            <div className="min-w-0 flex-1 leading-tight"><p className="truncate font-medium">{count[0].toUpperCase() + count.slice(1)} essentials, {formatPrice(kitTotal)}</p><p className="t-small truncate text-ink/75">{needSize ? "Size to choose" : size ? `Size ${size}` : "One size"}</p></div>
-            <button type="button" disabled={adding} onClick={addOrAsk} className="btn btn-primary shrink-0 disabled:opacity-60">{adding ? "Adding…" : needSize ? "Choose size" : "Add all"}</button>
-          </StickyBar>
-        </section>
-      )}
+            </section>
+          )}
 
-      <section className="wrap mt-16 lg:mt-20" aria-labelledby="list-h">
-        <h2 id="list-h">From the school's uniform list</h2>
-        <p className="measure mt-2 text-ink/75">The school's uniform leaflet shows which items are compulsory. Not sure? Call us on {SITE.phone} and we'll tell you.</p>
-        {products.length > 0 && (
-          <div className="mt-8">
-            <h3 className="t-h3 flex items-baseline justify-between gap-3 border-b border-ink pb-2"><span>With the school crest</span><span className="text-base font-normal text-ink/65">{plural(products.length, "item")}</span></h3>
-            <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4">
-              {products.map((p) => <ProductCard key={p.handle} p={p} school={school} />)}
-            </div>
-          </div>
-        )}
-        <Basics plain={plain} nested />
-      </section>
+          <section aria-labelledby="list-h">
+            <h2 id="list-h">From the school's uniform list</h2>
+            <p className="measure mt-1 text-mute">The school's uniform leaflet shows which items are compulsory. Not sure? Call {SITE.phone} and we'll tell you.</p>
+            {products.length > 0 && (
+              <div className="mt-6">
+                <div className="group-head"><h3>With the school crest</h3><span className="num text-mute">{plural(products.length, "item")}</span></div>
+                <div className="[&>.sheet]:border-t-0"><ProductRows products={products} school={school} /></div>
+              </div>
+            )}
+            <Basics plain={plain} />
+          </section>
+        </div>
+        <Aside crested />
+      </div>
+    </div>
+  );
+}
+
+function SchoolTitle({ school, children }: { school: School; children: React.ReactNode }) {
+  return (
+    <>
+      <p className="t-small"><Link to="/schools" className="link tap">Schools</Link> <span className="text-mute">/ {school.short}</span></p>
+      <div className="mt-1 flex items-center gap-4">
+        <SchoolMark school={school} size="mark-lg" shared />
+        <div className="min-w-0">
+          <h1>{school.name}</h1>
+          <p className="mt-1 text-mute">{children}</p>
+        </div>
+      </div>
     </>
   );
 }
 
-function SchoolHero({ school, children }: { school: School; children: React.ReactNode }) {
+function Basics({ plain }: { plain: Product[] }) {
+  if (!plain.length) return null;
   return (
-    <section className="bg-sage-soft">
-      <div className="wrap grid grid-cols-[5.5rem_minmax(0,1fr)] items-center gap-x-4 gap-y-4 py-6 sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-x-6 sm:py-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-x-12 lg:py-14">
-        {/* The school's tile in its own colour: the only page it appears on. It is the tile the finder carried here. */}
-        <SchoolTile school={school} on shared className="lg:col-start-2 lg:row-span-2 lg:row-start-1" />
-        <div className="lg:col-start-1 lg:row-start-1 lg:self-end">
-          <h1>{school.name}</h1>
-          <p className="mt-1.5 font-medium lg:mt-3">{school.area}{inStoreOnly(school) ? ", in store only" : ""}</p>
-        </div>
-        <p className="measure col-span-2 text-ink/75 lg:col-span-1 lg:col-start-1 lg:row-start-2 lg:self-start">{children}</p>
-      </div>
-    </section>
+    <div className="mt-10">
+      <div className="group-head"><h3>Plain items to go with it</h3><Link to="/collections/plain" className="link">All plain basics</Link></div>
+      <div className="[&>.sheet]:border-t-0"><ProductRows products={plain} /></div>
+    </div>
   );
 }
 
-function Basics({ plain, nested = false }: { plain: Product[]; nested?: boolean }) {
-  if (!plain.length) return null;
-  const grid = (
-    <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4">
-      {plain.map((p) => <ProductCard key={p.handle} p={p} />)}
-    </div>
-  );
-  if (nested) return (
-    <div className="mt-12">
-      <h3 className="t-h3 border-b border-ink pb-2">Plain items to go with it</h3>
-      <p className="mt-3 text-ink/70">Trousers, shirts, skirts and knitwear: any school, no logo. <Link to="/collections/all" className="font-medium underline underline-offset-4">All plain uniform</Link></p>
-      {grid}
-    </div>
-  );
+/** The facts a parent checks before ordering, from SITE. */
+function Aside({ crested = false }: { crested?: boolean }) {
+  const d = SITE.delivery;
   return (
-    <section className="wrap mt-16 lg:mt-20">
-      <div className="flex flex-wrap items-end justify-between gap-2">
-        <div>
-          <h2>Plain items to go with it</h2>
-          <p className="mt-1 text-ink/75">Trousers, shirts, skirts and knitwear: any school, no logo.</p>
-        </div>
-        <Link to="/collections/all" className="inline-flex min-h-11 items-center font-medium underline">All plain uniform</Link>
-      </div>
-      {grid}
-    </section>
+    <aside className="space-y-7 lg:sticky lg:top-[calc(var(--head)+1.5rem)] lg:self-start" aria-label="Before you order">
+      <section>
+        <h2>Sizes</h2>
+        <p className="mt-1.5">Between two sizes, go up. The <Link to="/size-guide" className="link">size guide</Link> has the measurements. Or bring your child to the shop and we measure them: no appointment needed.</p>
+      </section>
+      <section>
+        <h2>Delivery</h2>
+        <p className="mt-1.5">Drop-off to your child's school is £{d.schoolDropOff}. Standard {money(d.standard.price)}, express {money(d.express.price)}, free on orders of £{d.freeOver} and over. {d.collect}. <Link to="/delivery" className="link">Delivery and returns</Link></p>
+      </section>
+      {crested && (
+        <section>
+          <h2>Exchanges</h2>
+          <p className="mt-1.5">{SITE.returns.embroidered}</p>
+        </section>
+      )}
+    </aside>
   );
 }
 
 function InStoreSchool({ school, products, plain, crumbs }: { school: School; products: Product[]; plain: Product[]; crumbs: Record<string, unknown> }) {
   return (
-    <>
+    <div className="wrap py-6 lg:py-8">
       <Seo title={`${school.name} uniform, in store`} description={`${school.name} uniform is available in store at I&A, 84 Mitcham Road, Tooting. Open ${SITE.hours}. Call ${SITE.phone}.`} path={`/schools/${school.slug}`} jsonLd={crumbs} />
-      <SchoolHero school={school}>
-        {school.short} uniform is in the shop on Mitcham Road. It isn't online yet, so come in or call and we'll check your sizes.
-      </SchoolHero>
-      <section className="wrap mt-10 grid gap-x-16 gap-y-8 lg:mt-14 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
-        <div>
-          <h2>Come to the shop</h2>
-          <dl className="mt-5 divide-y divide-line border-y border-ink">
-            <div className="grid gap-1 py-4 sm:grid-cols-[120px_1fr]"><dt className="label text-ink/65">Address</dt><dd>{SITE.address.street}, {SITE.address.area}, {SITE.address.city} {SITE.address.postcode}</dd></div>
-            <div className="grid gap-1 py-4 sm:grid-cols-[120px_1fr]"><dt className="label text-ink/65">Hours</dt><dd>{SITE.hours}</dd></div>
-            <div className="grid gap-1 py-4 sm:grid-cols-[120px_1fr]"><dt className="label text-ink/65">Phone</dt><dd><a href={`tel:${SITE.phoneIntl}`} className="underline">{SITE.phone}</a></dd></div>
-          </dl>
-          <a href={`tel:${SITE.phoneIntl}`} className="btn btn-primary mt-6">Call the shop</a>
-        </div>
-        <div className="on-dark self-start rounded-[3px] bg-blue p-6 text-white sm:p-8">
-          <h2 className="t-h3">By Tooting Broadway</h2>
-          <p className="mt-3">Look for the blue shopfront on Mitcham Road. Bring your child and we'll measure them for the right size.</p>
+      <SchoolTitle school={school}>{school.area}. In store only.</SchoolTitle>
+      <div className="mt-8 grid gap-x-14 gap-y-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)]">
+        <div className="min-w-0">
+          <section aria-labelledby="visit-h">
+            <h2 id="visit-h">Buy {school.short} uniform in the shop</h2>
+            <p className="measure mt-1 text-mute">{school.short} uniform is on Mitcham Road and not online yet. Come in, or call and we check your sizes. Bring your child and we measure them.</p>
+            <dl className="facts mt-4 border-t-2 border-blue">
+              <div><dt>Address</dt><dd>{SITE.address.street}, {SITE.address.area}, {SITE.address.city} {SITE.address.postcode}</dd></div>
+              <div><dt>Hours</dt><dd>{SITE.hours}</dd></div>
+              <div><dt>Phone</dt><dd><a href={`tel:${SITE.phoneIntl}`} className="link">{SITE.phone}</a></dd></div>
+            </dl>
+            <a href={`tel:${SITE.phoneIntl}`} className="btn btn-line mt-5">Call the shop</a>
+          </section>
           {products.length > 0 && (
-            <>
-              <h3 className="mt-6 border-t border-white/40 pt-4">Online now</h3>
-              <ul className="mt-1">{products.map((p) => <li key={p.handle}><Link to={`/products/${p.handle}`} className="inline-flex min-h-11 items-center underline underline-offset-4">{p.title}</Link></li>)}</ul>
-            </>
+            <div className="mt-10">
+              <div className="group-head"><h3>Online now</h3><span className="num text-mute">{plural(products.length, "item")}</span></div>
+              <div className="[&>.sheet]:border-t-0"><ProductRows products={products} school={school} /></div>
+            </div>
           )}
+          <Basics plain={plain} />
         </div>
-      </section>
-      <Basics plain={plain} />
-    </>
+        <Aside />
+      </div>
+    </div>
   );
 }
