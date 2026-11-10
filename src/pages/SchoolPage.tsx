@@ -176,7 +176,7 @@ function Basics({ plain }: { plain: Product[] }) {
   if (!plain.length) return null;
   return (
     <div className="mt-10">
-      <div className="group-head"><h3>Plain items to go with it</h3><Link to="/collections/plain" className="link">All plain basics</Link></div>
+      <div className="group-head"><h3>Plain items to go with it</h3><Link to="/collections/plain" className="link tap -my-2.5">All plain basics</Link></div>
       <div className="[&>.sheet]:border-t-0"><ProductRows products={plain} /></div>
     </div>
   );

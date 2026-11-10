@@ -109,7 +109,7 @@ export function ProductPage() {
         <section className="mt-12 max-w-[760px]" aria-labelledby="also-h">
           <div className="group-head">
             <h2 id="also-h">{school ? `Also on the ${school.short} list` : `More ${p.productType.toLowerCase()}`}</h2>
-            {school ? <VLink to={`/schools/${school.slug}`} className="link">Whole list</VLink> : <Link to={`/collections/plain#${typeId(p.productType)}`} className="link">All of them</Link>}
+            {school ? <VLink to={`/schools/${school.slug}`} className="link tap -my-2.5">Whole list</VLink> : <Link to={`/collections/plain#${typeId(p.productType)}`} className="link tap -my-2.5">All of them</Link>}
           </div>
           <div className="[&>.sheet]:border-t-0"><ProductRows products={related} school={school ?? undefined} /></div>
         </section>

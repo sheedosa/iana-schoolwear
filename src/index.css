@@ -115,9 +115,12 @@
   .sizes { border-top: 1px solid var(--color-line); }
   .order { container-type: inline-size; }
   @container (min-width: 30rem) { .sizes[data-cols="2"] { column-count: 2; column-gap: 2rem; } }
+  /* The name is the way into the product page: its hit area is the whole text cell, never less than 44px tall. */
+  .row-text { position: relative; }
+  .row-link::after { content: ""; position: absolute; inset: -0.75rem 0; }
   .size-line { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; min-height: 3.5rem; padding: 0.25rem 0.25rem 0.25rem 0.625rem; border-bottom: 1px solid var(--color-line); break-inside: avoid; }
   .size-line[data-on="true"] { background: var(--color-tint); }
-  .qty { display: inline-grid; grid-template-columns: 2.75rem 2.5rem 2.75rem; align-items: stretch; height: 2.75rem; border: 2px solid var(--color-blue); border-radius: var(--radius-ctl); background: #ffffff; overflow: hidden; }
+  .qty { display: inline-grid; grid-template-columns: 2.75rem 2.5rem 2.75rem; align-items: stretch; height: 3rem; border: 2px solid var(--color-blue); border-radius: var(--radius-ctl); background: #ffffff; overflow: hidden; }
   .qty button { font-size: 1.25rem; line-height: 1; color: var(--color-blue-deep); }
   .qty button:hover:not(:disabled) { background: var(--color-tint); }
   .qty button:disabled { color: #9aa3bd; cursor: not-allowed; }

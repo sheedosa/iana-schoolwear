@@ -80,8 +80,8 @@ export function ProductRow({ p, school, showSchool = false }: { p: Product; scho
     <li>
       <div className="item-line" data-open={open}>
         <Thumb p={p} shared />
-        <div className="min-w-0">
-          <VLink to={`/products/${p.handle}`} className="font-semibold leading-tight underline decoration-line decoration-2 underline-offset-4 hover:decoration-blue">{name}</VLink>
+        <div className="row-text min-w-0">
+          <VLink to={`/products/${p.handle}`} className="row-link font-semibold leading-tight underline decoration-line decoration-2 underline-offset-4 hover:decoration-blue">{name}</VLink>
           {meta && <p className="t-small mt-0.5 text-mute">{meta[0].toUpperCase() + meta.slice(1)}</p>}
           <p className="num mt-0.5 font-medium sm:hidden">{priceText(p)}</p>
         </div>
