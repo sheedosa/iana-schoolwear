@@ -22,48 +22,120 @@
   --radius-pill: 3px;          /* the brand is rectilinear: the marque is a sharp rectangle */
 }
 
+/* Version 3 tokens: one fluid type scale, one set of motion timings. Pages use the classes, never a hard-coded heading size. */
+:root {
+  --t-hero: clamp(2.25rem, 1.42rem + 3.4vw, 3.75rem);     /* home headline: 36 to 60 */
+  --t-h1: clamp(2.125rem, 1.6rem + 2.15vw, 3.25rem);      /* page title: 34 to 52 */
+  --t-h2: clamp(1.75rem, 1.47rem + 1.15vw, 2.375rem);     /* section title: 28 to 38 */
+  --t-h3: clamp(1.3125rem, 1.2rem + 0.45vw, 1.5625rem);   /* sub-title: 21 to 25 */
+  --t-lede: clamp(1.0625rem, 1.02rem + 0.2vw, 1.1875rem); /* 17 to 19 */
+  --t-small: 0.875rem;
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+  --dur-1: 160ms;
+  --dur-2: 420ms;
+  --dur-3: 760ms;
+}
+
 @layer base {
-  html { scroll-behavior: smooth; }
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+    ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+  }
+  /* Shared elements (a school's tile, a product photo) travel; the rest of the page cross-fades quickly. */
+  ::view-transition-group(*) { animation-duration: var(--dur-2); animation-timing-function: var(--ease-out); }
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 220ms; }
 
   body {
     @apply bg-chalk text-ink font-sans antialiased;
     font-size: 16px;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.6;
   }
   strong, b { font-weight: 500; }
 
-  h1, h2 { font-family: var(--font-serif); font-weight: 700; letter-spacing: -0.005em; line-height: 1.04; text-wrap: balance; }
-  h3 { font-weight: 500; text-wrap: balance; }
-  a, button, input, select, summary { @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink; }
+  /* Cormorant Garamond Bold sets small for its size and wants tight leading; the tracking closes a little as it grows. */
+  h1, h2 { font-family: var(--font-serif); font-weight: 700; text-wrap: balance; font-variant-numeric: lining-nums; }
+  h1 { font-size: var(--t-h1); line-height: 1.02; letter-spacing: -0.012em; }
+  h2 { font-size: var(--t-h2); line-height: 1.08; letter-spacing: -0.006em; }
+  h3 { font-size: 1.0625rem; font-weight: 500; line-height: 1.3; text-wrap: balance; }
+  p { text-wrap: pretty; }
+  input, select, textarea { font-size: 1rem; }
+
+  /* Focus: School Blue on light grounds, white on the Ochre and Blue grounds. */
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible { outline: 2px solid var(--color-blue); outline-offset: 2px; }
+  .on-dark a:focus-visible, .on-dark button:focus-visible, .on-dark input:focus-visible { outline-color: #ffffff; }
 }
 
 @layer components {
-  .display { font-family: var(--font-serif); font-weight: 700; letter-spacing: -0.005em; line-height: 1.04; text-wrap: balance; }
-  /* Tailwind weight utilities on serif headings would ask for 800; Cormorant tops out at 700 */
-  h1.font-extrabold, h2.font-extrabold { font-weight: 700; }
+  .t-hero { font-size: var(--t-hero); line-height: 1; letter-spacing: -0.016em; }
+  .t-h1 { font-size: var(--t-h1); line-height: 1.02; letter-spacing: -0.012em; }
+  .t-h2 { font-size: var(--t-h2); line-height: 1.08; letter-spacing: -0.006em; }
+  .t-h3 { font-size: var(--t-h3); line-height: 1.15; letter-spacing: 0; }
+  .t-lede { font-size: var(--t-lede); line-height: 1.55; }
+  .t-small { font-size: var(--t-small); line-height: 1.45; }
+  .measure { max-width: 62ch; }
 
-  /* Brand label: Agrandir, uppercase, 0.15em tracking, always the sans face (even on an h2). */
+  /* Brand label: Agrandir, uppercase, 0.15em tracking, always the sans face. For controls, table heads and footer headings. */
   .label { font-family: var(--font-sans); line-height: 1.4; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 400; font-size: 0.8125rem; }
-  .label-lg { font-family: var(--font-sans); text-transform: uppercase; letter-spacing: 0.15em; font-weight: 200; font-size: 1.25rem; }
 
   .wrap { @apply mx-auto w-full max-w-[1200px] px-4 sm:px-6; }
 
-  .btn { @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-pill px-6 py-3 text-[0.8125rem] font-normal uppercase tracking-[0.15em] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink; }
+  .btn { @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-pill px-6 py-3 text-[0.8125rem] font-medium uppercase tracking-[0.15em]; transition: background-color var(--dur-1) ease-out, border-color var(--dur-1) ease-out; }
   .btn-primary { @apply bg-sun text-ink hover:bg-sun-deep; }
   .btn-ink { @apply bg-ink text-white hover:bg-ink-soft; }
   .btn-blue { @apply bg-blue text-white hover:bg-blue-deep; }
   .btn-ghost { @apply border border-ink/25 bg-white text-ink hover:border-ink; }
+  .btn:disabled { cursor: not-allowed; }
 
   .hairline { @apply border-t border-line; }
   /* Filter and size chips: the pressed state is driven by aria-pressed so it can never be overridden. */
-  .pill { @apply inline-flex min-h-11 items-center rounded-pill border border-line bg-white px-3.5 py-1 text-[15px] text-ink hover:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink; }
+  .pill { @apply inline-flex min-h-11 items-center rounded-pill border border-ink/25 bg-white px-3.5 py-1 text-base text-ink hover:border-ink; transition: background-color var(--dur-1) ease-out, color var(--dur-1) ease-out, border-color var(--dur-1) ease-out; }
   .pill[aria-pressed="true"] { @apply border-ink bg-ink text-white; }
+  /* Size chips are the one choice a parent must not miss: a full-width grid of large keys. */
+  .sizes { display: grid; grid-template-columns: repeat(auto-fill, minmax(5.25rem, 1fr)); gap: 0.5rem; }
+  .sizes .pill { @apply min-h-12 justify-center px-2 font-medium; }
 
-  /* image hover: the only decorative transition on the site */
-  .lift img { transition: transform 600ms cubic-bezier(.2,.8,.2,1); }
-  .lift:hover img { transform: scale(1.02); }
+  /* ---- The school finder ---- */
+  .finder-field { @apply flex min-w-0 flex-1 items-center gap-3 rounded-pill border border-ink/30 bg-white; transition: border-color var(--dur-1) ease-out; }
+  .finder-field:focus-within { border-color: var(--color-blue); outline: 2px solid var(--color-blue); outline-offset: 1px; }
+  .finder-field input:focus-visible { outline: none; }
+
+  /* A school's tile: the Sage photograph, with the school-colour photograph laid over it when the school is the match. */
+  .tile { position: relative; display: block; aspect-ratio: 1; overflow: hidden; border-radius: 3px; background: var(--color-sage); container-type: inline-size; }
+  .tile > img, .tile > .tile-ini { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .tile > .tile-ini { display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-weight: 700; line-height: 1; font-size: min(38cqw, 6rem); }
+  .tile > .tile-colour { opacity: 0; transition: opacity var(--dur-2) var(--ease-out); }
+  .tile[data-on="true"] > .tile-colour { opacity: 1; }
+
+  .school-pick { @apply block rounded-[3px] text-left; }
+  .school-pick .tile { outline: 2px solid transparent; outline-offset: 2px; transition: outline-color var(--dur-1) ease-out; }
+  .school-pick[data-match="true"] .tile { outline-color: var(--color-ink); }
+  @media (hover: hover) { .school-pick:hover .school-pick-name { text-decoration: underline; text-underline-offset: 3px; } }
+  .rail { display: grid; grid-auto-flow: column; grid-auto-columns: 6.25rem; gap: 0.75rem; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; padding: 4px; margin: -4px; }
+  .rail::-webkit-scrollbar { display: none; }
+  .rail > * { scroll-snap-align: start; }
+  @media (min-width: 640px) { .rail { grid-auto-flow: row; grid-template-columns: repeat(5, minmax(0, 1fr)); overflow: visible; } }
+
+  /* ---- The essentials packing list ---- */
+  .packing { border-top: 2px solid var(--color-ink); }
+  .packing-line { display: grid; grid-template-columns: 3.5rem minmax(0, 1fr) auto; align-items: center; gap: 0.875rem; padding: 0.625rem 0; border-bottom: 1px solid var(--color-line); min-height: 4.75rem; }
+  .packing-total { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 0.875rem 0; border-bottom: 2px solid var(--color-ink); }
+  .figure { font-family: var(--font-serif); font-weight: 700; font-variant-numeric: lining-nums; line-height: 1; letter-spacing: -0.01em; }
+
+  /* ---- Sticky action bar on phones: appears once the page's own button has scrolled away ---- */
+  .stickybar { position: fixed; inset-inline: 0; bottom: 0; z-index: 30; border-top: 1px solid var(--color-ink); background: #ffffff; padding: 0.625rem 1rem calc(0.625rem + env(safe-area-inset-bottom)); transform: translateY(105%); visibility: hidden; transition: transform var(--dur-2) var(--ease-out), visibility 0s linear var(--dur-2); }
+  .stickybar[data-show="true"] { transform: none; visibility: visible; transition: transform var(--dur-2) var(--ease-out), visibility 0s; }
+
+  /* Panels that open in answer to a tap */
+  @keyframes panel-in { from { opacity: 0; transform: translateY(-6px); } }
+  @keyframes drawer-in { from { transform: translateX(100%); } }
+  @keyframes sheet-in { from { opacity: 0; } }
+  .panel-in { animation: panel-in var(--dur-1) ease-out; }
+  .drawer-in { animation: drawer-in var(--dur-2) var(--ease-out); }
+  .sheet-in { animation: sheet-in var(--dur-1) ease-out; }
+  /* The one unprompted moment: the home finder panel settling on load. */
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } }
+  .rise { animation: rise var(--dur-3) var(--ease-out) both; }
 }
 
 /* Accessibility: translucent Ochre on white or tinted backgrounds falls below 4.5:1 (axe). Pin the muted

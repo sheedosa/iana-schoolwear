@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import { Seo } from "./components/Seo";
 import { Header } from "./components/Header";
 import { SchoolFinder } from "./components/SchoolFinder";
 import { Footer } from "./components/Footer";
@@ -15,11 +16,11 @@ import { Delivery } from "./pages/Delivery";
 
 function NotFound() {
   return (
-    <section className="wrap py-24 text-center">
-      <h1 className="text-3xl font-extrabold">That page isn't here</h1>
-      <p className="mt-2 text-ink/65">Try finding your school instead.</p>
-      <div className="mx-auto mt-6 max-w-xl text-left"><SchoolFinder size="lg" id="school-finder-404" /></div>
-      <Link to="/schools" className="mt-4 inline-flex min-h-11 items-center underline">See all schools</Link>
+    <section className="wrap py-12 lg:py-20">
+      <Seo title="Page not found" description="That page isn't here. Find your school's uniform instead." path="/schools" noindex />
+      <h1>That page isn't here</h1>
+      <p className="t-lede mt-3 text-ink/75">Find your school instead, or <Link to="/collections/all" className="underline underline-offset-4">see all uniform</Link>.</p>
+      <div className="mt-6 max-w-[620px]"><SchoolFinder id="school-finder-404" /></div>
     </section>
   );
 }
@@ -30,7 +31,7 @@ export default function App() {
       <CartProvider>
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-pill focus:bg-white focus:px-4 focus:py-2">Skip to content</a>
         <Header />
-        <main id="main">
+        <main id="main" className="pb-20">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/schools" element={<Schools />} />

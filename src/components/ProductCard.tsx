@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { VLink, productVT } from "./VLink";
 import { asset, priceLabel, type Product, type School } from "../lib/shopify";
 
 /** The garment name without the school in front: "St Anne's polo shirt" -> "Polo shirt". */
@@ -45,30 +45,31 @@ export function PhotoComing({ p, school, large = false }: { p: Product; school?:
           <path d={PATHS[shapeFor(p)]} vectorEffect="non-scaling-stroke" />
         </svg>
       )}
-      <span className={`label ${large ? "text-sm" : "text-[0.6875rem] sm:text-xs"}`}>{garmentName(p, school)}</span>
-      <span className={`${large ? "text-base" : "text-sm"} opacity-95`}>{large ? `Photo coming soon. In store now${school ? `, with the ${school.short} crest` : ""}.` : "Photo coming soon"}</span>
+      <span className={`font-medium leading-tight ${large ? "t-h3" : ""}`}>{garmentName(p, school)}</span>
+      <span className={large ? "" : "t-small"}>{large ? `Photo coming soon. In store now${school ? `, with the ${school.short} crest` : ""}.` : "Photo coming soon"}</span>
     </div>
   );
 }
 
 export function ProductCard({ p, school, showSchool = false }: { p: Product; school?: School; showSchool?: boolean }) {
   const img = p.images[0];
+  const meta = [p.brand, p.sizes.length > 1 ? `${p.sizes.length} sizes` : p.productType].filter(Boolean).join(", ");
   return (
-    <Link to={`/products/${p.handle}`} className="lift group block">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-md border border-line bg-white">
+    <VLink to={`/products/${p.handle}`} className="group block">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-[3px] border border-line bg-white" style={productVT(p.handle)}>
         {img ? (
           <img src={asset(img)} alt={p.title} loading="lazy" className="h-full w-full object-contain p-3" />
         ) : (
           <PhotoComing p={p} school={p.logoItem && !showSchool ? school : undefined} />
         )}
-        {showSchool && p.logoItem && school && img && <span className="absolute left-3 top-3 rounded-pill bg-white px-2.5 py-1 text-xs font-medium" style={{ color: school.colour }}>{school.short}</span>}
-        {!p.available && <span className="absolute right-3 top-3 rounded-pill bg-white px-2.5 py-1 text-xs font-medium text-ink/70">Out of stock online</span>}
+        {showSchool && p.logoItem && school && img && <span className="t-small absolute left-2 top-2 rounded-pill bg-white px-2 py-1 font-medium text-ink">{school.short}</span>}
+        {!p.available && <span className="t-small absolute right-2 top-2 rounded-pill bg-white px-2 py-1 font-medium text-ink/70">Out of stock online</span>}
       </div>
       <div className="mt-3">
-        <h3 className="font-normal leading-tight group-hover:underline">{p.title}</h3>
+        <h3 className="text-base font-normal leading-snug group-hover:underline group-hover:underline-offset-4">{p.title}</h3>
         <p className="mt-1 font-medium">{priceLabel(p)}</p>
-        <p className="label mt-0.5 text-[0.6875rem] text-ink/55">{[p.brand, p.sizes.length > 1 ? `${p.sizes.length} sizes` : p.productType].filter(Boolean).join(" · ")}</p>
+        <p className="t-small mt-0.5 text-ink/65">{meta}</p>
       </div>
-    </Link>
+    </VLink>
   );
 }

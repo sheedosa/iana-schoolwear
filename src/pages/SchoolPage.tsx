@@ -1,8 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ProductCard } from "../components/ProductCard";
+import { ProductCard, garmentName } from "../components/ProductCard";
+import { SchoolTile } from "../components/SchoolFinder";
+import { StickyBar } from "../components/StickyBar";
+import { scrollBehaviour } from "../components/VLink";
 import { useCart } from "../lib/cart";
-import { asset, formatPrice, inStoreOnly, sortSizes, storefront, type Product, type School } from "../lib/shopify";
+import { asset, formatPrice, inStoreOnly, sortSizes, storefront, StorefrontError, type Product, type School } from "../lib/shopify";
 import { Seo, breadcrumbs } from "../components/Seo";
 import { SITE } from "../data/site";
 
@@ -34,9 +37,11 @@ export function SchoolPage() {
   const [size, setSize] = useState("");
   const { add } = useCart();
   const [adding, setAdding] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+  const [addBtn, setAddBtn] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
-    setSize("");
+    setSize(""); setErr(null);
     storefront.school(slug).then(setSchool);
     storefront.products({ school: slug }).then(setProducts);
     storefront.products().then((ps) => setPlain(pickBasics(ps, slug)));
@@ -63,9 +68,18 @@ export function SchoolPage() {
   const kitTotal = bundle.reduce((a, p) => a + p.priceMin, 0);
 
   const addKit = async () => {
-    setAdding(true);
-    for (const p of bundle) await add(p.handle, p.sizes.length ? size : null);
-    setAdding(false);
+    setAdding(true); setErr(null);
+    try { for (const p of bundle) await add(p.handle, p.sizes.length ? size : null); }
+    catch (e) { setErr(e instanceof StorefrontError ? e.message : "Couldn't add those to your basket. Please try again."); }
+    finally { setAdding(false); }
+  };
+
+  const needSize = sizes.length > 0 && !size;
+  const count = words[bundle.length] || String(bundle.length);
+  const allWord = bundle.length === 2 ? "both" : `all ${count}`;
+  const addOrAsk = () => {
+    if (needSize) { document.getElementById("bundle-size")?.scrollIntoView({ behavior: scrollBehaviour(), block: "start" }); return; }
+    void addKit();
   };
 
   if (!school) return <div className="wrap py-20 text-ink/60">Loading school…</div>;
@@ -81,54 +95,57 @@ export function SchoolPage() {
       </SchoolHero>
 
       {showBundle && (
-        <section className="wrap mt-12" aria-labelledby="bundle-h">
-          <h2 id="bundle-h" className="text-3xl font-extrabold">The essentials, one tap</h2>
-          <p className="mt-1 max-w-[60ch] text-ink/65">The {words[bundle.length] ?? bundle.length} logo items most {school.short} parents start with. Pick a size and add {bundle.length === 2 ? "both" : `all ${words[bundle.length] ?? bundle.length}`}; change anything in the basket.</p>
-          <div className="mt-5 grid gap-6 rounded-md border border-line bg-white p-5 sm:p-6 lg:grid-cols-[1fr_340px] lg:p-8">
-            <ul className="grid content-start gap-3 sm:grid-cols-2">
-              {bundle.map((p) => (
-                <li key={p.handle}>
-                  <Link to={`/products/${p.handle}`} className="flex gap-3 rounded-md border border-line p-3 hover:border-ink">
-                    <div className="h-20 w-16 shrink-0 overflow-hidden rounded bg-white">
-                      <img src={asset(p.images[0])} alt="" className="h-full w-full object-contain p-1" />
-                    </div>
-                    <div className="min-w-0">
-                      <p className="line-clamp-2 font-medium leading-tight">{p.title}</p>
-                      <p className="mt-1 text-ink/65">{formatPrice(p.priceMin)}</p>
-                    </div>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <div className="rounded-md bg-sage-soft p-5">
+        <section className="wrap mt-10 lg:mt-14" aria-labelledby="bundle-h">
+          <div className="grid gap-x-16 gap-y-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
+            <div>
+              <h2 id="bundle-h">The essentials, one tap</h2>
+              <p className="measure mt-2 text-ink/75">The {count} logo items most {school.short} parents start with. Pick the size once and add {allWord}; change anything in the basket.</p>
               {sizes.length > 0 && (
-                <fieldset>
-                  <legend className="font-medium">Size</legend>
-                  <div className="mt-2 flex flex-wrap gap-2">
+                <fieldset className="mt-6 scroll-mt-32" id="bundle-size">
+                  <legend className="t-h3 font-medium">Size, for {allWord}</legend>
+                  <div className="sizes mt-3">
                     {sizes.map((s) => (
-                      <button key={s} type="button" aria-pressed={size === s} onClick={() => setSize(s)} className="pill min-w-11 justify-center">{s}</button>
+                      <button key={s} type="button" aria-pressed={size === s} onClick={() => { setSize(s); setErr(null); }} className="pill">{s}</button>
                     ))}
                   </div>
-                  <p className="mt-2 text-ink/65">Between two sizes? Go up; children grow into it by spring.</p>
+                  <p className="mt-3 text-ink/75">Between two sizes? Go up; children grow into it by spring. <Link to="/size-guide" className="underline underline-offset-4">Size guide</Link></p>
                 </fieldset>
               )}
-              <div className="mt-5 flex items-baseline justify-between">
-                <span className="text-ink/65">Essentials total</span>
-                <span className="text-2xl font-medium">{formatPrice(kitTotal)}</span>
+            </div>
+            <div>
+              <ul className="packing" aria-label={`${school.short} essentials`}>
+                {bundle.map((p) => (
+                  <li key={p.handle} className="packing-line">
+                    <img src={asset(p.images[0])} alt="" className="h-16 w-14 rounded-[3px] border border-line bg-white object-contain p-0.5" />
+                    <div className="min-w-0">
+                      <Link to={`/products/${p.handle}`} className="font-medium leading-tight underline decoration-ink/30 underline-offset-4 hover:decoration-ink">{garmentName(p, school)}</Link>
+                      <p className={`mt-0.5 ${p.sizes.length && !size ? "text-ink/65" : ""}`} aria-live="polite">{!p.sizes.length ? "One size" : size ? `Size ${size}` : "Size to choose"}</p>
+                    </div>
+                    <span className="font-medium">{formatPrice(p.priceMin)}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="packing-total">
+                <span className="font-medium">Essentials total</span>
+                <span className="figure text-[2rem]">{formatPrice(kitTotal)}</span>
               </div>
-              <button type="button" disabled={adding || (sizes.length > 0 && !size)} onClick={addKit} className="btn btn-primary mt-3 w-full disabled:opacity-50">{adding ? "Adding…" : sizes.length > 0 && !size ? "Choose a size first" : "Add the essentials"}</button>
-              <Link to="/size-guide" className="mt-1 flex min-h-11 w-full items-center justify-center underline">Open the size guide</Link>
+              <button ref={setAddBtn} type="button" disabled={adding} aria-disabled={needSize} onClick={addOrAsk} className="btn btn-primary mt-4 w-full py-4 text-[0.9375rem] disabled:opacity-60">{adding ? "Adding…" : needSize ? "Choose a size to add" : `Add ${allWord} to basket`}</button>
+              {err && <p role="alert" className="mt-2 font-medium">{err} Call <a href={`tel:${SITE.phoneIntl}`} className="underline">{SITE.phone}</a> if it keeps happening.</p>}
             </div>
           </div>
+          <StickyBar target={addBtn} label="Add the essentials">
+            <div className="min-w-0 flex-1 leading-tight"><p className="truncate font-medium">{count[0].toUpperCase() + count.slice(1)} essentials, {formatPrice(kitTotal)}</p><p className="t-small truncate text-ink/75">{needSize ? "Size to choose" : size ? `Size ${size}` : "One size"}</p></div>
+            <button type="button" disabled={adding} onClick={addOrAsk} className="btn btn-primary shrink-0 disabled:opacity-60">{adding ? "Adding…" : needSize ? "Choose size" : "Add all"}</button>
+          </StickyBar>
         </section>
       )}
 
-      <section className="wrap mt-14" aria-labelledby="list-h">
-        <h2 id="list-h" className="text-3xl font-extrabold">From the school's uniform list</h2>
-        <p className="mt-2 max-w-[62ch] text-ink/70">The school's uniform leaflet shows which items are compulsory. Not sure? Call us on {SITE.phone} and we'll tell you.</p>
+      <section className="wrap mt-16 lg:mt-20" aria-labelledby="list-h">
+        <h2 id="list-h">From the school's uniform list</h2>
+        <p className="measure mt-2 text-ink/75">The school's uniform leaflet shows which items are compulsory. Not sure? Call us on {SITE.phone} and we'll tell you.</p>
         {products.length > 0 && (
           <div className="mt-8">
-            <h3 className="flex items-baseline gap-3 border-b border-ink pb-2 text-xl"><span>With the school crest</span><span className="label text-ink/65">{plural(products.length, "item")}</span></h3>
+            <h3 className="t-h3 flex items-baseline justify-between gap-3 border-b border-ink pb-2"><span>With the school crest</span><span className="text-base font-normal text-ink/65">{plural(products.length, "item")}</span></h3>
             <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4">
               {products.map((p) => <ProductCard key={p.handle} p={p} school={school} />)}
             </div>
@@ -143,24 +160,14 @@ export function SchoolPage() {
 function SchoolHero({ school, children }: { school: School; children: React.ReactNode }) {
   return (
     <section className="bg-sage-soft">
-      <div className="wrap grid items-stretch gap-6 py-10 lg:grid-cols-[1fr_360px] lg:gap-10 lg:py-14">
-        <div className="flex flex-col justify-center">
-          <p className="label text-ink/70">{school.area}{inStoreOnly(school) ? " · In store" : ""}</p>
-          <h1 className="display mt-2 text-4xl sm:text-5xl lg:text-6xl">{school.name}</h1>
-          <p className="mt-4 max-w-lg text-ink/75">{children}</p>
+      <div className="wrap grid grid-cols-[5.5rem_minmax(0,1fr)] items-center gap-x-4 gap-y-4 py-6 sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-x-6 sm:py-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-x-12 lg:py-14">
+        {/* The school's tile in its own colour: the only page it appears on. It is the tile the finder carried here. */}
+        <SchoolTile school={school} on shared className="lg:col-start-2 lg:row-span-2 lg:row-start-1" />
+        <div className="lg:col-start-1 lg:row-start-1 lg:self-end">
+          <h1>{school.name}</h1>
+          <p className="mt-1.5 font-medium lg:mt-3">{school.area}{inStoreOnly(school) ? ", in store only" : ""}</p>
         </div>
-        {/* The school's colour as a solid tile: the only place on the site it appears. */}
-        <div className="hidden overflow-hidden rounded-md lg:block" style={{ background: school.colour }}>
-          {school.tile ? (
-            <img src={asset(school.tile)} alt="" className="aspect-square h-full w-full object-cover mix-blend-normal" />
-          ) : (
-            <div className="flex aspect-square flex-col items-center justify-center gap-3 p-8 text-center text-white">
-              {school.crest ? <img src={asset(school.crest)} alt="" className="h-28 w-28" /> : <span className="display text-6xl">{school.short.replace(/[^A-Z]/g, "").slice(0, 2)}</span>}
-              <span className="label">{school.short}</span>
-            </div>
-          )}
-        </div>
-        <div className="h-2 rounded-[3px] lg:hidden" style={{ background: school.colour }} aria-hidden />
+        <p className="measure col-span-2 text-ink/75 lg:col-span-1 lg:col-start-1 lg:row-start-2 lg:self-start">{children}</p>
       </div>
     </section>
   );
@@ -175,17 +182,17 @@ function Basics({ plain, nested = false }: { plain: Product[]; nested?: boolean 
   );
   if (nested) return (
     <div className="mt-12">
-      <h3 className="border-b border-line pb-2 text-xl">Plain items to go with it</h3>
-      <p className="mt-3 text-ink/70">Trousers, shirts, skirts and knitwear: any school, no logo. <Link to="/collections/all" className="font-medium underline">All plain uniform</Link></p>
+      <h3 className="t-h3 border-b border-ink pb-2">Plain items to go with it</h3>
+      <p className="mt-3 text-ink/70">Trousers, shirts, skirts and knitwear: any school, no logo. <Link to="/collections/all" className="font-medium underline underline-offset-4">All plain uniform</Link></p>
       {grid}
     </div>
   );
   return (
-    <section className="wrap mt-16">
+    <section className="wrap mt-16 lg:mt-20">
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
-          <h2 className="text-3xl font-extrabold">Plain items to go with it</h2>
-          <p className="mt-1 text-ink/65">Trousers, shirts, skirts and knitwear: any school, no logo.</p>
+          <h2>Plain items to go with it</h2>
+          <p className="mt-1 text-ink/75">Trousers, shirts, skirts and knitwear: any school, no logo.</p>
         </div>
         <Link to="/collections/all" className="inline-flex min-h-11 items-center font-medium underline">All plain uniform</Link>
       </div>
@@ -201,23 +208,23 @@ function InStoreSchool({ school, products, plain, crumbs }: { school: School; pr
       <SchoolHero school={school}>
         {school.short} uniform is in the shop on Mitcham Road. It isn't online yet, so come in or call and we'll check your sizes.
       </SchoolHero>
-      <section className="wrap mt-12 grid gap-8 lg:grid-cols-[1fr_1fr]">
+      <section className="wrap mt-10 grid gap-x-16 gap-y-8 lg:mt-14 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
         <div>
-          <h2 className="text-3xl font-extrabold">Come to the shop</h2>
-          <dl className="mt-5 divide-y divide-line border-y border-line">
+          <h2>Come to the shop</h2>
+          <dl className="mt-5 divide-y divide-line border-y border-ink">
             <div className="grid gap-1 py-4 sm:grid-cols-[120px_1fr]"><dt className="label text-ink/65">Address</dt><dd>{SITE.address.street}, {SITE.address.area}, {SITE.address.city} {SITE.address.postcode}</dd></div>
             <div className="grid gap-1 py-4 sm:grid-cols-[120px_1fr]"><dt className="label text-ink/65">Hours</dt><dd>{SITE.hours}</dd></div>
             <div className="grid gap-1 py-4 sm:grid-cols-[120px_1fr]"><dt className="label text-ink/65">Phone</dt><dd><a href={`tel:${SITE.phoneIntl}`} className="underline">{SITE.phone}</a></dd></div>
           </dl>
           <a href={`tel:${SITE.phoneIntl}`} className="btn btn-primary mt-6">Call the shop</a>
         </div>
-        <div className="self-start rounded-md bg-blue p-7 text-white">
-          <p className="label">By Tooting Broadway</p>
+        <div className="on-dark self-start rounded-[3px] bg-blue p-6 text-white sm:p-8">
+          <h2 className="t-h3">By Tooting Broadway</h2>
           <p className="mt-3">Look for the blue shopfront on Mitcham Road. Bring your child and we'll measure them for the right size.</p>
           {products.length > 0 && (
             <>
-              <p className="label mt-6">Online now</p>
-              <ul className="mt-2">{products.map((p) => <li key={p.handle}><Link to={`/products/${p.handle}`} className="inline-flex min-h-11 items-center underline">{p.title}</Link></li>)}</ul>
+              <h3 className="mt-6 border-t border-white/40 pt-4">Online now</h3>
+              <ul className="mt-1">{products.map((p) => <li key={p.handle}><Link to={`/products/${p.handle}`} className="inline-flex min-h-11 items-center underline underline-offset-4">{p.title}</Link></li>)}</ul>
             </>
           )}
         </div>
