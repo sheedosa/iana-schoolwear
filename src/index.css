@@ -2,8 +2,10 @@
 
 /* I&A Schoolwear, version 4: the order form.
    White ground, School Blue for the bar, links, fields and focus, School Yellow for the one buy button.
-   Lexend throughout (headings 600). Cormorant lives only inside the lockup SVG. */
+   Two faces: Fredoka (rounded) for headings, school names, buttons and the phone bar; Lexend for everything
+   that is read or counted. Cormorant lives only inside the lockup SVG. */
 @theme {
+  --font-display: "Fredoka", "Lexend", ui-rounded, system-ui, sans-serif;
   --font-sans: "Lexend", ui-sans-serif, system-ui, sans-serif;
   --color-ink: #45353a;        /* text */
   --color-mute: #665359;       /* secondary text: AA on white and on the tint */
@@ -17,9 +19,12 @@
 }
 
 :root {
-  --t-h1: clamp(1.625rem, 1.42rem + 0.9vw, 2rem);      /* 26 to 32 */
-  --t-h2: clamp(1.25rem, 1.18rem + 0.3vw, 1.375rem);   /* 20 to 22 */
-  --t-h3: 1.0625rem;
+  /* Tuned for Fredoka: it sets narrower and softer than Lexend, so headings sit a step larger, at tracking 0. */
+  --t-h1: clamp(1.75rem, 1.4rem + 1.5vw, 2.375rem);    /* 28 to 38 */
+  --t-h2: clamp(1.375rem, 1.26rem + 0.5vw, 1.625rem);  /* 22 to 26 */
+  --t-h3: 1.1875rem;                                    /* 19 */
+  --t-name: 1.0625rem;                                  /* 17: a school's name in a list */
+  --t-btn: 1.0625rem;                                   /* 17: button and phone bar lettering */
   --t-small: 0.875rem;
   --ease-out: cubic-bezier(.2, .7, .3, 1);
   --dur-1: 140ms;
@@ -41,10 +46,10 @@
   body { @apply bg-white text-ink font-sans antialiased; font-size: 16px; font-weight: 400; line-height: 1.5; }
   strong, b { font-weight: 600; }
 
-  h1, h2, h3 { font-weight: 600; text-wrap: balance; }
-  h1 { font-size: var(--t-h1); line-height: 1.15; letter-spacing: -0.015em; }
-  h2 { font-size: var(--t-h2); line-height: 1.2; letter-spacing: -0.01em; }
-  h3 { font-size: var(--t-h3); line-height: 1.3; }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing: 0; text-wrap: balance; }
+  h1 { font-size: var(--t-h1); line-height: 1.12; }
+  h2 { font-size: var(--t-h2); line-height: 1.15; }
+  h3 { font-size: var(--t-h3); line-height: 1.2; }
   p { text-wrap: pretty; }
   input, select, textarea { font-size: 1rem; }
   address { font-style: normal; }
@@ -58,12 +63,14 @@
   .t-small { font-size: var(--t-small); line-height: 1.45; }
   .measure { max-width: 60ch; }
   .num { font-variant-numeric: tabular-nums; }
+  /* A school's name, wherever schools are listed to choose from. */
+  .name { font-family: var(--font-display); font-weight: 600; font-size: var(--t-name); line-height: 1.15; letter-spacing: 0; }
   .link { color: var(--color-blue-deep); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
   .link:hover { text-decoration-thickness: 2px; }
   .tap { @apply inline-flex min-h-11 items-center; }
 
   /* Buttons. Yellow is the buy button and nothing else; everything else is a blue-lined button or a link. */
-  .btn { @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-ctl px-5 py-2.5 text-base font-semibold; transition: background-color var(--dur-1) ease-out, border-color var(--dur-1) ease-out; }
+  .btn { @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-ctl px-5 py-2.5; font-family: var(--font-display); font-weight: 500; font-size: var(--t-btn); line-height: 1.2; letter-spacing: 0; transition: background-color var(--dur-1) ease-out, border-color var(--dur-1) ease-out; }
   .btn-buy { @apply bg-sun text-ink; }
   .btn-buy:hover { @apply bg-sun-deep; }
   .btn-buy:disabled { background: #eceef4; color: var(--color-mute); cursor: not-allowed; }
@@ -77,9 +84,9 @@
   .field input { @apply min-h-11 w-full min-w-0 bg-transparent; }
   .field input:focus-visible { outline: none; }
   .field input::placeholder { color: var(--color-mute); opacity: 1; }
-  .bar-btn { @apply inline-flex min-h-11 shrink-0 items-center gap-2 rounded-ctl px-3.5 font-semibold; border: 2px solid rgb(255 255 255 / 0.85); }
+  .bar-btn { @apply inline-flex min-h-11 shrink-0 items-center gap-2 rounded-ctl px-3.5; font-family: var(--font-display); font-weight: 500; font-size: var(--t-btn); border: 2px solid rgb(255 255 255 / 0.85); }
   .bar-btn:hover { background: var(--color-blue-deep); }
-  .count { @apply inline-flex h-6 min-w-6 items-center justify-center rounded-ctl bg-sun px-1.5 text-sm font-semibold text-ink; font-variant-numeric: tabular-nums; }
+  .count { @apply inline-flex h-6 min-w-6 items-center justify-center rounded-ctl bg-sun px-1.5 text-sm font-semibold text-ink; font-family: var(--font-sans); font-variant-numeric: tabular-nums; }
   .options { @apply absolute inset-x-0 z-30 mt-1.5 overflow-hidden rounded-ctl bg-white text-ink; border: 2px solid var(--color-ink); }
   .option { @apply flex min-h-12 cursor-pointer items-center gap-3 px-3 py-1.5; border-bottom: 1px solid var(--color-line); }
   .option[aria-selected="true"] { background: var(--color-tint); }
@@ -88,10 +95,10 @@
   .schoolbar { border-bottom: 1px solid var(--color-line); background: #ffffff; }
 
   /* A school's mark: a real photo of its crested garment where one is online, else its initials. */
-  .mark { position: relative; display: inline-flex; flex: none; align-items: center; justify-content: center; overflow: hidden; border-radius: 4px; width: 3rem; height: 3rem; font-weight: 600; font-size: 0.9375rem; line-height: 1; color: #ffffff; }
+  .mark { position: relative; display: inline-flex; flex: none; align-items: center; justify-content: center; overflow: hidden; border-radius: 4px; width: 3rem; height: 3rem; font-family: var(--font-display); font-weight: 600; font-size: 1rem; line-height: 1; color: #ffffff; }
   .mark img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .mark[data-instore="true"] { background: #ffffff !important; color: var(--color-ink); border: 2px solid var(--color-line); }
-  .mark-sm { width: 2.25rem; height: 2.25rem; font-size: 0.75rem; }
+  .mark-sm { width: 2.25rem; height: 2.25rem; font-size: 0.8125rem; }
   .mark-lg { width: 4.5rem; height: 4.5rem; font-size: 1.25rem; }
 
   /* ---- Ruled tables: schools, products, sizes ---- */
@@ -145,7 +152,7 @@
 
   /* ---- Phones: Schools, Plain basics, Basket ---- */
   .tabbar { position: fixed; inset-inline: 0; bottom: 0; z-index: 30; display: grid; grid-template-columns: repeat(3, 1fr); height: var(--tabbar); padding-bottom: env(safe-area-inset-bottom); background: #ffffff; border-top: 2px solid var(--color-blue); }
-  .tabbar > * { display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-weight: 500; }
+  .tabbar > * { display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-family: var(--font-display); font-weight: 500; font-size: var(--t-btn); }
   .tabbar > [aria-current="page"] { background: var(--color-tint); font-weight: 600; }
   .tabbar > * + * { border-left: 1px solid var(--color-line); }
   .tabbar > :focus-visible { outline-offset: -3px; }

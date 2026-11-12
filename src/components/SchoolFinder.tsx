@@ -87,7 +87,7 @@ export function SchoolSearch({ id = "school-search" }: { id?: string }) {
             {matches.map((s, i) => (
               <li key={s.slug} id={`${id}-option-${s.slug}`} role="option" aria-selected={i === active} onMouseEnter={() => setActive(i)} onMouseDown={(e) => e.preventDefault()} onClick={() => pick(s)} className="option">
                 <SchoolMark school={s} size="mark-sm" />
-                <span className="min-w-0 flex-1 font-medium leading-tight">{s.name}</span>
+                <span className="name min-w-0 flex-1 font-medium">{s.name}</span>
                 <span className="t-small shrink-0 text-mute">{inStoreOnly(s) ? "In store only" : s.area}</span>
               </li>
             ))}
@@ -116,9 +116,9 @@ export function SchoolTable({ query = "" }: { query?: string }) {
           <li key={s.slug}>
             <VLink to={`/schools/${s.slug}`} onClick={() => choose(s.slug)} className={`school-line line-link ${chosen?.slug === s.slug ? "bg-tint" : ""}`}>
               <SchoolMark school={s} shared />
-              <span className="min-w-0 font-semibold leading-tight">
+              <span className="name min-w-0">
                 {s.name}
-                <span className="t-small block font-normal text-mute sm:hidden">{s.area}</span>
+                <span className="t-small block font-sans font-normal text-mute sm:hidden">{s.area}</span>
               </span>
               <span className="hidden text-mute sm:block">{s.area}</span>
               <span className="num text-right leading-tight">{schoolStatus(s)}{chosen?.slug === s.slug && <span className="t-small block text-mute">Your school</span>}</span>
