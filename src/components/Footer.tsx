@@ -25,7 +25,7 @@ export function Footer() {
           <a href={SITE.social.facebook} className="link tap" rel="noopener">Facebook</a>
         </nav>
         <p className="t-small mt-2 text-mute">
-          © {new Date().getFullYear()} {SITE.legalName}. Company no. {SITE.companyNumber}. Product and lifestyle imagery created with AI from our real garments. {storefront.mode === "demo" ? "Preview catalogue" : "Powered by Shopify"}.
+          © {new Date().getFullYear()} {SITE.legalName}. Company no. {SITE.companyNumber}. Product photos are our own and our suppliers'. {storefront.mode === "demo" ? "Preview catalogue" : "Powered by Shopify"}.
         </p>
       </div>
     </footer>

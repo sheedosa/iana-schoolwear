@@ -9,10 +9,11 @@ import { SITE, money } from "../data/site";
 import { typeId } from "./Collection";
 import { boot, bootProducts } from "../lib/preload";
 import { largeImg, smallImg } from "../lib/img";
+import { firstPhoto, photos } from "../lib/photo-rules";
 import { useSheet } from "../lib/sheet";
 
 /** The other lines offered under a product: the rest of its school's list, or more of its garment type. */
-const alsoFor = (prod: Product, rel: Product[]) => rel.filter((r) => r.handle !== prod.handle && !(r.images[0] && prod.images.includes(r.images[0]))).slice(0, 5);
+const alsoFor = (prod: Product, rel: Product[]) => rel.filter((r) => { const lead = firstPhoto(r); return r.handle !== prod.handle && !(lead && photos(prod).includes(lead)); }).slice(0, 5);
 
 export function ProductPage() {
   const { handle = "" } = useParams();
@@ -60,14 +61,15 @@ export function ProductPage() {
   if (!p) return <div className="wrap py-16 text-mute">Loading…</div>;
   const d = SITE.delivery;
   const flat = p.priceMax <= p.priceMin;
+  const pics = photos(p); // the photos rule 4 allows, whole garment first (lib/photo-rules.ts)
   const productLd = {
     "@context": "https://schema.org", "@type": "Product", name: p.title, description: p.description || `${p.title} from I&A Schoolwear, Tooting.`,
-    image: p.images.map((i) => asset(i).startsWith("http") ? asset(i) : `${SITE.url}${i}`), brand: { "@type": "Brand", name: school ? school.name : "I&A Schoolwear" },
+    image: pics.map((i) => asset(i).startsWith("http") ? asset(i) : `${SITE.url}${i}`), brand: { "@type": "Brand", name: school ? school.name : "I&A Schoolwear" },
     sku: p.handle, category: p.productType,
     // Offers only for a real price: a few items in the data carry 0 until the store lists them.
     ...(p.priceMin > 0 && { offers: { "@type": p.priceMax > p.priceMin ? "AggregateOffer" : "Offer", priceCurrency: "GBP", ...(p.priceMax > p.priceMin ? { lowPrice: p.priceMin, highPrice: p.priceMax } : { price: p.priceMin }), url: `${SITE.url}/products/${p.handle}`, seller: { "@id": `${SITE.url}/#store` } } }),
   };
-  const hasPhoto = p.images.length > 0;
+  const hasPhoto = pics.length > 0;
 
   return (
     <div className="wrap py-6 lg:py-8">
@@ -94,12 +96,12 @@ export function ProductPage() {
         {hasPhoto && (
           <div className="md:sticky md:top-[calc(var(--head)+1.5rem)] md:col-start-1 md:[grid-row:1/span_2] md:self-start">
             <div className="product-pic mx-auto aspect-square max-w-[320px] overflow-hidden rounded-[4px] bg-white" style={productVT(p.handle)}>
-              <img {...largeImg(p.images[img])} alt={p.title} fetchPriority="high" className="h-full w-full object-contain" />
+              <img {...largeImg(pics[img] ?? pics[0])} alt={p.title} fetchPriority="high" className="h-full w-full object-contain" />
             </div>
-            {p.images.length > 1 && (
+            {pics.length > 1 && (
               <div className="mt-3 flex flex-wrap justify-center gap-2 md:justify-start">
-                {p.images.map((src, i) => (
-                  <button key={src} type="button" onClick={() => setImg(i)} aria-label={`Show photo ${i + 1} of ${p.images.length}`} aria-pressed={i === img} className={`h-14 w-14 overflow-hidden rounded-[4px] border-2 bg-white ${i === img ? "border-blue" : "border-line hover:border-blue"}`}><img {...smallImg(src, 52)} alt="" loading="lazy" className="h-full w-full object-contain" /></button>
+                {pics.map((src, i) => (
+                  <button key={src} type="button" onClick={() => setImg(i)} aria-label={`Show photo ${i + 1} of ${pics.length}`} aria-pressed={i === img} className={`h-14 w-14 overflow-hidden rounded-[4px] border-2 bg-white ${i === img ? "border-blue" : "border-line hover:border-blue"}`}><img {...smallImg(src, 52)} alt="" loading="lazy" className="h-full w-full object-contain" /></button>
                 ))}
               </div>
             )}

@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { storefront, type Product, type School } from "./shopify";
 import { boot, savedSchool, SCHOOL_KEY } from "./preload";
+import { firstPhoto } from "./photo-rules";
 
 // The school a parent chose, remembered on this device only, and the list of schools every page reads.
 const KEY = SCHOOL_KEY;
@@ -20,7 +21,8 @@ function marksFrom(products: Product[]): Record<string, string> {
   const out: Record<string, string> = {};
   const rank = (p: Product) => { const i = MARK_ORDER.indexOf(p.productType); return i < 0 ? MARK_ORDER.length : i; };
   for (const p of [...products].sort((a, b) => rank(a) - rank(b))) {
-    if (p.school && p.logoItem && p.images[0] && !out[p.school]) out[p.school] = p.images[0];
+    const photo = firstPhoto(p);
+    if (p.school && p.logoItem && photo && !out[p.school]) out[p.school] = photo;
   }
   return out;
 }

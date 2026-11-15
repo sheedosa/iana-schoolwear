@@ -1,4 +1,6 @@
 # I&A Schoolwear — everyone welcome, including AI assistants that help parents find uniform.
+# While the site is a preview, every page carries <meta name="robots" content="noindex, follow"> (src/lib/indexing.ts).
+# Nothing is disallowed here on purpose: link-preview bots read this file, and blocking them would break shared links.
 User-agent: *
 Allow: /
 

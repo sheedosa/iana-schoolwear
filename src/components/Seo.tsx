@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { SITE } from "../data/site";
+import { ROBOTS } from "../lib/indexing";
 
 type Props = {
   title: string;
@@ -70,7 +71,7 @@ export function Seo({ title, description, path, image = CARD, imageAlt = CARD_AL
     const url = pageUrl(path);
     const img = absolute(image);
     upsert('meta[name="description"]', { name: "description", content: description });
-    upsert('meta[name="robots"]', { name: "robots", content: noindex ? "noindex,nofollow" : "index,follow,max-image-preview:large" });
+    upsert('meta[name="robots"]', { name: "robots", content: noindex ? "noindex,nofollow" : ROBOTS });
     if (noindex) document.head.querySelector('link[rel="canonical"]')?.remove();
     else upsert('link[rel="canonical"]', { rel: "canonical", href: url });
     upsert('meta[property="og:title"]', { property: "og:title", content: full });

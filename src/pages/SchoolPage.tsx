@@ -8,6 +8,7 @@ import { formatPrice, inStoreOnly, sortSizes, storefront, StorefrontError, type 
 import { Seo, breadcrumbs, fit } from "../components/Seo";
 import { SITE, money } from "../data/site";
 import { boot, bootProducts } from "../lib/preload";
+import { firstPhoto } from "../lib/photo-rules";
 
 export { sortSizes };
 
@@ -18,7 +19,7 @@ const words = ["", "one", "two", "three", "four"];
 // Plain basics that go with a school: pick by the garment types the school's list leaves to parents.
 const BASIC_TYPES = ["Trousers & shorts", "Shirts", "Skirts & dresses", "Knitwear", "Blazers", "PE kit"];
 function pickBasics(all: Product[], slug: string): Product[] {
-  const plain = all.filter((p) => !p.logoItem && p.images.length && p.available);
+  const plain = all.filter((p) => !p.logoItem && firstPhoto(p) && p.available);
   const seed = [...slug].reduce((a, c) => a + c.charCodeAt(0), 0);
   const out: Product[] = [];
   for (const t of BASIC_TYPES) {
@@ -52,7 +53,7 @@ export function SchoolPage() {
   // The one-tap bundle: priced, photographed crested garments, and only sizes every one of them comes in.
   const bundle = useMemo(() => {
     const picked: Product[] = [];
-    const ok = (p: Product) => p.priceMin > 0 && p.images.length > 0 && p.available;
+    const ok = (p: Product) => p.priceMin > 0 && !!firstPhoto(p) && p.available;
     for (const t of ESSENTIAL_TYPES) {
       const p = products.find((x) => x.productType === t && ok(x) && !picked.includes(x));
       if (p) picked.push(p);
@@ -91,7 +92,7 @@ export function SchoolPage() {
 
   if (!school) return <div className="wrap py-16 text-mute">Loading school…</div>;
   const crumbs = breadcrumbs([{ name: "Home", path: "/" }, { name: "Schools", path: "/schools" }, { name: school.short, path: `/schools/${school.slug}` }]);
-  const photo = products.find((p) => p.images[0])?.images[0];
+  const photo = products.map(firstPhoto).find(Boolean);
 
   if (inStoreOnly(school)) return <InStoreSchool school={school} products={products} plain={plain} crumbs={crumbs} />;
 

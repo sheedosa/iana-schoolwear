@@ -4,6 +4,7 @@ import { OrderTable } from "./OrderTable";
 import { useCart } from "../lib/cart";
 import { priceLabel, sortSizes, StorefrontError, type Product, type School } from "../lib/shopify";
 import { smallImg } from "../lib/img";
+import { firstPhoto } from "../lib/photo-rules";
 
 /** The garment name without the school in front: "St Anne's polo shirt" -> "Polo shirt". */
 export function garmentName(p: Product, school?: School) {
@@ -53,7 +54,7 @@ const PATHS: Record<Shape, string> = {
 
 /** The 64px picture at the start of a line: the product's own photo, or an outline of the garment where there is none yet. */
 export function Thumb({ p, shared = false, eager = false }: { p: Product; shared?: boolean; eager?: boolean }) {
-  const img = p.images[0];
+  const img = firstPhoto(p);
   return (
     <span className="thumb" data-drawn={!img} style={shared ? productVT(p.handle) : undefined} aria-hidden>
       {img ? <img {...smallImg(img, 64)} alt="" loading={eager ? undefined : "lazy"} /> : (
@@ -71,7 +72,7 @@ export function ProductRow({ p, school, showSchool = false }: { p: Product; scho
   const [err, setErr] = useState<string | null>(null);
   const { add } = useCart();
   const name = school && !showSchool ? garmentName(p, school) : p.title;
-  const meta = [sizeRange(p), p.brand ? `by ${p.brand}` : "", !p.images.length ? "no photo yet" : ""].filter(Boolean).join(", ");
+  const meta = [sizeRange(p), p.brand ? `by ${p.brand}` : "", !firstPhoto(p) ? "no photo yet" : ""].filter(Boolean).join(", ");
   const direct = p.sizes.length <= 1; // nothing to choose: one tap adds one
   const panel = `sizes-${p.handle}`;
 
