@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { asset, inStoreOnly, type School } from "../lib/shopify";
+import { inStoreOnly, type School } from "../lib/shopify";
+import { smallImg } from "../lib/img";
 import { useSchools } from "../lib/school";
 import { SITE } from "../data/site";
 import { VLink, go as goTo, schoolVT } from "./VLink";
@@ -13,13 +14,14 @@ export const schoolStatus = (s: School) => (inStoreOnly(s) ? "In store only" : `
 
 /** A school's mark. A photo of its crested garment where one is online; otherwise its initials on the school colour.
     Schools that are in store only get an outlined mark, so the filled and the outlined square mean two different things. */
-export function SchoolMark({ school, size = "", shared = false }: { school: School; size?: "" | "mark-sm" | "mark-lg"; shared?: boolean }) {
+const MARK_PX = { "": 48, "mark-sm": 36, "mark-lg": 72 } as const;
+export function SchoolMark({ school, size = "", shared = false, eager = false }: { school: School; size?: "" | "mark-sm" | "mark-lg"; shared?: boolean; eager?: boolean }) {
   const { marks } = useSchools();
   const photo = marks[school.slug];
   return (
     <span className={`mark ${size}`} data-instore={inStoreOnly(school)} style={{ background: school.colour, ...(shared ? schoolVT(school.slug) : {}) }} aria-hidden>
       {initials(school)}
-      {photo && !inStoreOnly(school) && <img src={asset(photo)} alt="" loading="lazy" />}
+      {photo && !inStoreOnly(school) && <img {...smallImg(photo, MARK_PX[size])} alt="" loading={eager ? undefined : "lazy"} />}
     </span>
   );
 }
@@ -42,9 +44,9 @@ export function SchoolSearch({ id = "school-search" }: { id?: string }) {
   const box = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const onDoc = (e: MouseEvent) => { if (!box.current?.contains(e.target as Node)) setOpen(false); };
-    document.addEventListener("mousedown", onDoc);
-    return () => document.removeEventListener("mousedown", onDoc);
+    const onDoc = (e: PointerEvent) => { if (!box.current?.contains(e.target as Node)) setOpen(false); };
+    document.addEventListener("pointerdown", onDoc);
+    return () => document.removeEventListener("pointerdown", onDoc);
   }, []);
 
   const matches = useMemo(() => match(schools, q), [q, schools]);
@@ -53,7 +55,6 @@ export function SchoolSearch({ id = "school-search" }: { id?: string }) {
 
   return (
     <div ref={box} className="relative w-full">
-      <label htmlFor={id} className="sr-only">Type your school</label>
       <div className="field">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" className="shrink-0 text-blue-deep" aria-hidden><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
         <input
@@ -69,6 +70,7 @@ export function SchoolSearch({ id = "school-search" }: { id?: string }) {
             if (e.key === "Escape") setOpen(false);
             if (e.key === "Tab") setOpen(false);
           }}
+          aria-label="Type your school"
           placeholder="Type your school"
           autoComplete="off"
           autoCapitalize="words"
@@ -83,7 +85,7 @@ export function SchoolSearch({ id = "school-search" }: { id?: string }) {
       </div>
       {open && (
         <div className="options panel-in">
-          <ul id={listId} role="listbox" aria-label="Schools" className="max-h-[min(60vh,26rem)] overflow-y-auto">
+          <ul id={listId} role="listbox" aria-label="Schools" className="options-list">
             {matches.map((s, i) => (
               <li key={s.slug} id={`${id}-option-${s.slug}`} role="option" aria-selected={i === active} onMouseEnter={() => setActive(i)} onMouseDown={(e) => e.preventDefault()} onClick={() => pick(s)} className="option">
                 <SchoolMark school={s} size="mark-sm" />

@@ -4,7 +4,8 @@ import { Link, useNavigate, type NavigateFunction } from "react-router-dom";
 
 type Doc = Document & { startViewTransition?: (cb: () => void) => unknown };
 
-const canTransition = () => typeof document !== "undefined" && !!(document as Doc).startViewTransition && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+// No transition under reduced motion, or while the page is hidden (a background tab would only delay the change).
+const canTransition = () => typeof document !== "undefined" && !!(document as Doc).startViewTransition && document.visibilityState === "visible" && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /** Change page and let shared elements travel (a school's tile, a product photo). Plain navigation where the browser
     has no view transitions, or under reduced motion. */

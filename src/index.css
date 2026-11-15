@@ -4,9 +4,34 @@
    White ground, School Blue for the bar, links, fields and focus, School Yellow for the one buy button.
    Two faces: Fredoka (rounded) for headings, school names, buttons and the phone bar; Lexend for everything
    that is read or counted. Cormorant lives only inside the lockup SVG. */
+
+/* The two faces are served from this site (latin subset, one variable file each; index.html preloads both).
+   Each has a stand-in cut from a font already on the device and scaled to the same width and line height,
+   so the text does not move when the real face arrives. */
+@font-face {
+  font-family: "Fredoka"; font-style: normal; font-weight: 500 600; font-display: swap;
+  src: url("@fontsource-variable/fredoka/files/fredoka-latin-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Lexend"; font-style: normal; font-weight: 400 600; font-display: swap;
+  src: url("@fontsource-variable/lexend/files/lexend-latin-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Fredoka Fallback"; font-weight: 500 600;
+  src: local("Arial Bold"), local("Arial-BoldMT"), local("Helvetica Neue Bold"), local("Roboto Bold"), local("Roboto-Bold"), local("Liberation Sans Bold");
+  size-adjust: 94%; ascent-override: 103.6%; descent-override: 25.1%; line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Lexend Fallback"; font-weight: 400 600;
+  src: local("Arial"), local("ArialMT"), local("Helvetica Neue"), local("Roboto"), local("Roboto-Regular"), local("Liberation Sans");
+  size-adjust: 108%; ascent-override: 92.6%; descent-override: 23.1%; line-gap-override: 0%;
+}
+
 @theme {
-  --font-display: "Fredoka", "Lexend", ui-rounded, system-ui, sans-serif;
-  --font-sans: "Lexend", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fredoka", "Fredoka Fallback", ui-rounded, system-ui, sans-serif;
+  --font-sans: "Lexend", "Lexend Fallback", ui-sans-serif, system-ui, sans-serif;
   --color-ink: #45353a;        /* text */
   --color-mute: #665359;       /* secondary text: AA on white and on the tint */
   --color-blue: #4169e1;       /* School Blue: the bar, field borders, focus */
@@ -33,6 +58,8 @@
   --head: 0px;                                           /* height of the sticky header (desktop only) */
 }
 @media (min-width: 1024px) { :root { --tabbar: 0px; --head: 6.75rem; } }
+/* A phone on its side: the screen is short, so the bottom bar is slimmer (see the end of the components layer). */
+@media (orientation: landscape) and (max-height: 480px) and (max-width: 1023.98px) { :root { --tabbar: calc(2.875rem + env(safe-area-inset-bottom)); } }
 
 @layer base {
   @media (prefers-reduced-motion: reduce) {
@@ -42,11 +69,17 @@
   ::view-transition-group(*) { animation-duration: var(--dur-2); animation-timing-function: var(--ease-out); }
   ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 160ms; }
 
-  html { scroll-padding-top: calc(var(--head) + 1rem); }
-  body { @apply bg-white text-ink font-sans antialiased; font-size: 16px; font-weight: 400; line-height: 1.5; }
+  html { scroll-padding-top: calc(var(--head) + 1rem); -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  /* 1rem, not 16px: the text follows the reader's own font size setting. */
+  body { @apply bg-white text-ink font-sans antialiased; font-size: 1rem; font-weight: 400; line-height: 1.5; }
+  /* A basket or size guide is open: the page behind does not scroll. */
+  html.locked, html.locked body { overflow: hidden; overscroll-behavior: none; }
+  /* An unknown address is being sent to its page (404.html): do not show Home in the meantime. */
+  html[data-rerouting] #root { visibility: hidden; }
+  a, button, input, select, textarea, summary, label, [role="option"] { touch-action: manipulation; }
   strong, b { font-weight: 600; }
 
-  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing: 0; text-wrap: balance; }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing: 0; text-wrap: balance; overflow-wrap: break-word; hyphens: none; }
   h1 { font-size: var(--t-h1); line-height: 1.12; }
   h2 { font-size: var(--t-h2); line-height: 1.15; }
   h3 { font-size: var(--t-h3); line-height: 1.2; }
@@ -59,23 +92,34 @@
 }
 
 @layer components {
-  .wrap { @apply mx-auto w-full max-w-[1120px] px-4 sm:px-6; }
+  /* The side padding is never less than the notch or the rounded corner of a phone on its side. */
+  .wrap { @apply mx-auto w-full max-w-[1120px]; padding-left: max(1rem, env(safe-area-inset-left)); padding-right: max(1rem, env(safe-area-inset-right)); }
+  @media (min-width: 640px) { .wrap { padding-left: max(1.5rem, env(safe-area-inset-left)); padding-right: max(1.5rem, env(safe-area-inset-right)); } }
   .t-small { font-size: var(--t-small); line-height: 1.45; }
   .measure { max-width: 60ch; }
   .num { font-variant-numeric: tabular-nums; }
   /* A school's name, wherever schools are listed to choose from. */
   .name { font-family: var(--font-display); font-weight: 600; font-size: var(--t-name); line-height: 1.15; letter-spacing: 0; }
   .link { color: var(--color-blue-deep); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
-  .link:hover { text-decoration-thickness: 2px; }
+  .link:active { text-decoration-thickness: 2px; }
+  @media (hover: hover) { .link:hover { text-decoration-thickness: 2px; } }
   .tap { @apply inline-flex min-h-11 items-center; }
+  /* A link inside a line of text that is worth a full 44px to the thumb (a phone number): the box grows, the line does not. */
+  .tap-pad { display: inline-block; padding-block: 0.75rem; margin-block: -0.75rem; }
 
   /* Buttons. Yellow is the buy button and nothing else; everything else is a blue-lined button or a link. */
   .btn { @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-ctl px-5 py-2.5; font-family: var(--font-display); font-weight: 500; font-size: var(--t-btn); line-height: 1.2; letter-spacing: 0; transition: background-color var(--dur-1) ease-out, border-color var(--dur-1) ease-out; }
   .btn-buy { @apply bg-sun text-ink; }
-  .btn-buy:hover { @apply bg-sun-deep; }
   .btn-buy:disabled { background: #eceef4; color: var(--color-mute); cursor: not-allowed; }
   .btn-line { @apply border-2 border-blue bg-white text-blue-deep; }
-  .btn-line:hover { @apply bg-tint; }
+  /* Hover is for a mouse only, so it cannot stick after a tap. A press answers at once, with no fade in. */
+  @media (hover: hover) {
+    .btn-buy:hover:not(:disabled) { @apply bg-sun-deep; }
+    .btn-line:hover { @apply bg-tint; }
+  }
+  .btn:active { transition: none; }
+  .btn-buy:active:not(:disabled) { @apply bg-sun-deep; }
+  .btn-line:active { @apply bg-tint; }
 
   /* ---- The bar: lockup, the school field, the basket ---- */
   .bar { background: var(--color-blue); color: #ffffff; }
@@ -85,14 +129,19 @@
   .field input:focus-visible { outline: none; }
   .field input::placeholder { color: var(--color-mute); opacity: 1; }
   .bar-btn { @apply inline-flex min-h-11 shrink-0 items-center gap-2 rounded-ctl px-3.5; font-family: var(--font-display); font-weight: 500; font-size: var(--t-btn); border: 2px solid rgb(255 255 255 / 0.85); }
-  .bar-btn:hover { background: var(--color-blue-deep); }
+  .bar-btn:active { background: var(--color-blue-deep); }
+  @media (hover: hover) { .bar-btn:hover { background: var(--color-blue-deep); } }
   .count { @apply inline-flex h-6 min-w-6 items-center justify-center rounded-ctl bg-sun px-1.5 text-sm font-semibold text-ink; font-family: var(--font-sans); font-variant-numeric: tabular-nums; }
   .options { @apply absolute inset-x-0 z-30 mt-1.5 overflow-hidden rounded-ctl bg-white text-ink; border: 2px solid var(--color-ink); }
   .option { @apply flex min-h-12 cursor-pointer items-center gap-3 px-3 py-1.5; border-bottom: 1px solid var(--color-line); }
-  .option[aria-selected="true"] { background: var(--color-tint); }
+  .option[aria-selected="true"], .option:active { background: var(--color-tint); }
+  /* The list scrolls inside its own box and never hands the scroll on to the page. Phones leave room for the keyboard. */
+  .options-list { max-height: min(42svh, 26rem); overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+  @media (min-width: 1024px) { .options-list { max-height: min(60vh, 26rem); } }
 
   /* The line under the bar: the school you chose, and on wide screens the other three places to go. */
   .schoolbar { border-bottom: 1px solid var(--color-line); background: #ffffff; }
+
 
   /* A school's mark: a real photo of its crested garment where one is online, else its initials. */
   .mark { position: relative; display: inline-flex; flex: none; align-items: center; justify-content: center; overflow: hidden; border-radius: 4px; width: 3rem; height: 3rem; font-family: var(--font-display); font-weight: 600; font-size: 1rem; line-height: 1; color: #ffffff; }
@@ -106,7 +155,8 @@
   .sheet > li, .sheet > .line { border-bottom: 1px solid var(--color-line); }
   .sheet-head { @apply flex items-end justify-between gap-4 py-2 font-medium text-mute; font-size: var(--t-small); line-height: 1.45; border-bottom: 2px solid var(--color-blue); }
   .sheet-head + .sheet, .sheet-head + .sizes { border-top: 0; }
-  a.line:hover, .line-link:hover { background: var(--color-tint); }
+  a.line:active, .line-link:active { background: var(--color-tint); }
+  @media (hover: hover) { a.line:hover, .line-link:hover { background: var(--color-tint); } }
 
   .school-line { display: grid; grid-template-columns: 3rem minmax(0, 1fr) auto; align-items: center; column-gap: 0.875rem; padding: 0.5rem 0.5rem 0.5rem 0; min-height: 4rem; }
   @media (min-width: 640px) { .school-line { grid-template-columns: 3rem minmax(0, 1.6fr) minmax(0, 1fr) 8.5rem; } }
@@ -116,6 +166,9 @@
   .thumb[data-drawn="true"] { background: var(--color-tint); color: var(--color-blue-deep); }
   .item-line { display: grid; grid-template-columns: 4rem minmax(0, 1fr) auto; align-items: center; column-gap: 0.875rem; padding: 0.5rem 0; min-height: 5rem; }
   @media (min-width: 640px) { .item-line { grid-template-columns: 4rem minmax(0, 1fr) 8.5rem 6rem; } }
+  /* A long listing (every garment type on one page): lines that are off screen are not laid out or painted until
+     they come near. The clip margin leaves room for a focus ring at the edge of a line. */
+  .long-list .sheet > li { content-visibility: auto; contain-intrinsic-size: auto 5.0625rem; overflow-clip-margin: 0.5rem; }
   .group-head { position: sticky; top: var(--head); z-index: 10; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 0.625rem 0; background: #ffffff; border-bottom: 2px solid var(--color-blue); }
 
   /* Size and quantity. One line per size; a line with a quantity takes the tint. */
@@ -124,12 +177,14 @@
   @container (min-width: 30rem) { .sizes[data-cols="2"] { column-count: 2; column-gap: 2rem; } }
   /* The name is the way into the product page: its hit area is the whole text cell, never less than 44px tall. */
   .row-text { position: relative; }
+  .row-link { display: inline-block; min-width: 2.75rem; padding-block: 0.75rem; margin-block: -0.75rem; }
   .row-link::after { content: ""; position: absolute; inset: -0.75rem 0; }
   .size-line { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; min-height: 3.5rem; padding: 0.25rem 0.25rem 0.25rem 0.625rem; border-bottom: 1px solid var(--color-line); break-inside: avoid; }
   .size-line[data-on="true"] { background: var(--color-tint); }
   .qty { display: inline-grid; grid-template-columns: 2.75rem 2.5rem 2.75rem; align-items: stretch; height: 3rem; border: 2px solid var(--color-blue); border-radius: var(--radius-ctl); background: #ffffff; overflow: hidden; }
   .qty button { font-size: 1.25rem; line-height: 1; color: var(--color-blue-deep); }
-  .qty button:hover:not(:disabled) { background: var(--color-tint); }
+  .qty button:active:not(:disabled) { background: var(--color-tint); }
+  @media (hover: hover) { .qty button:hover:not(:disabled) { background: var(--color-tint); } }
   .qty button:disabled { color: #9aa3bd; cursor: not-allowed; }
   .qty button:focus-visible { outline-offset: -3px; }
   .qty output { display: flex; align-items: center; justify-content: center; font-weight: 600; font-variant-numeric: tabular-nums; }
@@ -138,7 +193,8 @@
   /* One size for the whole essentials list: keys, pressed is blue. */
   .keys { display: grid; grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr)); gap: 0.5rem; }
   .key { @apply inline-flex min-h-12 items-center justify-center rounded-ctl bg-white px-2 font-medium; border: 2px solid var(--color-line); transition: background-color var(--dur-1) ease-out, border-color var(--dur-1) ease-out; }
-  .key:hover { border-color: var(--color-blue); }
+  .key:active { border-color: var(--color-blue); background: var(--color-tint); transition: none; }
+  @media (hover: hover) { .key:hover { border-color: var(--color-blue); } }
   .key[aria-pressed="true"] { background: var(--color-blue-deep); border-color: var(--color-blue-deep); color: #ffffff; }
 
   /* The total and the button stay in reach while the table is on screen. */
@@ -151,7 +207,10 @@
   .facts dt { font-weight: 600; }
 
   /* ---- Phones: Schools, Plain basics, Basket ---- */
-  .tabbar { position: fixed; inset-inline: 0; bottom: 0; z-index: 30; display: grid; grid-template-columns: repeat(3, 1fr); height: var(--tabbar); padding-bottom: env(safe-area-inset-bottom); background: #ffffff; border-top: 2px solid var(--color-blue); }
+  .tabbar { position: fixed; inset-inline: 0; bottom: 0; z-index: 30; display: grid; grid-template-columns: repeat(3, 1fr); height: var(--tabbar); padding: 0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); background: #ffffff; border-top: 2px solid var(--color-blue); transition: transform var(--dur-1) ease-out; }
+  .tabbar > *:active { background: var(--color-tint); }
+  /* While the school field has the keyboard up, the bar steps out of the way of the list. */
+  body:has(.field input:focus) .tabbar { transform: translateY(100%); }
   .tabbar > * { display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-family: var(--font-display); font-weight: 500; font-size: var(--t-btn); }
   .tabbar > [aria-current="page"] { background: var(--color-tint); font-weight: 600; }
   .tabbar > * + * { border-left: 1px solid var(--color-line); }
@@ -165,4 +224,31 @@
   .panel-in { animation: panel-in var(--dur-1) ease-out; }
   .drawer-in { animation: drawer-in var(--dur-2) var(--ease-out); }
   .sheet-in { animation: sheet-in var(--dur-1) ease-out; }
+  /* The dimmed page behind a basket or size guide: a tap closes it, a drag does not scroll what is under it. */
+  .backdrop { touch-action: none; }
+  .sheet-scroll { overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+
+  /* The product picture on a phone: never so tall that the product's name starts below the first screen. */
+  .product-pic { width: 100%; }
+  @media (max-width: 767.98px) { .product-pic { width: min(100%, max(10rem, 36svh)); } }
+
+  /* A phone on its side (short screen): the bottom bar's keys are 44px, group heads scroll away with the page,
+     and the sticky total and button sit on one line, so the bars never take more than a third of the height. */
+  @media (orientation: landscape) and (max-height: 480px) and (max-width: 1023.98px) {
+    .group-head { position: static; }
+    .order-foot { padding: 0.375rem 0; }
+    .order-foot .btn { min-height: 2.75rem; padding-block: 0.375rem; }
+    .order-foot[data-kit="true"] { display: flex; flex-wrap: wrap; align-items: center; gap: 0.375rem 1.25rem; }
+    .order-foot[data-kit="true"] > p:first-child { flex: none; padding-bottom: 0; gap: 0.75rem; }
+    .order-foot[data-kit="true"] > .btn { flex: 1 1 14rem; width: auto; }
+    .order-foot[data-kit="true"] > [role="alert"] { flex: 0 0 100%; margin: 0; }
+  }
+}
+
+/* Phones show the "your school" line only once a school is chosen. Where one is remembered on the device
+   (index.html sets data-school before the first paint) the line's height is held from the start, so the page
+   does not drop when the line fills. Outside the layers on purpose: it has to win over the `hidden` utility. */
+@media (max-width: 1023.98px) {
+  html[data-school] .schoolbar[data-empty="true"] { display: block; }
+  html[data-school] .schoolbar[data-empty="true"] > .wrap { height: 2.75rem; min-height: 0; overflow: hidden; visibility: hidden; }
 }

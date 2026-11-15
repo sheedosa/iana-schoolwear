@@ -20,7 +20,7 @@ export function Header() {
   return (
     <header className="z-40 lg:sticky lg:top-0">
       <div className="bar on-blue">
-        <div className="wrap grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-2 py-2.5 lg:h-16 lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:gap-x-8 lg:py-0">
+        <div className="wrap grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-2 py-2.5 lg:h-16 lg:grid-cols-[212px_minmax(0,1fr)_auto] lg:gap-x-8 lg:py-0">
           <Link to="/" aria-label="I&A Schoolwear home" className="tap min-w-0"><Logo white className="h-auto w-full max-w-[212px]" /></Link>
           {storefront.mode === "demo" && <span className="t-small font-medium lg:hidden" title="Preview catalogue: checkout opens once the shop is connected">Preview</span>}
           <div className="col-span-2 lg:col-span-1 lg:max-w-[640px]"><SchoolSearch id="school-field" /></div>
@@ -32,11 +32,11 @@ export function Header() {
           </div>
         </div>
       </div>
-      <div className={`schoolbar ${chosen ? "" : "hidden lg:block"}`}>
+      <div className={`schoolbar ${chosen ? "" : "hidden lg:block"}`} data-empty={!chosen}>
         <div className="wrap flex min-h-11 items-center gap-x-6">
           {chosen ? (
             <p className="flex min-w-0 flex-1 items-center gap-2.5">
-              <SchoolMark school={chosen} size="mark-sm" />
+              <SchoolMark school={chosen} size="mark-sm" eager />
               <VLink to={`/schools/${chosen.slug}`} className="tap min-w-0 font-semibold"><span className="truncate">{chosen.short}, {chosen.area}</span></VLink>
               <span className="hidden text-mute sm:inline">{schoolStatus(chosen)}</span>
               <VLink to="/schools" className="link tap shrink-0">Change school</VLink>

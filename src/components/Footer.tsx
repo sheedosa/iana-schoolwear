@@ -17,7 +17,7 @@ export function Footer() {
     <footer className="mt-16 border-t-2 border-blue bg-white pb-[var(--tabbar)]">
       <div className="wrap py-6">
         <address>
-          <strong>I&A Schoolwear</strong>, {SITE.address.street}, {SITE.address.area}, {SITE.address.city} {SITE.address.postcode}. {SITE.hours}. <a href={`tel:${SITE.phoneIntl}`} className="link whitespace-nowrap">{SITE.phone}</a>
+          <strong>I&A Schoolwear</strong>, {SITE.address.street}, {SITE.address.area}, {SITE.address.city} {SITE.address.postcode}. {SITE.hours}. <a href={`tel:${SITE.phoneIntl}`} className="link tap-pad whitespace-nowrap">{SITE.phone}</a>
         </address>
         <nav aria-label="Footer" className="mt-2 flex flex-wrap gap-x-6">
           {links.map((l) => <Link key={l.to} to={l.to} className="link tap">{l.label}</Link>)}

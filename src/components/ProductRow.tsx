@@ -2,7 +2,8 @@ import { useState } from "react";
 import { VLink, productVT } from "./VLink";
 import { OrderTable } from "./OrderTable";
 import { useCart } from "../lib/cart";
-import { asset, priceLabel, sortSizes, StorefrontError, type Product, type School } from "../lib/shopify";
+import { priceLabel, sortSizes, StorefrontError, type Product, type School } from "../lib/shopify";
+import { smallImg } from "../lib/img";
 
 /** The garment name without the school in front: "St Anne's polo shirt" -> "Polo shirt". */
 export function garmentName(p: Product, school?: School) {
@@ -16,7 +17,13 @@ export function garmentName(p: Product, school?: School) {
 }
 
 /** "£12 to £14": the store's price label, with the range written as words. */
-export const priceText = (p: Product) => priceLabel(p).replace(" – ", " to ");
+const priceTexts = new Map<string, string>(); // the store's formatter is slow to build: ask once per price
+export const priceText = (p: Product) => {
+  const key = `${p.priceMin}|${p.priceMax}|${p.currency}`;
+  let t = priceTexts.get(key);
+  if (t === undefined) { t = priceLabel(p).replace(" – ", " to "); priceTexts.set(key, t); }
+  return t;
+};
 
 /** "3–4 yrs to 13 yrs", "One size", or nothing when the product has no size option. */
 export function sizeRange(p: Product) {
@@ -45,11 +52,11 @@ const PATHS: Record<Shape, string> = {
 };
 
 /** The 64px picture at the start of a line: the product's own photo, or an outline of the garment where there is none yet. */
-export function Thumb({ p, shared = false }: { p: Product; shared?: boolean }) {
+export function Thumb({ p, shared = false, eager = false }: { p: Product; shared?: boolean; eager?: boolean }) {
   const img = p.images[0];
   return (
     <span className="thumb" data-drawn={!img} style={shared ? productVT(p.handle) : undefined} aria-hidden>
-      {img ? <img src={asset(img)} alt="" loading="lazy" /> : (
+      {img ? <img {...smallImg(img, 64)} alt="" loading={eager ? undefined : "lazy"} /> : (
         <svg viewBox="0 0 100 100" width="44" height="44" fill="none" stroke="currentColor" strokeWidth="3" strokeLinejoin="round"><path d={PATHS[shapeFor(p)]} /></svg>
       )}
     </span>

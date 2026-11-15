@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { SITE } from "../data/site";
 import { ProductRows } from "../components/ProductRow";
 import { COLLECTIONS, storefront, type Product } from "../lib/shopify";
 import { Seo, breadcrumbs } from "../components/Seo";
+import { boot } from "../lib/preload";
 
 /** Garment types in the order a parent works down a list. */
 export const TYPE_ORDER = ["Trousers & shorts", "Shirts", "Polo shirts", "Sweatshirts", "Knitwear", "Skirts & dresses", "Blazers", "PE kit", "Bags", "Accessories"];
@@ -16,13 +17,12 @@ export function Collection() {
   const { handle = "all" } = useParams();
   const isPlain = handle === "plain";
   const c = isPlain ? PLAIN : COLLECTIONS[handle] ?? COLLECTIONS.all;
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loaded, setLoaded] = useState(false);
-  const { hash } = useLocation();
+  // Start from the products fetched before React began, so the list is on the page in the first render.
+  const [products, setProducts] = useState<Product[]>(() => boot.products.filter((p) => (isPlain ? !p.logoItem : COLLECTIONS[handle] ? COLLECTIONS[handle].match(p) : true)));
+  const [loaded, setLoaded] = useState(() => boot.products.length > 0);
 
   useEffect(() => {
-    setLoaded(false); window.scrollTo(0, 0);
-    storefront.products(isPlain ? {} : { collection: handle }).then((ps) => { setProducts(isPlain ? ps.filter((p) => !p.logoItem) : ps); setLoaded(true); });
+    storefront.products(isPlain ? {} : { collection: handle }).then((ps) => { setProducts(isPlain ? ps.filter((p) => !p.logoItem) : ps); setLoaded(true); }).catch(() => setLoaded(true));
   }, [handle, isPlain]);
 
   // Grouped by garment type; inside a group, plain items first, then crested ones.
@@ -31,11 +31,7 @@ export function Collection() {
     return types.map((t) => ({ t, items: products.filter((p) => p.productType === t).sort((a, b) => Number(a.logoItem) - Number(b.logoItem)) })).filter((g) => g.items.length);
   }, [products]);
 
-  // A link such as /collections/plain#shirts lands on that group once the lines are on the page.
-  useEffect(() => {
-    if (!loaded || !hash) return;
-    document.getElementById(hash.slice(1))?.scrollIntoView({ block: "start" });
-  }, [loaded, hash]);
+  // A link such as /collections/plain#shirts lands on that group: ScrollManager does it, for every page.
 
   return (
     <section className="wrap py-8 lg:py-10">
@@ -52,9 +48,9 @@ export function Collection() {
         </nav>
       )}
 
-      <div className="mt-6 space-y-10">
+      <div className={`mt-6 space-y-10 ${products.length >= 50 ? "long-list" : ""}`}>
         {groups.map((g) => (
-          <section key={g.t} id={typeId(g.t)} aria-labelledby={`${typeId(g.t)}-h`} className="scroll-mt-[var(--head)]">
+          <section key={g.t} id={typeId(g.t)} aria-labelledby={`${typeId(g.t)}-h`} >
             <div className="group-head">
               <h2 id={`${typeId(g.t)}-h`}>{g.t}</h2>
               <span className="num text-mute">{g.items.length} {g.items.length === 1 ? "item" : "items"}</span>

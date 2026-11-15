@@ -7,6 +7,7 @@ import { useSchools } from "../lib/school";
 import { formatPrice, inStoreOnly, sortSizes, storefront, StorefrontError, type Product, type School } from "../lib/shopify";
 import { Seo, breadcrumbs } from "../components/Seo";
 import { SITE, money } from "../data/site";
+import { boot, bootProducts } from "../lib/preload";
 
 export { sortSizes };
 
@@ -30,9 +31,10 @@ function pickBasics(all: Product[], slug: string): Product[] {
 
 export function SchoolPage() {
   const { slug = "" } = useParams();
-  const [school, setSchool] = useState<School | undefined>();
-  const [products, setProducts] = useState<Product[]>([]);
-  const [plain, setPlain] = useState<Product[]>([]);
+  // Start from what was fetched before React began, so the page is whole in its first render.
+  const [school, setSchool] = useState<School | undefined>(() => boot.schools.find((s) => s.slug === slug));
+  const [products, setProducts] = useState<Product[]>(() => bootProducts({ school: slug }));
+  const [plain, setPlain] = useState<Product[]>(() => pickBasics(boot.products, slug));
   const [size, setSize] = useState("");
   const { add } = useCart();
   const { choose } = useSchools();
@@ -43,9 +45,8 @@ export function SchoolPage() {
   useEffect(() => {
     setSize(""); setErr(null); setNudge(false);
     storefront.school(slug).then((s) => { setSchool(s); if (s) choose(s.slug); }); // opening a school's page chooses it
-    storefront.products({ school: slug }).then(setProducts);
-    storefront.products().then((ps) => setPlain(pickBasics(ps, slug)));
-    window.scrollTo(0, 0);
+    storefront.products({ school: slug }).then(setProducts).catch(() => {});
+    storefront.products().then((ps) => setPlain(pickBasics(ps, slug))).catch(() => {});
   }, [slug, choose]);
 
   // The one-tap bundle: priced, photographed crested garments, and only sizes every one of them comes in.
@@ -130,7 +131,7 @@ export function SchoolPage() {
                   </li>
                 ))}
               </ul>
-              <div className="order-foot">
+              <div className="order-foot" data-kit="true">
                 <p className="flex items-baseline justify-between gap-4 pb-2.5"><span className="font-semibold">Essentials total</span><span className="num text-xl font-semibold">{formatPrice(kitTotal)}</span></p>
                 {nudge && needSize && <p role="alert" className="mb-2 font-medium">Choose the size first, then add.</p>}
                 <button type="button" disabled={adding} aria-disabled={needSize} onClick={addOrAsk} className="btn btn-buy w-full">{adding ? "Adding…" : `Add ${allWord} to basket, ${formatPrice(kitTotal)}`}</button>
@@ -162,7 +163,7 @@ function SchoolTitle({ school, children }: { school: School; children: React.Rea
     <>
       <p className="t-small"><Link to="/schools" className="link tap">Schools</Link> <span className="text-mute">/ {school.short}</span></p>
       <div className="mt-1 flex items-center gap-4">
-        <SchoolMark school={school} size="mark-lg" shared />
+        <SchoolMark school={school} size="mark-lg" shared eager />
         <div className="min-w-0">
           <h1>{school.name}</h1>
           <p className="mt-1 text-mute">{children}</p>
@@ -218,7 +219,7 @@ function InStoreSchool({ school, products, plain, crumbs }: { school: School; pr
             <dl className="facts mt-4 border-t-2 border-blue">
               <div><dt>Address</dt><dd>{SITE.address.street}, {SITE.address.area}, {SITE.address.city} {SITE.address.postcode}</dd></div>
               <div><dt>Hours</dt><dd>{SITE.hours}</dd></div>
-              <div><dt>Phone</dt><dd><a href={`tel:${SITE.phoneIntl}`} className="link">{SITE.phone}</a></dd></div>
+              <div><dt>Phone</dt><dd><a href={`tel:${SITE.phoneIntl}`} className="link tap-pad">{SITE.phone}</a></dd></div>
             </dl>
             <a href={`tel:${SITE.phoneIntl}`} className="btn btn-line mt-5">Call the shop</a>
           </section>

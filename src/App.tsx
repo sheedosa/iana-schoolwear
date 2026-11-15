@@ -1,4 +1,5 @@
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Link, useLocation } from "react-router-dom";
+import { ScrollManager } from "./components/ScrollManager";
 import { Seo } from "./components/Seo";
 import { Header, TabBar } from "./components/Header";
 import { SchoolTable } from "./components/SchoolFinder";
@@ -26,25 +27,35 @@ function NotFound() {
   );
 }
 
+/** Each address gets its own copy of its page, so a page always starts from its own data: Back lands on a
+    finished page at the height it had, and its scroll position can be put back at once. */
+function Pages() {
+  const { pathname } = useLocation();
+  return (
+    <Routes key={pathname}>
+      <Route path="/" element={<Home />} />
+      <Route path="/schools" element={<Schools />} />
+      <Route path="/schools/:slug" element={<SchoolPage />} />
+      <Route path="/collections/:handle" element={<Collection />} />
+      <Route path="/products/:handle" element={<ProductPage />} />
+      <Route path="/size-guide" element={<SizeGuide />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/delivery" element={<Delivery />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+}
+
 export default function App() {
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <CartProvider>
       <SchoolProvider>
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-ctl focus:bg-white focus:px-4 focus:py-2">Skip to content</a>
+        <ScrollManager />
         <Header />
         <main id="main">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/schools" element={<Schools />} />
-            <Route path="/schools/:slug" element={<SchoolPage />} />
-            <Route path="/collections/:handle" element={<Collection />} />
-            <Route path="/products/:handle" element={<ProductPage />} />
-            <Route path="/size-guide" element={<SizeGuide />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/delivery" element={<Delivery />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <Pages />
         </main>
         <Footer />
         <TabBar />

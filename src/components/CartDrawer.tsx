@@ -4,9 +4,11 @@ import { Thumb } from "./ProductRow";
 import { Stepper } from "./OrderTable";
 import { SITE } from "../data/site";
 import { useEffect } from "react";
+import { useSheet } from "../lib/sheet";
 
 export function CartDrawer() {
   const { cart, open, setOpen, update } = useCart();
+  useSheet(open, () => setOpen(false), "basket"); // the page behind stays still; Back closes the basket
   useEffect(() => {
     if (!open) return;
     const opener = document.activeElement as HTMLElement | null;
@@ -28,13 +30,13 @@ export function CartDrawer() {
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-label="Basket">
-      <button type="button" className="sheet-in absolute inset-0 bg-ink/50" onClick={() => setOpen(false)} aria-label="Close basket" />
-      <aside className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l-2 border-blue bg-white drawer-in">
+      <button type="button" tabIndex={-1} className="backdrop sheet-in absolute inset-0 bg-ink/50" onClick={() => setOpen(false)} aria-label="Close basket" />
+      <aside className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l-2 border-blue bg-white pr-[env(safe-area-inset-right)] pt-[env(safe-area-inset-top)] drawer-in">
         <div className="flex items-center justify-between border-b-2 border-blue px-5 py-3">
           <h2>Your basket</h2>
           <button type="button" onClick={() => setOpen(false)} className="btn btn-line min-h-11 px-4">Close</button>
         </div>
-        <div className="flex-1 overflow-y-auto px-5">
+        <div className="sheet-scroll flex-1 px-5">
           {cart.lines.length === 0 ? (
             <p className="py-4 text-mute">Nothing in the basket yet. Open your school's list and add what you need.</p>
           ) : (
@@ -55,7 +57,7 @@ export function CartDrawer() {
             </ul>
           )}
         </div>
-        <div className="border-t-2 border-blue px-5 py-4">
+        <div className="border-t-2 border-blue px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4">
           <div className="flex items-baseline justify-between"><span className="font-semibold">Subtotal</span><span className="num text-2xl font-semibold">{formatPrice(cart.subtotal)}</span></div>
           <p className="mt-1 text-mute">{cart.subtotal >= SITE.delivery.freeOver ? "Free delivery on this order." : `Free delivery at £${SITE.delivery.freeOver}. School drop-off £${SITE.delivery.schoolDropOff}, or collect in Tooting.`}</p>
           {storefront.mode === "shopify" && cart.checkoutUrl ? (

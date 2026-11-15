@@ -1,8 +1,9 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { storefront, type Product, type School } from "./shopify";
+import { boot, savedSchool, SCHOOL_KEY } from "./preload";
 
 // The school a parent chose, remembered on this device only, and the list of schools every page reads.
-const KEY = "iana-school";
+const KEY = SCHOOL_KEY;
 
 type SchoolCtx = {
   schools: School[];
@@ -25,14 +26,18 @@ function marksFrom(products: Product[]): Record<string, string> {
 }
 
 export function SchoolProvider({ children }: { children: ReactNode }) {
-  const [schools, setSchools] = useState<School[]>([]);
-  const [marks, setMarks] = useState<Record<string, string>>({});
-  const [slug, setSlug] = useState<string | null>(null);
+  // Start from what was fetched before React began (lib/preload.ts), so the first render is the finished page.
+  const [schools, setSchools] = useState<School[]>(() => boot.schools);
+  const [marks, setMarks] = useState<Record<string, string>>(() => marksFrom(boot.products));
+  // A school's own page chooses that school (SchoolPage does it too): start there, so the line under the bar does not change after the first render.
+  const [slug, setSlug] = useState<string | null>(() => {
+    const onPage = /\/schools\/([^/?#]+)/.exec(window.location.pathname)?.[1];
+    return onPage && boot.schools.some((s) => s.slug === onPage) ? onPage : savedSchool();
+  });
 
   useEffect(() => {
-    storefront.schools().then(setSchools).catch(() => {});
-    storefront.products().then((ps) => setMarks(marksFrom(ps))).catch(() => {});
-    try { setSlug(localStorage.getItem(KEY)); } catch { /* storage unavailable: nothing remembered */ }
+    if (!boot.schools.length) storefront.schools().then(setSchools).catch(() => {});
+    if (!boot.products.length) storefront.products().then((ps) => setMarks(marksFrom(ps))).catch(() => {});
   }, []);
 
   const choose = useCallback((s: string) => {

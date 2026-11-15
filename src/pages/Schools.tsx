@@ -1,11 +1,9 @@
-import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { SchoolTable } from "../components/SchoolFinder";
 import { Seo, breadcrumbs } from "../components/Seo";
 
 export function Schools() {
   const [params] = useSearchParams();
-  useEffect(() => window.scrollTo(0, 0), []);
   return (
     <section className="wrap py-8 lg:py-10">
       <Seo title="Find your school" description="School uniform by school: Heathbrook, Fircroft, Allen Edwards, Trinity St Mary's, St Anne's, Gatton, St Andrew's, Vauxhall and Penwortham. Embroidered in Tooting." path="/schools" jsonLd={breadcrumbs([{ name: "Home", path: "/" }, { name: "Schools", path: "/schools" }])} />

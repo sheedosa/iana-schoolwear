@@ -15,13 +15,15 @@ const routes = ["/", "/schools", "/size-guide", "/about", "/delivery",
   ...["plain", "boys", "girls", "pe-kit", "bags", "blazers", "all"].map((c) => `/collections/${c}`),
   ...cat.products.map((p) => `/products/${p.handle}`)];
 
-const types = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".webp": "image/webp", ".png": "image/png", ".jpg": "image/jpeg", ".json": "application/json", ".ico": "image/x-icon", ".txt": "text/plain", ".xml": "application/xml", ".webmanifest": "application/manifest+json" };
+const types = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".webp": "image/webp", ".png": "image/png", ".jpg": "image/jpeg", ".json": "application/json", ".ico": "image/x-icon", ".txt": "text/plain", ".xml": "application/xml", ".webmanifest": "application/manifest+json", ".woff2": "font/woff2", ".svg": "image/svg+xml" };
+// Every route starts from the app shell as Vite built it, not from the Home page already written over it.
+const shell = readFileSync(join(dist, "index.html"));
 const server = createServer((req, res) => {
   let p = decodeURIComponent(req.url.split("?")[0]).replace(BASE, "") || "/";
   let f = join(dist, p);
-  if (!existsSync(f) || statSync(f).isDirectory()) f = join(dist, "index.html");
-  res.setHeader("Content-Type", types[extname(f)] ?? "application/octet-stream");
-  res.end(readFileSync(f));
+  const page = !existsSync(f) || statSync(f).isDirectory();
+  res.setHeader("Content-Type", page ? "text/html" : types[extname(f)] ?? "application/octet-stream");
+  res.end(page ? shell : readFileSync(f));
 });
 await new Promise((ok) => server.listen(0, ok)); // any free port
 const PORT = server.address().port;
@@ -29,7 +31,8 @@ const PORT = server.address().port;
 const exe = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE || (existsSync("/opt/pw-browsers/chromium") ? "/opt/pw-browsers/chromium" : undefined);
 const browser = await chromium.launch(exe ? { executablePath: exe } : {});
 const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
-page.route(/fonts\.(googleapis|gstatic)\.com/, (r) => r.abort()); // fonts aren't needed for markup
+// Every page is rendered as a first visit: no school remembered from the page rendered before it.
+await page.addInitScript(() => { try { localStorage.clear(); } catch { /* ignore */ } });
 let n = 0;
 for (const r of routes) {
   await page.goto(`http://localhost:${PORT}${BASE}${r}`, { waitUntil: "networkidle" });

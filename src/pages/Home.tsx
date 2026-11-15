@@ -5,10 +5,11 @@ import { storefront, type Product } from "../lib/shopify";
 import { Seo } from "../components/Seo";
 import { SITE, money } from "../data/site";
 import { TYPE_ORDER, typeId } from "./Collection";
+import { boot } from "../lib/preload";
 
 export function Home() {
-  const [plain, setPlain] = useState<Product[]>([]);
-  useEffect(() => { storefront.products().then((ps) => setPlain(ps.filter((p) => !p.logoItem))); }, []);
+  const [plain, setPlain] = useState<Product[]>(() => boot.products.filter((p) => !p.logoItem));
+  useEffect(() => { storefront.products().then((ps) => setPlain(ps.filter((p) => !p.logoItem))).catch(() => {}); }, []);
   const d = SITE.delivery;
   const types = TYPE_ORDER.map((t) => ({ t, n: plain.filter((p) => p.productType === t).length })).filter((x) => x.n > 0);
 
@@ -45,7 +46,7 @@ export function Home() {
 
           <section aria-labelledby="shop-h">
             <h2 id="shop-h">The shop</h2>
-            <address className="mt-2">{SITE.address.street}, {SITE.address.area}, {SITE.address.city} {SITE.address.postcode}<br />{SITE.hours}<br /><a href={`tel:${SITE.phoneIntl}`} className="link">{SITE.phone}</a></address>
+            <address className="mt-2">{SITE.address.street}, {SITE.address.area}, {SITE.address.city} {SITE.address.postcode}<br />{SITE.hours}<br /><a href={`tel:${SITE.phoneIntl}`} className="link tap-pad">{SITE.phone}</a></address>
             <p className="mt-2 text-mute">Not sure of a size? Bring your child in and we measure them. No appointment needed.</p>
           </section>
         </div>

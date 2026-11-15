@@ -1,11 +1,9 @@
-import { useEffect } from "react";
 import { Seo, breadcrumbs } from "../components/Seo";
 import { Link } from "react-router-dom";
 import { SITE, money } from "../data/site";
 
 // Facts on this page come from iafashions.co.uk (About, Eco Uniform, Want us to supply your school, Contact, Terms).
 export function About() {
-  useEffect(() => window.scrollTo(0, 0), []);
   const d = SITE.delivery;
   return (
     <>
@@ -17,7 +15,7 @@ export function About() {
           <p className="measure mt-3">We supply embroidered uniform to primary and secondary schools across south London, stitch the crests in our own embroidery room, and keep stock all year round. The owner's two sons took the business on in 2019 and brought it online.</p>
           <p className="measure mt-3">We are members of the Schoolwear Association and the Federation of Small Businesses.</p>
 
-          <section id="eco" className="mt-10 scroll-mt-[var(--head)]" aria-labelledby="eco-h">
+          <section id="eco" className="mt-10" aria-labelledby="eco-h">
             <h2 id="eco-h">Eco uniform</h2>
             <dl className="facts mt-3 border-t-2 border-blue">
               <div><dt>Suppliers</dt><dd>Up to 90% of our suppliers and manufacturers are UK-based.</dd></div>
@@ -27,7 +25,7 @@ export function About() {
             </dl>
           </section>
 
-          <section id="schools" className="mt-10 scroll-mt-[var(--head)]" aria-labelledby="schools-h">
+          <section id="schools" className="mt-10" aria-labelledby="schools-h">
             <h2 id="schools-h">For schools</h2>
             <p className="measure mt-2">Thinking of switching supplier? We offer in-store, online and direct-to-parent ordering, stock held all year, a dedicated account manager, Klarna for parents, and £1 back to the school for every embroidered sweatshirt, jumper or blazer sold.</p>
             <a href={`tel:${SITE.phoneIntl}`} className="btn btn-line mt-4">Call {SITE.phone}</a>
@@ -37,7 +35,7 @@ export function About() {
         <aside className="space-y-7 lg:pt-1">
           <section>
             <h2>Visit</h2>
-            <address className="mt-1.5">{SITE.address.street}, {SITE.address.area}, {SITE.address.city} {SITE.address.postcode}<br />{SITE.hours}<br /><a href={`tel:${SITE.phoneIntl}`} className="link">{SITE.phone}</a></address>
+            <address className="mt-1.5">{SITE.address.street}, {SITE.address.area}, {SITE.address.city} {SITE.address.postcode}<br />{SITE.hours}<br /><a href={`tel:${SITE.phoneIntl}`} className="link tap-pad">{SITE.phone}</a></address>
             <p className="mt-2 text-mute">Two minutes from Tooting Broadway station. Look for the blue shopfront.</p>
           </section>
           <section id="delivery">

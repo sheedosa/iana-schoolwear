@@ -3,3 +3,6 @@ dist
 .env
 .env.local
 *.log
+
+# cut by scripts/images.mjs at build time
+public/img/products/w/

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ProductRows, garmentName, priceText } from "../components/ProductRow";
 import { OrderTable } from "../components/OrderTable";
@@ -7,31 +7,54 @@ import { Seo, breadcrumbs } from "../components/Seo";
 import { VLink, productVT } from "../components/VLink";
 import { SITE, money } from "../data/site";
 import { typeId } from "./Collection";
+import { boot, bootProducts } from "../lib/preload";
+import { largeImg, smallImg } from "../lib/img";
+import { useSheet } from "../lib/sheet";
+
+/** The other lines offered under a product: the rest of its school's list, or more of its garment type. */
+const alsoFor = (prod: Product, rel: Product[]) => rel.filter((r) => r.handle !== prod.handle && !(r.images[0] && prod.images.includes(r.images[0]))).slice(0, 5);
 
 export function ProductPage() {
   const { handle = "" } = useParams();
-  const [p, setP] = useState<Product | undefined>();
-  const [school, setSchool] = useState<School | undefined>();
-  const [related, setRelated] = useState<Product[]>([]);
+  // Start from what was fetched before React began, so the page is whole in its first render.
+  const [p, setP] = useState<Product | undefined>(() => boot.products.find((x) => x.handle === handle));
+  const [school, setSchool] = useState<School | undefined>(() => boot.schools.find((s) => s.slug === p?.school));
+  const [related, setRelated] = useState<Product[]>(() => (p ? alsoFor(p, bootProducts(p.school ? { school: p.school } : { type: p.productType })) : []));
+  const guideBox = useRef<HTMLDivElement>(null);
+  const guideOpener = useRef<HTMLElement | null>(null);
+  const openGuide = () => { guideOpener.current = document.activeElement as HTMLElement | null; setGuide(true); };
   const [img, setImg] = useState(0);
   const [guide, setGuide] = useState(false);
 
   useEffect(() => {
-    setImg(0); window.scrollTo(0, 0);
     storefront.product(handle).then(async (prod) => {
       setP(prod);
       if (!prod) return;
       setSchool(prod.school ? await storefront.school(prod.school) : undefined);
       const rel = await storefront.products(prod.school ? { school: prod.school } : { type: prod.productType });
-      setRelated(rel.filter((r) => r.handle !== prod.handle && !(r.images[0] && prod.images.includes(r.images[0]))).slice(0, 5));
-    });
+      setRelated(alsoFor(prod, rel));
+    }).catch(() => {});
   }, [handle]);
 
+  // The size guide sheet: Escape closes it, Tab stays inside it, and focus goes back to the link that opened it.
+  useSheet(guide, () => setGuide(false), "size-guide");
   useEffect(() => {
     if (!guide) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setGuide(false); };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") return setGuide(false);
+      const el = guideBox.current;
+      if (e.key !== "Tab" || !el) return;
+      const stops = [...el.querySelectorAll<HTMLElement>("a[href], button:not([disabled])")];
+      const first = stops[0], last = stops[stops.length - 1], at = document.activeElement;
+      if (e.shiftKey && (at === first || !el.contains(at))) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && (at === last || !el.contains(at))) { e.preventDefault(); first.focus(); }
+    };
     document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      const opener = guideOpener.current;
+      (opener?.isConnected && opener !== document.body ? opener : document.querySelector<HTMLElement>(".order .sheet-head button"))?.focus({ preventScroll: true });
+    };
   }, [guide]);
 
   if (!p) return <div className="wrap py-16 text-mute">Loading…</div>;
@@ -55,23 +78,9 @@ export function ProductPage() {
         <span className="hidden text-mute sm:inline"> / {school ? garmentName(p, school) : p.title}</span>
       </p>
 
-      <div className={`mt-2 grid gap-x-12 gap-y-6 ${hasPhoto ? "md:grid-cols-[minmax(0,320px)_minmax(0,1fr)]" : "max-w-[760px]"}`}>
-        {hasPhoto && (
-          <div className="md:sticky md:top-[calc(var(--head)+1.5rem)] md:self-start">
-            <div className="mx-auto aspect-square w-full max-w-[320px] overflow-hidden rounded-[4px] bg-white" style={productVT(p.handle)}>
-              <img src={asset(p.images[img])} alt={p.title} className="h-full w-full object-contain" />
-            </div>
-            {p.images.length > 1 && (
-              <div className="mt-3 flex flex-wrap justify-center gap-2 md:justify-start">
-                {p.images.map((src, i) => (
-                  <button key={src} type="button" onClick={() => setImg(i)} aria-label={`Show photo ${i + 1} of ${p.images.length}`} aria-pressed={i === img} className={`h-14 w-14 overflow-hidden rounded-[4px] border-2 bg-white ${i === img ? "border-blue" : "border-line hover:border-blue"}`}><img src={asset(src)} alt="" className="h-full w-full object-contain" /></button>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-
-        <div className="min-w-0">
+      <div className={`mt-2 grid gap-x-12 gap-y-5 ${hasPhoto ? "md:grid-cols-[minmax(0,320px)_minmax(0,1fr)]" : "max-w-[760px]"}`}>
+        {/* On a phone the name and price come first, then the picture; from 768px the picture stands to the left of both. */}
+        <div className={`min-w-0 ${hasPhoto ? "md:col-start-2" : ""}`}>
           <h1>{p.title}</h1>
           <p className="mt-1.5">
             <span className="num text-xl font-semibold">{p.priceMin > 0 ? priceText(p) : "Price in store"}</span>
@@ -79,8 +88,25 @@ export function ProductPage() {
             {p.brand && <span className="text-mute">. Made by {p.brand}</span>}
           </p>
           {!hasPhoto && <p className="mt-1 text-mute">No photo of this one yet. It is in the shop now{school && p.logoItem ? `, with the ${school.short} crest` : ""}.</p>}
+        </div>
 
-          <div className="mt-5"><OrderTable p={p} sticky onGuide={() => setGuide(true)} /></div>
+        {hasPhoto && (
+          <div className="md:sticky md:top-[calc(var(--head)+1.5rem)] md:col-start-1 md:[grid-row:1/span_2] md:self-start">
+            <div className="product-pic mx-auto aspect-square max-w-[320px] overflow-hidden rounded-[4px] bg-white" style={productVT(p.handle)}>
+              <img {...largeImg(p.images[img])} alt={p.title} fetchPriority="high" className="h-full w-full object-contain" />
+            </div>
+            {p.images.length > 1 && (
+              <div className="mt-3 flex flex-wrap justify-center gap-2 md:justify-start">
+                {p.images.map((src, i) => (
+                  <button key={src} type="button" onClick={() => setImg(i)} aria-label={`Show photo ${i + 1} of ${p.images.length}`} aria-pressed={i === img} className={`h-14 w-14 overflow-hidden rounded-[4px] border-2 bg-white ${i === img ? "border-blue" : "border-line hover:border-blue"}`}><img {...smallImg(src, 52)} alt="" loading="lazy" className="h-full w-full object-contain" /></button>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        <div className={`min-w-0 ${hasPhoto ? "md:col-start-2" : ""}`}>
+          <div><OrderTable p={p} sticky onGuide={openGuide} /></div>
           {p.sizes.length > 1 && <p className="mt-3 text-mute">Between two sizes, go up. Or bring your child to the shop and we measure them: no appointment needed.</p>}
           {p.description && <p className="measure mt-6 whitespace-pre-line break-words">{p.description}</p>}
           <dl className="facts mt-8 border-t-2 border-blue">
@@ -96,11 +122,11 @@ export function ProductPage() {
 
       {guide && (
         <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-label="Size guide">
-          <button type="button" className="sheet-in absolute inset-0 bg-ink/50" onClick={() => setGuide(false)} aria-label="Close size guide" />
-          <div className="sheet-in absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto rounded-t-ctl border-2 border-blue bg-white p-5 sm:inset-auto sm:left-1/2 sm:top-1/2 sm:w-[600px] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-ctl sm:p-6">
+          <button type="button" tabIndex={-1} className="backdrop sheet-in absolute inset-0 bg-ink/50" onClick={() => setGuide(false)} aria-label="Close size guide" />
+          <div ref={guideBox} className="sheet-scroll sheet-in absolute inset-x-0 bottom-0 max-h-[85dvh] rounded-t-ctl border-2 border-blue bg-white p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:inset-auto sm:left-1/2 sm:top-1/2 sm:w-[600px] sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-ctl sm:p-6">
             <div className="flex items-center justify-between"><h2>Size guide</h2><button type="button" autoFocus onClick={() => setGuide(false)} className="btn btn-line min-h-11 px-4">Close</button></div>
             <SizeTable />
-            <Link to="/size-guide" className="link tap mt-2">How to measure</Link>
+            <Link to="/size-guide" replace className="link tap mt-2">How to measure</Link>
           </div>
         </div>
       )}

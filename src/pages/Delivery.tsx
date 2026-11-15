@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Seo, breadcrumbs } from "../components/Seo";
 import { SITE, money } from "../data/site";
@@ -6,7 +5,6 @@ import { SITE, money } from "../data/site";
 const list = (items: string[]) => (items.length < 2 ? items.join("") : `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`);
 
 export function Delivery() {
-  useEffect(() => window.scrollTo(0, 0), []);
   const d = SITE.delivery;
   const rows = [
     { name: "Standard delivery", price: money(d.standard.price), when: d.standard.time },
@@ -55,7 +53,7 @@ export function Delivery() {
         <section className="mt-10" aria-labelledby="visit-h">
           <h2 id="visit-h">Or come in</h2>
           <p className="measure mt-2">Bring your child to the shop and we measure them for the right size. No appointment needed.</p>
-          <address className="mt-2">{SITE.address.street}, {SITE.address.area}, {SITE.address.city} {SITE.address.postcode}<br />{SITE.hours}<br /><a href={`tel:${SITE.phoneIntl}`} className="link">{SITE.phone}</a></address>
+          <address className="mt-2">{SITE.address.street}, {SITE.address.area}, {SITE.address.city} {SITE.address.postcode}<br />{SITE.hours}<br /><a href={`tel:${SITE.phoneIntl}`} className="link tap-pad">{SITE.phone}</a></address>
         </section>
       </div></div>
     </>

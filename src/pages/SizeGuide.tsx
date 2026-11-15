@@ -1,10 +1,8 @@
-import { useEffect } from "react";
 import { SizeTable } from "./ProductPage";
 import { Seo, breadcrumbs } from "../components/Seo";
 import { SITE } from "../data/site";
 
 export function SizeGuide() {
-  useEffect(() => window.scrollTo(0, 0), []);
   return (
     <section className="wrap grid gap-x-14 gap-y-10 py-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)] lg:py-10">
       <Seo title="School uniform size guide" description="How to measure your child for school uniform: height, chest, waist and inside leg, with age-to-size tables for sweatshirts, trousers and blazers. Fittings in store in Tooting." path="/size-guide" jsonLd={breadcrumbs([{ name: "Home", path: "/" }, { name: "Size guide", path: "/size-guide" }])} />
@@ -30,7 +28,7 @@ export function SizeGuide() {
         <aside>
           <h2>We can measure for you</h2>
           <p className="mt-1.5">Bring your child to the shop and we measure and fit them. No appointment needed.</p>
-          <address className="mt-2">{SITE.address.street}, {SITE.address.area} {SITE.address.postcode}<br />{SITE.hours}<br /><a href={`tel:${SITE.phoneIntl}`} className="link">{SITE.phone}</a></address>
+          <address className="mt-2">{SITE.address.street}, {SITE.address.area} {SITE.address.postcode}<br />{SITE.hours}<br /><a href={`tel:${SITE.phoneIntl}`} className="link tap-pad">{SITE.phone}</a></address>
         </aside>
       </div>
     </section>
