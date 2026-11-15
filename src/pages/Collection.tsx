@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { SITE } from "../data/site";
 import { ProductRows } from "../components/ProductRow";
 import { COLLECTIONS, storefront, type Product } from "../lib/shopify";
-import { Seo, breadcrumbs } from "../components/Seo";
+import { Seo, breadcrumbs, fit } from "../components/Seo";
 import { boot } from "../lib/preload";
 
 /** Garment types in the order a parent works down a list. */
@@ -35,7 +35,7 @@ export function Collection() {
 
   return (
     <section className="wrap py-8 lg:py-10">
-      <Seo title={isPlain ? "Plain school uniform basics" : `${c.title} school uniform`} description={`${c.blurb} Plain and embroidered school uniform from I&A, Tooting. Pay in 3 with Klarna.`} path={`/collections/${handle}`} jsonLd={breadcrumbs([{ name: "Home", path: "/" }, { name: c.title, path: `/collections/${handle}` }])} />
+      <Seo title={isPlain ? "Plain school uniform basics" : `${c.title} school uniform`} description={fit(c.blurb, "Plain and embroidered school uniform from I&A, 84 Mitcham Road, Tooting.", `Free delivery from £${SITE.delivery.freeOver}.`, "Pay in 3 with Klarna.")} path={`/collections/${handle}`} jsonLd={breadcrumbs([{ name: "Home", path: "/" }, { name: c.title, path: `/collections/${handle}` }])} />
       <h1>{c.title}</h1>
       <p className="mt-2 text-mute">
         {loaded ? `${products.length} ${products.length === 1 ? "item" : "items"}. ` : "Loading… "}

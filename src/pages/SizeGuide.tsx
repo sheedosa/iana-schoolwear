@@ -5,7 +5,7 @@ import { SITE } from "../data/site";
 export function SizeGuide() {
   return (
     <section className="wrap grid gap-x-14 gap-y-10 py-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)] lg:py-10">
-      <Seo title="School uniform size guide" description="How to measure your child for school uniform: height, chest, waist and inside leg, with age-to-size tables for sweatshirts, trousers and blazers. Fittings in store in Tooting." path="/size-guide" jsonLd={breadcrumbs([{ name: "Home", path: "/" }, { name: "Size guide", path: "/size-guide" }])} />
+      <Seo title="School uniform size guide" description="How to measure your child for school uniform: height, chest, waist and inside leg, with size tables for sweatshirts, trousers and blazers." path="/size-guide" jsonLd={breadcrumbs([{ name: "Home", path: "/" }, { name: "Size guide", path: "/size-guide" }])} />
       <div className="min-w-0">
         <h1>Size guide</h1>
         <p className="measure mt-2 text-mute">Go by measurements and use age as a check. Children of the same age can be two sizes apart, and uniform is cut to be worn over a shirt. If in doubt, size up. These are typical UK schoolwear measurements; supplier charts for Banner and Trutex trousers and blazers are on each product page.</p>

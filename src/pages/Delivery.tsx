@@ -14,7 +14,7 @@ export function Delivery() {
   ];
   return (
     <>
-      <Seo title="Delivery and returns" description={`Standard delivery ${money(d.standard.price)} (${d.standard.time}), express ${money(d.express.price)} (${d.express.time}), free from £${d.freeOver}. Drop-off to your child's school for £${d.schoolDropOff}, or click and collect in Tooting. ${SITE.returns.days}-day returns.`} path="/delivery" jsonLd={breadcrumbs([{ name: "Home", path: "/" }, { name: "Delivery and returns", path: "/delivery" }])} />
+      <Seo title="Delivery and returns" description={`Standard delivery ${money(d.standard.price)} (${d.standard.time}), express ${money(d.express.price)} (${d.express.time}), free from £${d.freeOver}. School drop-off £${d.schoolDropOff}, or click and collect in Tooting. ${SITE.returns.days}-day returns.`} path="/delivery" jsonLd={breadcrumbs([{ name: "Home", path: "/" }, { name: "Delivery and returns", path: "/delivery" }])} />
       <div className="wrap py-8 lg:py-10"><div className="max-w-[760px]">
         <h1>Delivery and returns</h1>
         <p className="measure mt-2 text-mute">Delivery is free on orders of £{d.freeOver} and over.</p>

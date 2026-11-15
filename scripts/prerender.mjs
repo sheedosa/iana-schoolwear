@@ -47,9 +47,9 @@ for (const r of routes) {
 await browser.close(); server.close();
 
 const today = new Date().toISOString().slice(0, 10);
-writeFileSync(join(dist, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${routes.map((r) => `  <url><loc>${SITE}${r === "/" ? "/" : r}</loc><lastmod>${today}</lastmod><changefreq>${r.startsWith("/products") ? "weekly" : "monthly"}</changefreq><priority>${r === "/" ? "1.0" : r.startsWith("/schools/") ? "0.9" : "0.7"}</priority></url>`).join("\n")}\n</urlset>\n`);
+writeFileSync(join(dist, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${routes.map((r) => `  <url><loc>${SITE}${r === "/" ? "/" : `${r}/`}</loc><lastmod>${today}</lastmod><changefreq>${r.startsWith("/products") ? "weekly" : "monthly"}</changefreq><priority>${r === "/" ? "1.0" : r.startsWith("/schools/") ? "0.9" : "0.7"}</priority></url>`).join("\n")}\n</urlset>\n`);
 
-const schools = cat.schools.map((s) => `- [${s.name}](${SITE}/schools/${s.slug}): ${s.area}, ${s.productCount < 3 ? "in store only" : `${s.productCount} embroidered items online`}`).join("\n");
+const schools = cat.schools.map((s) => `- [${s.name}](${SITE}/schools/${s.slug}/): ${s.area}, ${s.productCount < 3 ? "in store only" : `${s.productCount} embroidered items online`}`).join("\n");
 writeFileSync(join(dist, "llms.txt"), `# I&A Schoolwear
 
 > Family-run school uniform and clothing shop at 84 Mitcham Road, Tooting, London SW17 9NG, trading since 1993. Supplies embroidered uniform to nine south London schools and plain school basics for any school. In-house embroidery, eco uniform range, Klarna Pay in 3. Standard delivery £4.95 (5 working days), express £7.95 (48 hours), free over £100, drop-off to your child's school £2, click and collect. Open Monday to Sunday 9am to 6pm. Phone 020 8767 8613.
@@ -58,18 +58,18 @@ writeFileSync(join(dist, "llms.txt"), `# I&A Schoolwear
 ${schools}
 
 ## Collections
-- [Plain basics](${SITE}/collections/plain)
-- [Boys](${SITE}/collections/boys)
-- [Girls](${SITE}/collections/girls)
-- [PE kit](${SITE}/collections/pe-kit)
-- [Bags](${SITE}/collections/bags)
-- [Blazers](${SITE}/collections/blazers)
-- [All uniform](${SITE}/collections/all)
+- [Plain basics](${SITE}/collections/plain/)
+- [Boys](${SITE}/collections/boys/)
+- [Girls](${SITE}/collections/girls/)
+- [PE kit](${SITE}/collections/pe-kit/)
+- [Bags](${SITE}/collections/bags/)
+- [Blazers](${SITE}/collections/blazers/)
+- [All uniform](${SITE}/collections/all/)
 
 ## Help
-- [Size guide](${SITE}/size-guide): measure by height, chest, waist and inside leg; size up if between sizes
-- [Delivery and returns](${SITE}/delivery): standard £4.95, express £7.95, free over £100, school drop-off £2, 28-day returns
-- [About and eco uniform](${SITE}/about)
+- [Size guide](${SITE}/size-guide/): measure by height, chest, waist and inside leg; size up if between sizes
+- [Delivery and returns](${SITE}/delivery/): standard £4.95, express £7.95, free over £100, school drop-off £2, 28-day returns
+- [About and eco uniform](${SITE}/about/)
 
 ## Facts
 - Legal name: I & A Fashions Limited, trading as I & A School Uniform. Company number 07202123.

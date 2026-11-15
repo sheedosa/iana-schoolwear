@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { ProductRows, garmentName, priceText } from "../components/ProductRow";
 import { OrderTable } from "../components/OrderTable";
 import { asset, priceLabel, storefront, type Product, type School } from "../lib/shopify";
-import { Seo, breadcrumbs } from "../components/Seo";
+import { Seo, breadcrumbs, fit } from "../components/Seo";
 import { VLink, productVT } from "../components/VLink";
 import { SITE, money } from "../data/site";
 import { typeId } from "./Collection";
@@ -64,13 +64,14 @@ export function ProductPage() {
     "@context": "https://schema.org", "@type": "Product", name: p.title, description: p.description || `${p.title} from I&A Schoolwear, Tooting.`,
     image: p.images.map((i) => asset(i).startsWith("http") ? asset(i) : `${SITE.url}${i}`), brand: { "@type": "Brand", name: school ? school.name : "I&A Schoolwear" },
     sku: p.handle, category: p.productType,
-    offers: { "@type": p.priceMax > p.priceMin ? "AggregateOffer" : "Offer", priceCurrency: "GBP", ...(p.priceMax > p.priceMin ? { lowPrice: p.priceMin, highPrice: p.priceMax } : { price: p.priceMin }), availability: p.available ? "https://schema.org/InStock" : "https://schema.org/PreOrder", url: `${SITE.url}/products/${p.handle}`, seller: { "@id": `${SITE.url}/#store` } },
+    // Offers only for a real price: a few items in the data carry 0 until the store lists them.
+    ...(p.priceMin > 0 && { offers: { "@type": p.priceMax > p.priceMin ? "AggregateOffer" : "Offer", priceCurrency: "GBP", ...(p.priceMax > p.priceMin ? { lowPrice: p.priceMin, highPrice: p.priceMax } : { price: p.priceMin }), url: `${SITE.url}/products/${p.handle}`, seller: { "@id": `${SITE.url}/#store` } } }),
   };
   const hasPhoto = p.images.length > 0;
 
   return (
     <div className="wrap py-6 lg:py-8">
-      <Seo title={p.title} description={`${p.title}${school ? ` for ${school.name}` : ""}: ${priceLabel(p)}. ${p.description || "Embroidered school uniform from I&A, Tooting."}`.slice(0, 160)} path={`/products/${p.handle}`} image={p.images[0]} type="product" jsonLd={[productLd, breadcrumbs([{ name: "Home", path: "/" }, ...(school ? [{ name: school.short, path: `/schools/${school.slug}` }] : [{ name: p.productType, path: "/collections/all" }]), { name: p.title, path: `/products/${p.handle}` }])]} />
+      <Seo title={p.title} description={fit(`${p.title}${school ? ` for ${school.name}` : ""}: ${priceLabel(p)}.`, p.description, school && p.logoItem ? `Embroidered with the ${school.short} crest in our Tooting shop.` : `From I&A Schoolwear, ${SITE.address.street}, Tooting.`, `Free delivery from £${SITE.delivery.freeOver}.`, "Pay in 3 with Klarna.", "Bring your child in to be measured.")} path={`/products/${p.handle}`} image={hasPhoto ? `/img/og/p/${p.handle}.jpg` : undefined} imageAlt={hasPhoto ? `${p.title}, the shop's own photograph, beside the I&A Schoolwear lockup` : undefined} type="product" jsonLd={[productLd, breadcrumbs([{ name: "Home", path: "/" }, ...(school ? [{ name: school.short, path: `/schools/${school.slug}` }] : [{ name: p.productType, path: "/collections/all" }]), { name: p.title, path: `/products/${p.handle}` }])]} />
       <p className="t-small">
         {school
           ? <VLink to={`/schools/${school.slug}`} className="link tap">{school.short}</VLink>

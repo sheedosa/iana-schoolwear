@@ -5,7 +5,7 @@ import { SchoolMark } from "../components/SchoolFinder";
 import { useCart } from "../lib/cart";
 import { useSchools } from "../lib/school";
 import { formatPrice, inStoreOnly, sortSizes, storefront, StorefrontError, type Product, type School } from "../lib/shopify";
-import { Seo, breadcrumbs } from "../components/Seo";
+import { Seo, breadcrumbs, fit } from "../components/Seo";
 import { SITE, money } from "../data/site";
 import { boot, bootProducts } from "../lib/preload";
 
@@ -97,7 +97,7 @@ export function SchoolPage() {
 
   return (
     <div className="wrap py-6 lg:py-8">
-      <Seo title={`${school.name} uniform`} description={`${school.name} school uniform: embroidered sweatshirts, cardigans, PE kit and bags, plus plain basics. Supplied and embroidered by I&A in Tooting. Pay in 3 with Klarna.`} path={`/schools/${school.slug}`} image={photo} jsonLd={crumbs} />
+      <Seo title={`${school.name} uniform`} description={fit(`${school.name} uniform: ${plural(products.length, "item")} with the ${school.short} crest online, plus the plain basics that go with them.`, "Embroidered by I&A in Tooting.", "Pay in 3 with Klarna.")} path={`/schools/${school.slug}`} image={photo ? `/img/og/s/${school.slug}.jpg` : undefined} imageAlt={photo ? `${school.name} uniform: a crested garment beside the I&A Schoolwear lockup` : undefined} jsonLd={crumbs} />
       <SchoolTitle school={school}>{school.area}. {plural(products.length, "item")} with the {school.short} crest online.</SchoolTitle>
 
       <div className="mt-8 grid gap-x-14 gap-y-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)]">
@@ -209,7 +209,7 @@ function Aside({ crested = false }: { crested?: boolean }) {
 function InStoreSchool({ school, products, plain, crumbs }: { school: School; products: Product[]; plain: Product[]; crumbs: Record<string, unknown> }) {
   return (
     <div className="wrap py-6 lg:py-8">
-      <Seo title={`${school.name} uniform, in store`} description={`${school.name} uniform is available in store at I&A, 84 Mitcham Road, Tooting. Open ${SITE.hours}. Call ${SITE.phone}.`} path={`/schools/${school.slug}`} jsonLd={crumbs} />
+      <Seo title={`${school.name} uniform, in store`} description={fit(`${school.name} uniform is in store at I&A, 84 Mitcham Road, Tooting.`, `Open ${SITE.hours}.`, `Call ${SITE.phone}.`, "Bring your child and we measure them.")} path={`/schools/${school.slug}`} jsonLd={crumbs} />
       <SchoolTitle school={school}>{school.area}. In store only.</SchoolTitle>
       <div className="mt-8 grid gap-x-14 gap-y-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)]">
         <div className="min-w-0">

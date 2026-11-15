@@ -7,7 +7,7 @@ export function About() {
   const d = SITE.delivery;
   return (
     <>
-      <Seo title="About I&A" description="Family-run clothing and school uniform shop on Mitcham Road, Tooting, since 1993. In-house embroidery, an eco uniform range, Klarna Pay in 3, and a Schoolwear Association member." path="/about" jsonLd={breadcrumbs([{ name: "Home", path: "/" }, { name: "About", path: "/about" }])} />
+      <Seo title="About I&A" description="Family-run school uniform shop on Mitcham Road, Tooting, since 1993, with in-house embroidery, an eco uniform range and Klarna Pay in 3." path="/about" jsonLd={breadcrumbs([{ name: "Home", path: "/" }, { name: "About", path: "/about" }])} />
       <div className="wrap grid gap-x-14 gap-y-10 py-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)] lg:py-10">
         <div className="min-w-0">
           <h1>Tooting's uniform shop since 1993</h1>
