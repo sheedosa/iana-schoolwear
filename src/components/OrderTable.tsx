@@ -88,7 +88,7 @@ export function OrderTable({ p, sticky = false, onGuide, idPrefix = "order" }: {
         ))}
       </ul>
       <div className="order-foot" data-plain={!sticky}>
-        {nudge && <p role="alert" className="mb-2 font-medium">Set how many you need against a size, then add.</p>}
+        {nudge && <p role="alert" className="mb-2 font-medium">Choose how many you need next to a size, then add to basket.</p>}
         <button type="button" onClick={submit} disabled={busy || !p.available} aria-disabled={n === 0} className="btn btn-buy w-full">
           {!p.available ? "Out of stock online" : busy ? "Adding…" : n === 0 ? "Add to basket" : `Add ${n} to basket${sum ? `, ${sum}` : ""}`}
         </button>

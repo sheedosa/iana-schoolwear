@@ -61,5 +61,13 @@ Every link must work and share fully on GitHub Pages (`https://sheedosa.github.i
 - **Head:** `lang="en-GB"`, theme colour School Blue `#4169e1` (the bar), `favicon.ico`, `favicon-32.png` and the SVG marque (`img/logo/brand/iana-marque-blue.svg`), 180px `apple-touch-icon`, `site.webmanifest` with `scope`, 192, 512 and a maskable 512 icon. Every path carries `/iana-schoolwear/`.
 - **Deep links:** `public/404.html` (noindex) sends an unknown path to `/?p=`, `main.tsx` restores it, and a path no route matches shows the not-found page. `public/.nojekyll` is deployed. Search engines read only `https://sheedosa.github.io/robots.txt` for a project site.
 
+## UX evidence (v9)
+Every design or wording change names its evidence: a published standard or study (GOV.UK Service Manual and Design System, Baymard, WCAG) or a measurement taken on this site. No change on taste alone.
+- **Reading level.** Prose is written for a reading age of about 9 (GOV.UK content design): sentences under 25 words, one idea each. Measured November 2026: Delivery, Size guide and school pages pass; About was the one page over and was split into shorter sentences.
+- **Messages say what to do.** An error names the next action ("Choose how many you need next to a size, then add to basket."), is announced (`role="alert"`) and moves focus to the first control that fixes it.
+- **Buttons say what happens** ("Add 3 to basket, £29.97", "Go to secure checkout"). A short visible label in a row ("Add") carries the item's name in its accessible name.
+- **Checked and kept:** quantity is set with minus and plus buttons (Baymard: 95% of sites get this wrong); one main action per view; labels above fields.
+- **Waiting on the client:** a delivery date instead of "5 working days" at the basket (Baymard: 48% of sites show speed, not a date) needs the cut-off times in `SITE.toConfirm`.
+
 ## The hub demo (`public/hub/`)
 `public/hub/` is not part of the shop: it is the built demo of the I&A Hub dashboard (source in the private `iana-platform` repo, built with `HUB_BASE=/iana-schoolwear/hub npm run build:demo` and copied here), parked on this site only so it has a link to open on a phone. It is `noindex`, uses demo data only, is not linked from any page and is not in the sitemap. Do not edit it by hand; delete the folder when the hub has its own host.

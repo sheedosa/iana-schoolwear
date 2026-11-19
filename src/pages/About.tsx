@@ -12,7 +12,7 @@ export function About() {
         <div className="min-w-0">
           <h1>Tooting's uniform shop since 1993</h1>
           <p className="measure mt-3">I&A started as a family business selling children's clothes and school uniform, to give the community better-quality clothes for less than the local competition charged. It grew into four shops and then into the purpose-built store on Mitcham Road: 5,000 square feet of shop floor by Tooting Broadway.</p>
-          <p className="measure mt-3">We supply embroidered uniform to primary and secondary schools across south London, stitch the crests in our own embroidery room, and keep stock all year round. The owner's two sons took the business on in 2019 and brought it online.</p>
+          <p className="measure mt-3">We supply embroidered uniform to primary and secondary schools across south London. We stitch the crests in our own embroidery room and keep stock all year round. The owner's two sons took the business on in 2019 and brought it online.</p>
           <p className="measure mt-3">We are members of the Schoolwear Association and the Federation of Small Businesses.</p>
 
           <section id="eco" className="mt-10" aria-labelledby="eco-h">
@@ -27,7 +27,7 @@ export function About() {
 
           <section id="schools" className="mt-10" aria-labelledby="schools-h">
             <h2 id="schools-h">For schools</h2>
-            <p className="measure mt-2">Thinking of switching supplier? We offer in-store, online and direct-to-parent ordering, stock held all year, a dedicated account manager, Klarna for parents, and £1 back to the school for every embroidered sweatshirt, jumper or blazer sold.</p>
+            <p className="measure mt-2">Thinking of switching supplier? We take orders in store, online and direct from parents, and we hold stock all year. Each school has a dedicated account manager. Parents can pay with Klarna. The school gets £1 back for every embroidered sweatshirt, jumper or blazer sold.</p>
             <a href={`tel:${SITE.phoneIntl}`} className="btn btn-line mt-4">Call {SITE.phone}</a>
           </section>
         </div>
